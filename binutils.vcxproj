@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="aout-target.h" />
+    <ClInclude Include="aoutx.h" />
+    <ClInclude Include="as.h" />
+    <ClInclude Include="asintl.h" />
+    <ClInclude Include="attribute.h" />
+    <ClInclude Include="bfd.h" />
+    <ClInclude Include="bfdlink.h" />
+    <ClInclude Include="bfdver.h" />
+    <ClInclude Include="bignum.h" />
+    <ClInclude Include="bucomm.h" />
+    <ClInclude Include="cdefs.h" />
+    <ClInclude Include="coff-bfd.h" />
+    <ClInclude Include="coffcode.h" />
+    <ClInclude Include="coffswap.h" />
+    <ClInclude Include="config.h" />
+    <ClInclude Include="cp-demangle.h" />
+    <ClInclude Include="debug.h" />
+    <ClInclude Include="defs.h" />
+    <ClInclude Include="demanguse.h" />
+    <ClInclude Include="disassemble.h" />
+    <ClInclude Include="dwarf.h" />
+    <ClInclude Include="dwarf2dbg.h" />
+    <ClInclude Include="elf-bfd.h" />
+    <ClInclude Include="elf-linker-x86.h" />
+    <ClInclude Include="elf-linux-core.h" />
+    <ClInclude Include="elf-vxworks.h" />
+    <ClInclude Include="elf32-target.h" />
+    <ClInclude Include="elf64-target.h" />
+    <ClInclude Include="elfcode.h" />
+    <ClInclude Include="elfcomm.h" />
+    <ClInclude Include="elfcore.h" />
+    <ClInclude Include="elfxx-x86.h" />
+    <ClInclude Include="expr.h" />
+    <ClInclude Include="flexmember.h" />
+    <ClInclude Include="flonum.h" />
+    <ClInclude Include="frags.h" />
+    <ClInclude Include="genlink.h" />
+    <ClInclude Include="hash.h" />
+    <ClInclude Include="idx.h" />
+    <ClInclude Include="libaout.h" />
+    <ClInclude Include="libbfd.h" />
+    <ClInclude Include="libc-config.h" />
+    <ClInclude Include="libcoff.h" />
+    <ClInclude Include="libecoff.h" />
+    <ClInclude Include="listing.h" />
+    <ClInclude Include="obj-elf.h" />
+    <ClInclude Include="obj-format.h" />
+    <ClInclude Include="obj.h" />
+    <ClInclude Include="objdump.h" />
+    <ClInclude Include="opintl.h" />
+    <ClInclude Include="plugin.h" />
+    <ClInclude Include="portability.h" />
+    <ClInclude Include="read.h" />
+    <ClInclude Include="sframe-impl.h" />
+    <ClInclude Include="symbols.h" />
+    <ClInclude Include="sysdep.h" />
+    <ClInclude Include="targ-cpu.h" />
+    <ClInclude Include="targ-env.h" />
+    <ClInclude Include="targmatch.h" />
+    <ClInclude Include="tc-i386.h" />
+    <ClInclude Include="tc.h" />
+    <ClInclude Include="te-linux.h" />
+    <ClInclude Include="verify.h" />
+    <ClInclude Include="vprintf-support.h" />
+    <ClInclude Include="wmemchr-impl.h" />
+    <ClInclude Include="write.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="alloca.c" />
+    <ClCompile Include="aout-cris.c" />
+    <ClCompile Include="aout32.c" />
+    <ClCompile Include="aout64.c" />
+    <ClCompile Include="archive.c" />
+    <ClCompile Include="archive64.c" />
+    <ClCompile Include="archures.c" />
+    <ClCompile Include="argv.c" />
+    <ClCompile Include="asprintf.c" />
+    <ClCompile Include="bfd.c" />
+    <ClCompile Include="bfdio.c" />
+    <ClCompile Include="binary.c" />
+    <ClCompile Include="bucomm.c" />
+    <ClCompile Include="cache.c" />
+    <ClCompile Include="coff-bfd.c" />
+    <ClCompile Include="coff-x86_64.c" />
+    <ClCompile Include="coffgen.c" />
+    <ClCompile Include="cofflink.c" />
+    <ClCompile Include="compress.c" />
+    <ClCompile Include="concat.c" />
+    <ClCompile Include="corefile.c" />
+    <ClCompile Include="cp-demangle.c" />
+    <ClCompile Include="cp-demint.c" />
+    <ClCompile Include="cplus-dem.c" />
+    <ClCompile Include="d-demangle.c" />
+    <ClCompile Include="debug.c" />
+    <ClCompile Include="demanguse.c" />
+    <ClCompile Include="dis-buf.c" />
+    <ClCompile Include="dis-init.c" />
+    <ClCompile Include="disassemble.c" />
+    <ClCompile Include="dwarf.c" />
+    <ClCompile Include="dwarf1.c" />
+    <ClCompile Include="dwarf2.c" />
+    <ClCompile Include="dwarfnames.c" />
+    <ClCompile Include="elf-eh-frame.c" />
+    <ClCompile Include="elf-ifunc.c" />
+    <ClCompile Include="elf-properties.c" />
+    <ClCompile Include="elf-sframe.c" />
+    <ClCompile Include="elf-strtab.c" />
+    <ClCompile Include="elf-vxworks.c" />
+    <ClCompile Include="elf.c" />
+    <ClCompile Include="elf32.c" />
+    <ClCompile Include="elf64-gen.c" />
+    <ClCompile Include="elf64-x86-64.c" />
+    <ClCompile Include="elf64.c" />
+    <ClCompile Include="elfcomm.c" />
+    <ClCompile Include="elflink.c" />
+    <ClCompile Include="elfxx-x86.c" />
+    <ClCompile Include="ffs.c" />
+    <ClCompile Include="filemode.c" />
+    <ClCompile Include="filename_cmp.c" />
+    <ClCompile Include="fnmatch.c" />
+    <ClCompile Include="format.c" />
+    <ClCompile Include="gen-aout.c" />
+    <ClCompile Include="getpagesize.c" />
+    <ClCompile Include="getpwd.c" />
+    <ClCompile Include="hash.c" />
+    <ClCompile Include="hashtab.c" />
+    <ClCompile Include="hex.c" />
+    <ClCompile Include="host-aout.c" />
+    <ClCompile Include="ihex.c" />
+    <ClCompile Include="lbasename.c" />
+    <ClCompile Include="libbfd.c" />
+    <ClCompile Include="linker.c" />
+    <ClCompile Include="lrealpath.c" />
+    <ClCompile Include="make-relative-prefix.c" />
+    <ClCompile Include="mbsinit.c" />
+    <ClCompile Include="mempcpy.c" />
+    <ClCompile Include="merge.c" />
+    <ClCompile Include="mkstemps.c" />
+    <ClCompile Include="objalloc.c" />
+    <ClCompile Include="objdump.c" />
+    <ClCompile Include="opncls.c" />
+    <ClCompile Include="portability.c" />
+    <ClCompile Include="prdbg.c" />
+    <ClCompile Include="rdcoff.c" />
+    <ClCompile Include="rddbg.c" />
+    <ClCompile Include="reloc.c" />
+    <ClCompile Include="rust-demangle.c" />
+    <ClCompile Include="safe-ctype.c" />
+    <ClCompile Include="section.c" />
+    <ClCompile Include="sframe-dump.c" />
+    <ClCompile Include="sframe-error.c" />
+    <ClCompile Include="sframe.c" />
+    <ClCompile Include="simple.c" />
+    <ClCompile Include="splay-tree.c" />
+    <ClCompile Include="srec.c" />
+    <ClCompile Include="stab-syms.c" />
+    <ClCompile Include="stabs.c" />
+    <ClCompile Include="strcasecmp.c" />
+    <ClCompile Include="strncasecmp.c" />
+    <ClCompile Include="syms.c" />
+    <ClCompile Include="targets.c" />
+    <ClCompile Include="tekhex.c" />
+    <ClCompile Include="unlink-if-ordinary.c" />
+    <ClCompile Include="vasprintf.c" />
+    <ClCompile Include="verilog.c" />
+    <ClCompile Include="version.c" />
+    <ClCompile Include="vprintf-support.c" />
+    <ClCompile Include="wmemchr.c" />
+    <ClCompile Include="wmempcpy.c" />
+    <ClCompile Include="wrstabs.c" />
+    <ClCompile Include="xexit.c" />
+    <ClCompile Include="xmalloc.c" />
+    <ClCompile Include="xstrdup.c" />
+    <ClCompile Include="xstrerror.c" />
+    <ClCompile Include="\\wsl.localhost\openSUSE-Leap-15.4\home\vic\binutils-gdb\bfd\elf-attrs.c" />
+    <ClCompile Include="\\wsl.localhost\openSUSE-Leap-15.4\home\vic\binutils-gdb\bfd\elf32.c" />
+    <ClCompile Include="\\wsl.localhost\openSUSE-Leap-15.4\home\vic\binutils-gdb\bfd\plugin.c" />
+    <ClCompile Include="\\wsl.localhost\openSUSE-Leap-15.4\home\vic\binutils-gdb\libiberty\make-temp-file.c" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{6490555e-cb9e-41ed-9ede-5bae5271a869}</ProjectGuid>
+    <RootNamespace>binutils</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;BINUTILS_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;BINUTILS_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;BINUTILS_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(ProjectDir)\include\elf;$(ProjectDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;BINUTILS_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
