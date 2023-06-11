@@ -39,10 +39,10 @@
      * Comparisons without surprises: ISO C99 § 6.3.1.8 specifies a few
        surprising results for comparisons, such as
 
-           (int) -3 < (unsigned long) 7  =>  false
+           (int) -3 < (unsigned long long) 7  =>  false
            (int) -3 < (unsigned int) 7   =>  false
        and on 32-bit machines:
-           (long) -3 < (unsigned int) 7  =>  false
+           (long long) -3 < (unsigned int) 7  =>  false
 
        This is surprising because the natural comparison order is by
        value in the realm of infinite-precision signed integers (ℤ).

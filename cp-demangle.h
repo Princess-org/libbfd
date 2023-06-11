@@ -55,9 +55,9 @@ enum d_builtin_type_print
   D_PRINT_INT,
   /* Print as unsigned integer, with trailing "u".  */
   D_PRINT_UNSIGNED,
-  /* Print as long, with trailing "l".  */
+  /* Print as long long, with trailing "l".  */
   D_PRINT_LONG,
-  /* Print as unsigned long, with trailing "ul".  */
+  /* Print as unsigned long long, with trailing "ul".  */
   D_PRINT_UNSIGNED_LONG,
   /* Print as long long, with trailing "ll".  */
   D_PRINT_LONG_LONG,

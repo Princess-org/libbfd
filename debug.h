@@ -412,7 +412,7 @@ struct debug_write_fns
   bool (*end_function) (void *);
 
   /* Record line number information for the current compilation unit.  */
-  bool (*lineno) (void *, const char *, unsigned long, bfd_vma);
+  bool (*lineno) (void *, const char *, unsigned long long, bfd_vma);
 };
 
 /* Exported functions.  */
@@ -478,7 +478,7 @@ extern bool debug_end_block (void *, bfd_vma);
 /* Associate a line number in the current source file with a given
    address.  */
 
-extern bool debug_record_line (void *, unsigned long, bfd_vma);
+extern bool debug_record_line (void *, unsigned long long, bfd_vma);
 
 /* Start a named common block.  This is a block of variables that may
    move in memory.  */

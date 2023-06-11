@@ -584,7 +584,7 @@ DESCRIPTION
 .  int bits_per_address;
 .  int bits_per_byte;
 .  enum bfd_architecture arch;
-.  unsigned long mach;
+.  unsigned long long mach;
 .  const char *arch_name;
 .  const char *printable_name;
 .  unsigned int section_align_power;
@@ -984,7 +984,7 @@ FUNCTION
 
 SYNOPSIS
 	bool bfd_default_set_arch_mach
-	  (bfd *abfd, enum bfd_architecture arch, unsigned long mach);
+	  (bfd *abfd, enum bfd_architecture arch, unsigned long long mach);
 
 DESCRIPTION
 	Set the architecture and machine type in BFD @var{abfd}
@@ -996,7 +996,7 @@ DESCRIPTION
 bool
 bfd_default_set_arch_mach (bfd *abfd,
 			   enum bfd_architecture arch,
-			   unsigned long mach)
+			   unsigned long long mach)
 {
   abfd->arch_info = bfd_lookup_arch (arch, mach);
   if (abfd->arch_info != NULL)
@@ -1030,14 +1030,14 @@ FUNCTION
 	bfd_get_mach
 
 SYNOPSIS
-	unsigned long bfd_get_mach (const bfd *abfd);
+	unsigned long long bfd_get_mach (const bfd *abfd);
 
 DESCRIPTION
-	Return the long type which describes the BFD @var{abfd}'s
+	Return the long long type which describes the BFD @var{abfd}'s
 	machine.
 */
 
-unsigned long
+unsigned long long
 bfd_get_mach (const bfd *abfd)
 {
   return abfd->arch_info->mach;
@@ -1128,7 +1128,7 @@ bfd_default_scan (const bfd_arch_info_type *info, const char *string)
 {
   const char *ptr_src;
   const char *ptr_tst;
-  unsigned long number;
+  unsigned long long number;
   enum bfd_architecture arch;
   const char *printable_name_colon;
 
@@ -1338,7 +1338,7 @@ FUNCTION
 
 SYNOPSIS
 	const bfd_arch_info_type *bfd_lookup_arch
-	  (enum bfd_architecture arch, unsigned long machine);
+	  (enum bfd_architecture arch, unsigned long long machine);
 
 DESCRIPTION
 	Look for the architecture info structure which matches the
@@ -1348,7 +1348,7 @@ DESCRIPTION
 */
 
 const bfd_arch_info_type *
-bfd_lookup_arch (enum bfd_architecture arch, unsigned long machine)
+bfd_lookup_arch (enum bfd_architecture arch, unsigned long long machine)
 {
   const bfd_arch_info_type * const *app, *ap;
 
@@ -1372,7 +1372,7 @@ FUNCTION
 
 SYNOPSIS
 	const char *bfd_printable_arch_mach
-	  (enum bfd_architecture arch, unsigned long machine);
+	  (enum bfd_architecture arch, unsigned long long machine);
 
 DESCRIPTION
 	Return a printable string representing the architecture and
@@ -1382,7 +1382,7 @@ DESCRIPTION
 */
 
 const char *
-bfd_printable_arch_mach (enum bfd_architecture arch, unsigned long machine)
+bfd_printable_arch_mach (enum bfd_architecture arch, unsigned long long machine)
 {
   const bfd_arch_info_type *ap = bfd_lookup_arch (arch, machine);
 
@@ -1423,7 +1423,7 @@ FUNCTION
 
 SYNOPSIS
 	unsigned int bfd_arch_mach_octets_per_byte
-	  (enum bfd_architecture arch, unsigned long machine);
+	  (enum bfd_architecture arch, unsigned long long machine);
 
 DESCRIPTION
 	See bfd_octets_per_byte.
@@ -1434,7 +1434,7 @@ DESCRIPTION
 
 unsigned int
 bfd_arch_mach_octets_per_byte (enum bfd_architecture arch,
-			       unsigned long mach)
+			       unsigned long long mach)
 {
   const bfd_arch_info_type *ap = bfd_lookup_arch (arch, mach);
 
@@ -1472,7 +1472,7 @@ bfd_arch_default_fill (bfd_size_type count,
 bool
 _bfd_nowrite_set_arch_mach (bfd *abfd,
 			    enum bfd_architecture arch ATTRIBUTE_UNUSED,
-			    unsigned long mach ATTRIBUTE_UNUSED)
+			    unsigned long long mach ATTRIBUTE_UNUSED)
 {
   return _bfd_bool_bfd_false_error (abfd);
 }

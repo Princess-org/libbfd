@@ -29,12 +29,12 @@
    the application unable to be configured for both "same" and "binary"
    variant systems.  */
 
-#define FOPEN_RB	"r"
-#define FOPEN_WB 	"w"
-#define FOPEN_AB 	"a"
-#define FOPEN_RUB 	"r+"
-#define FOPEN_WUB 	"w+"
-#define FOPEN_AUB 	"a+"
+#define FOPEN_RB	"rb"
+#define FOPEN_WB 	"wb"
+#define FOPEN_AB 	"ab"
+#define FOPEN_RUB 	"r+b"
+#define FOPEN_WUB 	"w+b"
+#define FOPEN_AUB 	"a+b"
 
 #define FOPEN_RT	"r"
 #define FOPEN_WT 	"w"

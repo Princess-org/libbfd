@@ -54,11 +54,11 @@ Concatenate zero or more of strings and return the result in freshly
 #include <stdlib.h>
 #endif
 
-static inline unsigned long vconcat_length (const char *, va_list);
-static inline unsigned long
+static inline unsigned long long vconcat_length (const char *, va_list);
+static inline unsigned long long
 vconcat_length (const char *first, va_list args)
 {
-  unsigned long length = 0;
+  unsigned long long length = 0;
   const char *arg;
 
   for (arg = first; arg ; arg = va_arg (args, const char *))
@@ -75,7 +75,7 @@ vconcat_copy (char *dst, const char *first, va_list args)
 
   for (arg = first; arg ; arg = va_arg (args, const char *))
     {
-      unsigned long length = strlen (arg);
+      unsigned long long length = strlen (arg);
       memcpy (end, arg, length);
       end += length;
     }
@@ -86,10 +86,10 @@ vconcat_copy (char *dst, const char *first, va_list args)
 
 /* @undocumented concat_length */
 
-unsigned long
+unsigned long long
 concat_length (const char *first, ...)
 {
-  unsigned long length;
+  unsigned long long length;
   va_list args;
 
   va_start (args, first);

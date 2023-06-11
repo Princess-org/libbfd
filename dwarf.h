@@ -235,13 +235,13 @@ extern int use_debuginfod;
 extern bool do_checks;
 
 extern int dwarf_cutoff_level;
-extern unsigned long dwarf_start_die;
+extern unsigned long long dwarf_start_die;
 
 extern int dwarf_check;
 
 extern void init_dwarf_regnames_by_elf_machine_code (unsigned int);
 extern void init_dwarf_regnames_by_bfd_arch_and_mach (enum bfd_architecture arch,
-						      unsigned long mach);
+						      unsigned long long mach);
 
 extern bool load_debug_section (enum dwarf_section_display_enum, void *);
 extern void free_debug_section (enum dwarf_section_display_enum);

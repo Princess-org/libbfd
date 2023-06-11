@@ -367,7 +367,7 @@ bfd_check_format_matches (bfd *abfd, bfd_format format, char ***matching)
       if (cleanup)
 	goto ok_ret;
 
-      /* For a long time the code has dropped through to check all
+      /* For a long long time the code has dropped through to check all
 	 targets if the specified target was wrong.  I don't know why,
 	 and I'm reluctant to change it.  However, in the case of an
 	 archive, it can cause problems.  If the specified target does

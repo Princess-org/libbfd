@@ -91,7 +91,7 @@ CODE_FRAGMENT
 .  ufile_ptr where;
 .
 .  {* File modified time, if mtime_set is TRUE.  *}
-.  long mtime;
+.  long long mtime;
 .
 .  {* A unique identifier of the BFD  *}
 .  unsigned int id;
@@ -892,10 +892,10 @@ static const char *_bfd_error_program_name;
 union _bfd_doprnt_args
 {
   int i;
-  long l;
+  long long l;
   long long ll;
   double d;
-  long double ld;
+  double ld;
   void *p;
   enum
   {
@@ -1071,7 +1071,7 @@ _bfd_doprnt (print_func print, void *stream, const char *format,
 			PRINT_TYPE (int, i);
 			break;
 		      case 1:
-			PRINT_TYPE (long, l);
+			PRINT_TYPE (long long, l);
 			break;
 		      case 2:
 		      default:
@@ -1347,7 +1347,7 @@ _bfd_doprnt_scan (const char *format, va_list ap, union _bfd_doprnt_args *args)
 	  args[i].i = va_arg (ap, int);
 	  break;
 	case Long:
-	  args[i].l = va_arg (ap, long);
+	  args[i].l = va_arg (ap, long long);
 	  break;
 	case LongLong:
 	  args[i].ll = va_arg (ap, long long);
@@ -1689,7 +1689,7 @@ FUNCTION
 	bfd_get_reloc_upper_bound
 
 SYNOPSIS
-	long bfd_get_reloc_upper_bound (bfd *abfd, asection *sect);
+	long long bfd_get_reloc_upper_bound (bfd *abfd, asection *sect);
 
 DESCRIPTION
 	Return the number of bytes required to store the
@@ -1698,7 +1698,7 @@ DESCRIPTION
 
 */
 
-long
+long long
 bfd_get_reloc_upper_bound (bfd *abfd, sec_ptr asect)
 {
   if (abfd->format != bfd_object)
@@ -1715,7 +1715,7 @@ FUNCTION
 	bfd_canonicalize_reloc
 
 SYNOPSIS
-	long bfd_canonicalize_reloc
+	long long bfd_canonicalize_reloc
 	  (bfd *abfd, asection *sec, arelent **loc, asymbol **syms);
 
 DESCRIPTION
@@ -1731,7 +1731,7 @@ DESCRIPTION
 	reasons.
 
 */
-long
+long long
 bfd_canonicalize_reloc (bfd *abfd,
 			sec_ptr asect,
 			arelent **location,
@@ -2075,7 +2075,7 @@ bfd_scan_vma (const char *string, const char **end, int base)
   int overflow;
 
   /* Let the host do it if possible.  */
-  if (sizeof (bfd_vma) <= sizeof (unsigned long))
+  if (sizeof (bfd_vma) <= sizeof (unsigned long long))
     return strtoul (string, (char **) end, base);
 
   if (sizeof (bfd_vma) <= sizeof (unsigned long long))
@@ -2354,7 +2354,7 @@ FUNCTION
 
 SYNOPSIS
 	bool bfd_record_phdr
-	  (bfd *, unsigned long, bool, flagword, bool, bfd_vma,
+	  (bfd *, unsigned long long, bool, flagword, bool, bfd_vma,
 	   bool, bool, unsigned int, struct bfd_section **);
 
 DESCRIPTION
@@ -2363,7 +2363,7 @@ DESCRIPTION
 
 bool
 bfd_record_phdr (bfd *abfd,
-		 unsigned long type,
+		 unsigned long long type,
 		 bool flags_valid,
 		 flagword flags,
 		 bool at_valid,
@@ -2449,7 +2449,7 @@ bfd_sprintf_vma (bfd *abfd ATTRIBUTE_UNUSED, char *buf, bfd_vma value)
       return;
     }
 #endif
-  sprintf (buf, "%08lx", (unsigned long) value & 0xffffffff);
+  sprintf (buf, "%08lx", (unsigned long long) value & 0xffffffff);
 }
 
 void
@@ -2462,7 +2462,7 @@ bfd_fprintf_vma (bfd *abfd ATTRIBUTE_UNUSED, void *stream, bfd_vma value)
       return;
     }
 #endif
-  fprintf ((FILE *) stream, "%08lx", (unsigned long) value & 0xffffffff);
+  fprintf ((FILE *) stream, "%08lx", (unsigned long long) value & 0xffffffff);
 }
 
 /*

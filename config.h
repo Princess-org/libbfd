@@ -80,7 +80,7 @@
 #define HAVE_DECL____LC_CODEPAGE_FUNC 0
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
-#define HAVE_DLFCN_H 0
+/* #define HAVE_DLFCN_H */
 
 /* Define to 1 if you have the `fcntl' function. */
 #define HAVE_FCNTL 1
@@ -119,7 +119,7 @@
 #define HAVE_GETPAGESIZE 1
 
 /* Define to 1 if you have the `getrlimit' function. */
-#define HAVE_GETRLIMIT 1
+/*#define HAVE_GETRLIMIT */
 
 /* Define to 1 if you have the `getuid' function. */
 #define HAVE_GETUID 1
@@ -152,7 +152,7 @@
 #define HAVE_MEMORY_H 1
 
 /* Define to 1 if you have a working `mmap' system call. */
-#define HAVE_MMAP 0
+/* #define HAVE_MMAP */
 
 /* Define to 1 if you have the `mprotect' function. */
 #define HAVE_MPROTECT 1
@@ -224,7 +224,7 @@
 #define HAVE_SYS_FILE_H 1
 
 /* Define to 1 if you have the <sys/param.h> header file. */
-#define HAVE_SYS_PARAM_H 1
+/* #define HAVE_SYS_PARAM_H 1 */
 
 /* Define to 1 if you have the <sys/procfs.h> header file. */
 #define HAVE_SYS_PROCFS_H 1
@@ -239,13 +239,13 @@
 #define HAVE_SYS_TYPES_H 1
 
 /* Define to 1 if you have the <unistd.h> header file. */
-#define HAVE_UNISTD_H 0
+/* #define HAVE_UNISTD_H */
 
 /* Define if <sys/procfs.h> has win32_pstatus_t. */
 /* #undef HAVE_WIN32_PSTATUS_T */
 
 /* Define to 1 if you have the <windows.h> header file. */
-/* #undef HAVE_WINDOWS_H */
+#define HAVE_WINDOWS_H 1
 
 /* Define to 1 if zstd is enabled. */
 /* #undef HAVE_ZSTD */
@@ -278,7 +278,7 @@
 /* The size of `int', as computed by sizeof. */
 #define SIZEOF_INT 4
 
-/* The size of `long', as computed by sizeof. */
+/* The size of `long long', as computed by sizeof. */
 #define SIZEOF_LONG 8
 
 /* The size of `long long', as computed by sizeof. */

@@ -93,7 +93,7 @@ SUBSECTION
 	input section determines the offset into the output section of
 	the data to be written.
 
-	E.g., to create a section "O", starting at 0x100, 0x123 long,
+	E.g., to create a section "O", starting at 0x100, 0x123 long long,
 	containing two subsections, "A" at offset 0x0 (i.e., at vma
 	0x100) and "B" at offset 0x20 (i.e., at vma 0x120) the <<asection>>
 	structures would look like:
@@ -926,7 +926,7 @@ bfd_get_next_section_by_name (bfd *ibfd, asection *sec)
 {
   struct section_hash_entry *sh;
   const char *name;
-  unsigned long hash;
+  unsigned long long hash;
 
   sh = ((struct section_hash_entry *)
 	((char *) sec - offsetof (struct section_hash_entry, section)));
@@ -1005,7 +1005,7 @@ bfd_get_section_by_name_if (bfd *abfd, const char *name,
 			    void *user_storage)
 {
   struct section_hash_entry *sh;
-  unsigned long hash;
+  unsigned long long hash;
 
   if (name == NULL)
     return NULL;

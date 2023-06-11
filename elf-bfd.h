@@ -132,7 +132,7 @@ struct elf_link_hash_entry
   /* Symbol index in output file.  This is initialized to -1.  It is
      set to -2 if the symbol is used by a reloc.  It is set to -3 if
      this symbol is defined in a discarded section.  */
-  long indx;
+  long long indx;
 
   /* Symbol index as a dynamic symbol.  Initialized to -1, and remains
      -1 if this is not a dynamic symbol.  */
@@ -146,7 +146,7 @@ struct elf_link_hash_entry
      End result: this field -1 does not indicate that the symbol is
      not in the dynamic symbol table, but rather that the symbol is
      not visible outside this DSO.  */
-  long dynindx;
+  long long dynindx;
 
   /* If this symbol requires an entry in the global offset table, the
      processor specific backend uses this field to track usage and
@@ -234,7 +234,7 @@ struct elf_link_hash_entry
   unsigned int is_weakalias : 1;
 
   /* String table index in .dynstr if this is a dynamic symbol.  */
-  unsigned long dynstr_index;
+  unsigned long long dynstr_index;
 
   union
   {
@@ -244,7 +244,7 @@ struct elf_link_hash_entry
     /* Hash value of the name computed using the ELF hash function.
        Used part way through size_dynamic_sections, after we've finished
        with aliases.  */
-    unsigned long elf_hash_value;
+    unsigned long long elf_hash_value;
   } u;
 
   /* Version information.  */
@@ -318,10 +318,10 @@ struct elf_link_local_dynamic_entry
   bfd *input_bfd;
 
   /* The index of the local symbol being copied.  */
-  long input_indx;
+  long long input_indx;
 
   /* The index in the outgoing dynamic symbol table.  */
-  long dynindx;
+  long long dynindx;
 
   /* A copy of the input symbol.  */
   Elf_Internal_Sym isym;
@@ -576,7 +576,7 @@ enum elf_target_id
 struct elf_sym_strtab
 {
   Elf_Internal_Sym sym;
-  unsigned long dest_index;
+  unsigned long long dest_index;
 };
 
 struct bfd_link_needed_list
@@ -600,7 +600,7 @@ enum elf_target_os
 struct sym_cache
 {
   bfd *abfd;
-  unsigned long indx[LOCAL_SYM_CACHE_SIZE];
+  unsigned long long indx[LOCAL_SYM_CACHE_SIZE];
   Elf_Internal_Sym sym[LOCAL_SYM_CACHE_SIZE];
 };
 
@@ -833,7 +833,7 @@ struct elf_size_info {
     (bfd *, const Elf_Internal_Sym *, void *, void *);
   bool (*slurp_reloc_table)
     (bfd *, asection *, asymbol **, bool);
-  long (*slurp_symbol_table)
+  long long (*slurp_symbol_table)
     (bfd *, asymbol **, bool);
   void (*swap_dyn_in)
     (bfd *, const void *, Elf_Internal_Dyn *);
@@ -1351,7 +1351,7 @@ struct elf_backend_data
   /* Filter what symbols of the output file to include in the import
      library if one is created.  */
   unsigned int (*elf_backend_filter_implib_symbols)
-    (bfd *, struct bfd_link_info *, asymbol **, long);
+    (bfd *, struct bfd_link_info *, asymbol **, long long);
 
   /* Copy any information related to dynamic linking from a pre-existing
      symbol to a newly created symbol.  Also called to copy flags and
@@ -1592,7 +1592,7 @@ struct elf_backend_data
      otherwise by the local symbol with index SYMNDX in IBFD.  */
   bfd_vma (*got_elt_size) (bfd *, struct bfd_link_info *,
 			   struct elf_link_hash_entry *h,
-			   bfd *ibfd, unsigned long symndx);
+			   bfd *ibfd, unsigned long long symndx);
 
   /* The vendor name to use for a processor-standard attributes section.  */
   const char *obj_attrs_vendor;
@@ -1664,7 +1664,7 @@ struct elf_backend_data
   unsigned stack_align;
 
   /* Flag bits to assign to a section of type SHT_STRTAB.  */
-  unsigned long elf_strtab_flags;
+  unsigned long long elf_strtab_flags;
 
   /* This is TRUE if the linker should act like collect and gather
      global constructors and destructors by name.  This is TRUE for
@@ -2265,9 +2265,9 @@ extern bfd_vma _bfd_elf_rel_local_sym
 extern bfd_vma _bfd_elf_section_offset
   (bfd *, struct bfd_link_info *, asection *, bfd_vma);
 
-extern unsigned long bfd_elf_hash
+extern unsigned long long bfd_elf_hash
   (const char *);
-extern unsigned long bfd_elf_gnu_hash
+extern unsigned long long bfd_elf_gnu_hash
   (const char *);
 
 extern bfd_reloc_status_type bfd_elf_generic_reloc
@@ -2317,7 +2317,7 @@ extern bool _bfd_elf_section_already_linked
 extern void bfd_elf_set_group_contents
   (bfd *, asection *, void *);
 extern unsigned int _bfd_elf_filter_global_symbols
-  (bfd *, struct bfd_link_info *, asymbol **, long);
+  (bfd *, struct bfd_link_info *, asymbol **, long long);
 extern asection *_bfd_elf_check_kept_section
   (asection *, struct bfd_link_info *);
 #define _bfd_elf_link_just_syms _bfd_generic_link_just_syms
@@ -2343,27 +2343,27 @@ extern bool _bfd_elf_write_corefile_contents
   (bfd *);
 extern bool _bfd_elf_set_section_contents
   (bfd *, sec_ptr, const void *, file_ptr, bfd_size_type);
-extern long _bfd_elf_get_symtab_upper_bound
+extern long long _bfd_elf_get_symtab_upper_bound
   (bfd *);
-extern long _bfd_elf_canonicalize_symtab
+extern long long _bfd_elf_canonicalize_symtab
   (bfd *, asymbol **);
-extern long _bfd_elf_get_dynamic_symtab_upper_bound
+extern long long _bfd_elf_get_dynamic_symtab_upper_bound
   (bfd *);
-extern long _bfd_elf_canonicalize_dynamic_symtab
+extern long long _bfd_elf_canonicalize_dynamic_symtab
   (bfd *, asymbol **);
-extern long _bfd_elf_get_synthetic_symtab
-  (bfd *, long, asymbol **, long, asymbol **, asymbol **);
-extern long _bfd_elf_get_reloc_upper_bound
+extern long long _bfd_elf_get_synthetic_symtab
+  (bfd *, long long, asymbol **, long long, asymbol **, asymbol **);
+extern long long _bfd_elf_get_reloc_upper_bound
   (bfd *, sec_ptr);
-extern long _bfd_elf_canonicalize_reloc
+extern long long _bfd_elf_canonicalize_reloc
   (bfd *, sec_ptr, arelent **, asymbol **);
 extern asection * _bfd_elf_get_dynamic_reloc_section
   (bfd *, asection *, bool);
 extern asection * _bfd_elf_make_dynamic_reloc_section
   (asection *, bfd *, unsigned int, bfd *, bool);
-extern long _bfd_elf_get_dynamic_reloc_upper_bound
+extern long long _bfd_elf_get_dynamic_reloc_upper_bound
   (bfd *);
-extern long _bfd_elf_canonicalize_dynamic_reloc
+extern long long _bfd_elf_canonicalize_dynamic_reloc
   (bfd *, arelent **, asymbol **);
 extern asymbol *_bfd_elf_make_empty_symbol
   (bfd *);
@@ -2374,7 +2374,7 @@ extern bool _bfd_elf_is_local_label_name
 extern alent *_bfd_elf_get_lineno
   (bfd *, asymbol *);
 extern bool _bfd_elf_set_arch_mach
-  (bfd *, enum bfd_architecture, unsigned long);
+  (bfd *, enum bfd_architecture, unsigned long long);
 extern bool _bfd_elf_find_nearest_line
   (bfd *, asymbol **, asection *, bfd_vma,
    const char **, const char **, unsigned int *, unsigned int *);
@@ -2414,7 +2414,7 @@ extern int _bfd_elf_symbol_from_bfd_symbol
   (bfd *, asymbol **);
 
 extern Elf_Internal_Sym *bfd_sym_from_r_symndx
-  (struct sym_cache *, bfd *, unsigned long);
+  (struct sym_cache *, bfd *, unsigned long long);
 extern asection *bfd_section_from_elf_index
   (bfd *, unsigned int);
 
@@ -2495,8 +2495,8 @@ extern bool _bfd_elf_set_section_sframe (bfd *, struct bfd_link_info *);
 
 extern bool _bfd_elf_hash_symbol (struct elf_link_hash_entry *);
 
-extern long _bfd_elf_link_lookup_local_dynindx
-  (struct bfd_link_info *, bfd *, long);
+extern long long _bfd_elf_link_lookup_local_dynindx
+  (struct bfd_link_info *, bfd *, long long);
 extern bool _bfd_elf_compute_section_file_positions
   (bfd *, struct bfd_link_info *);
 extern file_ptr _bfd_elf_assign_file_position_for_section
@@ -2549,7 +2549,7 @@ extern bool _bfd_elf_create_dynamic_sections
 extern bool _bfd_elf_create_got_section
   (bfd *, struct bfd_link_info *);
 extern asection *_bfd_elf_section_for_symbol
-  (struct elf_reloc_cookie *, unsigned long, bool);
+  (struct elf_reloc_cookie *, unsigned long long, bool);
 extern struct elf_link_hash_entry *_bfd_elf_define_linkage_sym
   (bfd *, struct bfd_link_info *, asection *, const char *);
 extern void _bfd_elf_init_1_index_section
@@ -2629,7 +2629,7 @@ extern void bfd_elf32_swap_dyn_in
   (bfd *, const void *, Elf_Internal_Dyn *);
 extern void bfd_elf32_swap_dyn_out
   (bfd *, const Elf_Internal_Dyn *, void *);
-extern long bfd_elf32_slurp_symbol_table
+extern long long bfd_elf32_slurp_symbol_table
   (bfd *, asymbol **, bool);
 extern bool bfd_elf32_write_shdrs_and_ehdr
   (bfd *);
@@ -2677,7 +2677,7 @@ extern void bfd_elf64_swap_dyn_in
   (bfd *, const void *, Elf_Internal_Dyn *);
 extern void bfd_elf64_swap_dyn_out
   (bfd *, const Elf_Internal_Dyn *, void *);
-extern long bfd_elf64_slurp_symbol_table
+extern long long bfd_elf64_slurp_symbol_table
   (bfd *, asymbol **, bool);
 extern bool bfd_elf64_write_shdrs_and_ehdr
   (bfd *);
@@ -2719,7 +2719,7 @@ extern bool bfd_elf_link_record_dynamic_symbol
   (struct bfd_link_info *, struct elf_link_hash_entry *);
 
 extern int bfd_elf_link_record_local_dynamic_symbol
-  (struct bfd_link_info *, bfd *, long);
+  (struct bfd_link_info *, bfd *, long long);
 
 extern bool _bfd_elf_free_cached_info
   (bfd *);
@@ -2735,7 +2735,7 @@ extern asection *_bfd_elf_common_section
 
 extern bfd_vma _bfd_elf_default_got_elt_size
 (bfd *, struct bfd_link_info *, struct elf_link_hash_entry *, bfd *,
- unsigned long);
+ unsigned long long);
 
 extern bfd_reloc_status_type _bfd_elf_rel_vtable_reloc_fn
   (bfd *, arelent *, struct bfd_symbol *, void *,
@@ -2826,7 +2826,7 @@ extern bool _bfd_elf_ppc_merge_fp_attributes
 /* Return an upper bound on the number of bytes required to store a
    copy of ABFD's program header table entries.  Return -1 if an error
    occurs; bfd_get_error will return an appropriate code.  */
-extern long bfd_get_elf_phdr_upper_bound
+extern long long bfd_get_elf_phdr_upper_bound
   (bfd *abfd);
 
 /* Copy ABFD's program header table entries to *PHDRS.  The entries
@@ -2845,9 +2845,9 @@ extern char *elfcore_write_note
 extern char *elfcore_write_prpsinfo
   (bfd *, char *, int *, const char *, const char *);
 extern char *elfcore_write_prstatus
-  (bfd *, char *, int *, long, int, const void *);
+  (bfd *, char *, int *, long long, int, const void *);
 extern char * elfcore_write_pstatus
-  (bfd *, char *, int *, long, int, const void *);
+  (bfd *, char *, int *, long long, int, const void *);
 extern char *elfcore_write_prfpreg
   (bfd *, char *, int *, const void *, int);
 extern char *elfcore_write_prxfpreg
@@ -2931,7 +2931,7 @@ extern char *elfcore_write_riscv_csr
 extern char *elfcore_write_gdb_tdesc
   (bfd *, char *, int *, const void *, int);
 extern char *elfcore_write_lwpstatus
-  (bfd *, char *, int *, long, int, const void *);
+  (bfd *, char *, int *, long long, int, const void *);
 extern char *elfcore_write_register_note
   (bfd *, char *, int *, const char *, const void *, int);
 extern char *elfcore_write_file_note
@@ -2961,7 +2961,7 @@ struct elf_internal_linux_prpsinfo
     char pr_sname;			/* Char for pr_state.  */
     char pr_zomb;			/* Zombie.  */
     char pr_nice;			/* Nice val.  */
-    unsigned long pr_flag;		/* Flags.  */
+    unsigned long long pr_flag;		/* Flags.  */
     unsigned int pr_uid;
     unsigned int pr_gid;
     int pr_pid, pr_ppid, pr_pgrp, pr_sid;

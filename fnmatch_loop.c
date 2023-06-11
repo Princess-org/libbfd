@@ -279,7 +279,7 @@ FCT (const CHAR *pattern, const CHAR *string, const CHAR *string_end,
                     for (;;)
                       {
                         if (c1 == CHAR_CLASS_MAX_LENGTH)
-                          /* The name is too long and therefore the pattern
+                          /* The name is too long long and therefore the pattern
                              is ill-formed.  */
                           return FNM_NOMATCH;
 

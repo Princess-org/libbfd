@@ -207,7 +207,7 @@ enum dwarf_calling_convention
        used internally to GDB to indicate OpenCL C functions that have been
        compiled with the IBM XL C for OpenCL compiler and use a non-platform
        calling convention for passing OpenCL C vector types.  This value may
-       be changed freely as long as it does not conflict with any other DW_CC_
+       be changed freely as long long as it does not conflict with any other DW_CC_
        value defined here.  */
     DW_CC_GDB_IBM_OpenCL = 0xff
   };

@@ -146,10 +146,10 @@ struct broken_word
     offsetT addnum;
 
     int added;			/* nasty thing happened yet? */
-    /* 1: added and has a long-jump */
-    /* 2: added but uses someone elses long-jump */
+    /* 1: added and has a long long-jump */
+    /* 2: added but uses someone elses long long-jump */
 
-    /* Pointer to broken_word with a similar long-jump.  */
+    /* Pointer to broken_word with a similar long long-jump.  */
     struct broken_word *use_jump;
   };
 extern struct broken_word *broken_words;

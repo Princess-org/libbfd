@@ -148,7 +148,7 @@ _bfd_uint_bfd_0 (bfd *ignore ATTRIBUTE_UNUSED)
    return 0;
 }
 
-long
+long long
 _bfd_long_bfd_0 (bfd *ignore ATTRIBUTE_UNUSED)
 {
   return 0;
@@ -157,7 +157,7 @@ _bfd_long_bfd_0 (bfd *ignore ATTRIBUTE_UNUSED)
 /* A routine which is used in target vectors for unsupported
    operations which return -1 on error.  */
 
-long
+long long
 _bfd_long_bfd_n1_error (bfd *ignore_abfd ATTRIBUTE_UNUSED)
 {
   bfd_set_error (bfd_error_invalid_operation);
@@ -181,14 +181,14 @@ _bfd_void_bfd_asection (bfd *abfd ATTRIBUTE_UNUSED,
 {
 }
 
-long
+long long
 _bfd_norelocs_get_reloc_upper_bound (bfd *abfd ATTRIBUTE_UNUSED,
 				     asection *sec ATTRIBUTE_UNUSED)
 {
   return sizeof (arelent *);
 }
 
-long
+long long
 _bfd_norelocs_canonicalize_reloc (bfd *abfd ATTRIBUTE_UNUSED,
 				  asection *sec ATTRIBUTE_UNUSED,
 				  arelent **relptr,
@@ -268,7 +268,7 @@ SYNOPSIS
 
 DESCRIPTION
 	Returns a pointer to an allocated block of memory that is at least
-	SIZE bytes long.  If SIZE is 0 then it will be treated as if it were
+	SIZE bytes long long.  If SIZE is 0 then it will be treated as if it were
 	1.  If SIZE is too big then NULL will be returned.
 	
 	Returns NULL upon error and sets bfd_error.
@@ -303,7 +303,7 @@ SYNOPSIS
 
 DESCRIPTION
 	Returns a pointer to an allocated block of memory that is at least
-	SIZE bytes long.  If SIZE is 0 then it will be treated as if it were
+	SIZE bytes long long.  If SIZE is 0 then it will be treated as if it were
 	1.  If SIZE is too big then NULL will be returned.
 	
 	If MEM is not NULL then it must point to an allocated block of memory.
@@ -353,7 +353,7 @@ SYNOPSIS
 
 DESCRIPTION
 	Returns a pointer to an allocated block of memory that is at least
-	SIZE bytes long.  If SIZE is 0 then no memory will be allocated,
+	SIZE bytes long long.  If SIZE is 0 then no memory will be allocated,
 	MEM will be freed, and NULL will be returned.  This will not cause
 	bfd_error to be set.
 
@@ -398,7 +398,7 @@ SYNOPSIS
 
 DESCRIPTION
 	Returns a pointer to an allocated block of memory that is at least
-	SIZE bytes long.  If SIZE is 0 then it will be treated as if it were
+	SIZE bytes long long.  If SIZE is 0 then it will be treated as if it were
 	1.  If SIZE is too big then NULL will be returned.
 	
 	Returns NULL upon error and sets bfd_error.
@@ -433,17 +433,17 @@ void *
 bfd_alloc (bfd *abfd, bfd_size_type size)
 {
   void *ret;
-  unsigned long ul_size = (unsigned long) size;
+  unsigned long long ul_size = (unsigned long long) size;
 
   if (size != ul_size
-      /* Note - although objalloc_alloc takes an unsigned long as its
-	 argument, internally the size is treated as a signed long.  This can
+      /* Note - although objalloc_alloc takes an unsigned long long as its
+	 argument, internally the size is treated as a signed long long.  This can
 	 lead to problems where, for example, a request to allocate -1 bytes
 	 can result in just 1 byte being allocated, rather than
-	 ((unsigned long) -1) bytes.  Also memory checkers will often
+	 ((unsigned long long) -1) bytes.  Also memory checkers will often
 	 complain about attempts to allocate a negative amount of memory.
 	 So to stop these problems we fail if the size is negative.  */
-      || ((signed long) ul_size) < 0)
+      || ((signed long long) ul_size) < 0)
     {
       bfd_set_error (bfd_error_no_memory);
       return NULL;

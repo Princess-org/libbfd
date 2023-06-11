@@ -55,10 +55,10 @@
 #include <stdarg.h>
 
 #include "getopt.h"
-/* The first getopt value for machine-independent long options.
+/* The first getopt value for machine-independent long long options.
    150 isn't special; it's just an arbitrary non-ASCII char value.  */
 #define OPTION_STD_BASE 150
-/* The first getopt value for machine-dependent long options.
+/* The first getopt value for machine-dependent long long options.
    290 gives the standard options room to grow.  */
 #define OPTION_MD_BASE  290
 
@@ -132,7 +132,7 @@ void *mempcpy(void *, const void *, size_t);
 #define BAD_CASE(val)							    \
   {									    \
     as_fatal (_("Case value %ld unexpected at line %d of file \"%s\"\n"),   \
-	      (long) val, __LINE__, __FILE__);				    \
+	      (long long) val, __LINE__, __FILE__);				    \
   }
 
 #include "flonum.h"
@@ -489,7 +489,7 @@ char * input_scrub_next_buffer (char **bufp);
 size_t do_scrub_chars (size_t (*get) (char *, size_t), char *, size_t);
 size_t do_scrub_pending (void);
 bool   scan_for_multibyte_characters (const unsigned char *, const unsigned char *, bool);
-int    gen_to_words (LITTLENUM_TYPE *, int, long);
+int    gen_to_words (LITTLENUM_TYPE *, int, long long);
 int    had_err (void);
 int    ignore_input (void);
 void   cond_finish_check (int);

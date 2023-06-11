@@ -30,7 +30,7 @@ struct fix;
 #define TARGET_ARCH		(i386_arch ())
 #define TARGET_MACH		(i386_mach ())
 extern enum bfd_architecture i386_arch (void);
-extern unsigned long i386_mach (void);
+extern unsigned long long i386_mach (void);
 
 #ifdef TE_FreeBSD
 #define AOUT_TARGET_FORMAT	"a.out-i386-freebsd"
@@ -228,7 +228,7 @@ void i386_md_end (void);
 extern unsigned int i386_frag_max_var (fragS *);
 #define md_frag_max_var i386_frag_max_var
 
-extern long i386_generic_table_relax_frag (segT, fragS *, long);
+extern long long i386_generic_table_relax_frag (segT, fragS *, long long);
 #define md_generic_table_relax_frag(segment, fragP, stretch) \
   i386_generic_table_relax_frag (segment, fragP, stretch)
 

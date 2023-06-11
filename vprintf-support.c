@@ -33,7 +33,7 @@ Floor, Boston, MA 02110-1301, USA.  */
 #ifdef HAVE_STDLIB_H
 #include <stdlib.h>
 #else
-extern unsigned long strtoul ();
+extern unsigned long long strtoul ();
 #endif
 #include "libiberty.h"
 

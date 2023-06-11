@@ -112,9 +112,9 @@ objalloc_create (void)
 /* Allocate space from an objalloc structure.  */
 
 void *
-_objalloc_alloc (struct objalloc *o, unsigned long original_len)
+_objalloc_alloc (struct objalloc *o, unsigned long long original_len)
 {
-  unsigned long len = original_len;
+  unsigned long long len = original_len;
 
   /* We avoid confusion from zero sized objects by always allocating
      at least 1 byte.  */

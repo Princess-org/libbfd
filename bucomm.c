@@ -468,7 +468,7 @@ print_arelt_descr (FILE *file, bfd *abfd, bool verbose, bool offsets)
 	  modebuf[10] = '\0';
 	  /* POSIX 1003.2/D11 says to skip first character (entry type).  */
 	  fprintf (file, "%s %ld/%ld %6" PRIu64 " %s ", modebuf + 1,
-		   (long) buf.st_uid, (long) buf.st_gid,
+		   (long long) buf.st_uid, (long long) buf.st_gid,
 		   (uint64_t) buf.st_size, timebuf);
 	}
     }
@@ -478,9 +478,9 @@ print_arelt_descr (FILE *file, bfd *abfd, bool verbose, bool offsets)
   if (offsets)
     {
       if (bfd_is_thin_archive (abfd) && abfd->proxy_origin)
-        fprintf (file, " 0x%lx", (unsigned long) abfd->proxy_origin);
+        fprintf (file, " 0x%lx", (unsigned long long) abfd->proxy_origin);
       else if (!bfd_is_thin_archive (abfd) && abfd->origin)
-        fprintf (file, " 0x%lx", (unsigned long) abfd->origin);
+        fprintf (file, " 0x%lx", (unsigned long long) abfd->origin);
     }
 
   fprintf (file, "\n");

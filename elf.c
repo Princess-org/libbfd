@@ -193,7 +193,7 @@ _bfd_elf_swap_versym_out (bfd *abfd,
 /* Standard ELF hash function.  Do not change this function; you will
    cause invalid hash tables to be generated.  */
 
-unsigned long
+unsigned long long
 bfd_elf_hash (const char *namearg)
 {
   uint32_t h = 0;
@@ -210,7 +210,7 @@ bfd_elf_hash (const char *namearg)
 /* DT_GNU_HASH hash function.  Do not change this function; you will
    cause invalid hash tables to be generated.  */
 
-unsigned long
+unsigned long long
 bfd_elf_gnu_hash (const char *namearg)
 {
   uint32_t h = 5381;
@@ -505,7 +505,7 @@ bfd_elf_get_elf_syms (bfd *ibfd,
 	/* xgettext:c-format */
 	_bfd_error_handler (_("%pB symbol number %lu references"
 			      " nonexistent SHT_SYMTAB_SHNDX section"),
-			    ibfd, (unsigned long) symoffset);
+			    ibfd, (unsigned long long) symoffset);
 	free (alloc_intsym);
 	intsym_buf = NULL;
 	goto out;
@@ -1683,7 +1683,7 @@ _bfd_elf_print_private_bfd_data (bfd *abfd, void *farg)
   if (s != NULL && (s->flags & SEC_HAS_CONTENTS) != 0)
     {
       unsigned int elfsec;
-      unsigned long shlink;
+      unsigned long long shlink;
       bfd_byte *extdyn, *extdynend;
       size_t extdynsize;
       void (*swap_dyn_in) (bfd *, const void *, Elf_Internal_Dyn *);
@@ -2560,7 +2560,7 @@ bfd_section_from_shdr (bfd *abfd, unsigned int shindex)
 Elf_Internal_Sym *
 bfd_sym_from_r_symndx (struct sym_cache *cache,
 		       bfd *abfd,
-		       unsigned long r_symndx)
+		       unsigned long long r_symndx)
 {
   unsigned int ent = r_symndx % LOCAL_SYM_CACHE_SIZE;
 
@@ -3432,7 +3432,7 @@ bfd_elf_set_group_contents (bfd *abfd, asection *sec, void *failedptrarg)
 
   if (elf_section_data (sec)->this_hdr.sh_info == 0)
     {
-      unsigned long symindx = 0;
+      unsigned long long symindx = 0;
 
       /* elf_group_id will have been set up by objcopy and the
 	 generic linker.  */
@@ -3461,8 +3461,8 @@ bfd_elf_set_group_contents (bfd *abfd, asection *sec, void *failedptrarg)
 	 set until all local symbols are output.  */
       asection *igroup;
       struct bfd_elf_section_data *sec_data;
-      unsigned long symndx;
-      unsigned long extsymoff;
+      unsigned long long symndx;
+      unsigned long long extsymoff;
       struct elf_link_hash_entry *h;
 
       /* The point of this little dance to the first SHF_GROUP section
@@ -3983,9 +3983,9 @@ sym_is_global (bfd *abfd, asymbol *sym)
 
 unsigned int
 _bfd_elf_filter_global_symbols (bfd *abfd, struct bfd_link_info *info,
-				asymbol **syms, long symcount)
+				asymbol **syms, long long symcount)
 {
-  long src_count, dst_count = 0;
+  long long src_count, dst_count = 0;
 
   for (src_count = 0; src_count < symcount; src_count++)
     {
@@ -5082,7 +5082,7 @@ _bfd_elf_map_sections_to_segments (bfd *abfd,
 	      && elf_section_data (s)->this_hdr.sh_info <= PT_GNU_MBIND_NUM)
 	    {
 	      /* Mandated PF_R.  */
-	      unsigned long p_flags = PF_R;
+	      unsigned long long p_flags = PF_R;
 	      if ((s->flags & SEC_READONLY) == 0)
 		p_flags |= PF_W;
 	      if ((s->flags & SEC_CODE) != 0)
@@ -6519,7 +6519,7 @@ _bfd_elf_init_file_header (bfd *abfd,
       i_ehdrp->e_machine = EM_NONE;
       break;
 
-      /* There used to be a long list of cases here, each one setting
+      /* There used to be a long long list of cases here, each one setting
 	 e_machine to the same EM_* macro #defined as ELF_MACHINE_CODE
 	 in the corresponding bfd definition.  To avoid duplication,
 	 the switch was removed.  Machines that need special handling
@@ -6856,7 +6856,7 @@ _bfd_elf_symbol_from_bfd_symbol (bfd *abfd, asymbol **asym_ptr_ptr)
     fprintf (stderr,
 	     "elf_symbol_from_bfd_symbol 0x%.8lx, name = %s, sym num = %d,"
 	     " flags = 0x%.8x\n",
-	     (long) asym_ptr, asym_ptr->name, idx, flags);
+	     (long long) asym_ptr, asym_ptr->name, idx, flags);
     fflush (stderr);
   }
 #endif
@@ -8200,7 +8200,7 @@ swap_out_syms (bfd *abfd,
   struct elf_sym_strtab *symstrtab;
   bfd_byte *outbound_syms;
   bfd_byte *outbound_shndx;
-  unsigned long outbound_syms_index;
+  unsigned long long outbound_syms_index;
   unsigned int idx;
   unsigned int num_locals;
   size_t amt;
@@ -8304,16 +8304,16 @@ swap_out_syms (bfd *abfd,
 	  && (flags & (BSF_SECTION_SYM | BSF_GLOBAL)) == BSF_SECTION_SYM)
 	{
 	  /* Local section symbols have no name.  */
-	  sym.st_name = (unsigned long) -1;
+	  sym.st_name = (unsigned long long) -1;
 	}
       else
 	{
 	  /* Call _bfd_elf_strtab_offset after _bfd_elf_strtab_finalize
 	     to get the final offset for st_name.  */
 	  sym.st_name
-	    = (unsigned long) _bfd_elf_strtab_add (stt, syms[idx]->name,
+	    = (unsigned long long) _bfd_elf_strtab_add (stt, syms[idx]->name,
 						   false);
-	  if (sym.st_name == (unsigned long) -1)
+	  if (sym.st_name == (unsigned long long) -1)
 	    goto error_return;
 	}
 
@@ -8527,7 +8527,7 @@ Unable to handle section index %x in ELF symbol.  Using ABS instead."),
   for (idx = 0; idx <= symcount; idx++)
     {
       struct elf_sym_strtab *elfsym = &symstrtab[idx];
-      if (elfsym->sym.st_name == (unsigned long) -1)
+      if (elfsym->sym.st_name == (unsigned long long) -1)
 	elfsym->sym.st_name = 0;
       else
 	elfsym->sym.st_name = _bfd_elf_strtab_offset (stt,
@@ -8567,11 +8567,11 @@ Unable to handle section index %x in ELF symbol.  Using ABS instead."),
    the vector allocated based on this size.  However, the ELF symbol table
    always has a dummy entry as symbol #0, so it ends up even.  */
 
-long
+long long
 _bfd_elf_get_symtab_upper_bound (bfd *abfd)
 {
   bfd_size_type symcount;
-  long symtab_size;
+  long long symtab_size;
   Elf_Internal_Shdr *hdr = &elf_tdata (abfd)->symtab_hdr;
 
   symcount = hdr->sh_size / get_elf_backend_data (abfd)->s->sizeof_sym;
@@ -8587,7 +8587,7 @@ _bfd_elf_get_symtab_upper_bound (bfd *abfd)
     {
       ufile_ptr filesize = bfd_get_file_size (abfd);
 
-      if (filesize != 0 && (unsigned long) symtab_size > filesize)
+      if (filesize != 0 && (unsigned long long) symtab_size > filesize)
 	{
 	  bfd_set_error (bfd_error_file_truncated);
 	  return -1;
@@ -8597,11 +8597,11 @@ _bfd_elf_get_symtab_upper_bound (bfd *abfd)
   return symtab_size;
 }
 
-long
+long long
 _bfd_elf_get_dynamic_symtab_upper_bound (bfd *abfd)
 {
   bfd_size_type symcount;
-  long symtab_size;
+  long long symtab_size;
   Elf_Internal_Shdr *hdr = &elf_tdata (abfd)->dynsymtab_hdr;
 
   if (elf_dynsymtab (abfd) == 0)
@@ -8623,7 +8623,7 @@ _bfd_elf_get_dynamic_symtab_upper_bound (bfd *abfd)
     {
       ufile_ptr filesize = bfd_get_file_size (abfd);
 
-      if (filesize != 0 && (unsigned long) symtab_size > filesize)
+      if (filesize != 0 && (unsigned long long) symtab_size > filesize)
 	{
 	  bfd_set_error (bfd_error_file_truncated);
 	  return -1;
@@ -8633,7 +8633,7 @@ _bfd_elf_get_dynamic_symtab_upper_bound (bfd *abfd)
   return symtab_size;
 }
 
-long
+long long
 _bfd_elf_get_reloc_upper_bound (bfd *abfd, sec_ptr asect)
 {
   if (asect->reloc_count != 0 && !bfd_write_p (abfd))
@@ -8668,7 +8668,7 @@ _bfd_elf_get_reloc_upper_bound (bfd *abfd, sec_ptr asect)
 
 /* Canonicalize the relocs.  */
 
-long
+long long
 _bfd_elf_canonicalize_reloc (bfd *abfd,
 			     sec_ptr section,
 			     arelent **relptr,
@@ -8690,23 +8690,23 @@ _bfd_elf_canonicalize_reloc (bfd *abfd,
   return section->reloc_count;
 }
 
-long
+long long
 _bfd_elf_canonicalize_symtab (bfd *abfd, asymbol **allocation)
 {
   const struct elf_backend_data *bed = get_elf_backend_data (abfd);
-  long symcount = bed->s->slurp_symbol_table (abfd, allocation, false);
+  long long symcount = bed->s->slurp_symbol_table (abfd, allocation, false);
 
   if (symcount >= 0)
     abfd->symcount = symcount;
   return symcount;
 }
 
-long
+long long
 _bfd_elf_canonicalize_dynamic_symtab (bfd *abfd,
 				      asymbol **allocation)
 {
   const struct elf_backend_data *bed = get_elf_backend_data (abfd);
-  long symcount = bed->s->slurp_symbol_table (abfd, allocation, true);
+  long long symcount = bed->s->slurp_symbol_table (abfd, allocation, true);
 
   if (symcount >= 0)
     abfd->dynsymcount = symcount;
@@ -8718,7 +8718,7 @@ _bfd_elf_canonicalize_dynamic_symtab (bfd *abfd,
    or SHT_RELA, and uses the dynamic symbol table, is considered to be a
    dynamic reloc section.  */
 
-long
+long long
 _bfd_elf_get_dynamic_reloc_upper_bound (bfd *abfd)
 {
   bfd_size_type count, ext_rel_size;
@@ -8772,14 +8772,14 @@ _bfd_elf_get_dynamic_reloc_upper_bound (bfd *abfd)
    installed in the BFD, and has type SHT_REL or SHT_RELA, and uses the
    dynamic symbol table, is considered to be a dynamic reloc section.  */
 
-long
+long long
 _bfd_elf_canonicalize_dynamic_reloc (bfd *abfd,
 				     arelent **storage,
 				     asymbol **syms)
 {
   bool (*slurp_relocs) (bfd *, asection *, asymbol **, bool);
   asection *s;
-  long ret;
+  long long ret;
 
   if (elf_dynsymtab (abfd) == 0)
     {
@@ -8797,7 +8797,7 @@ _bfd_elf_canonicalize_dynamic_reloc (bfd *abfd,
 	  && (elf_section_data (s)->this_hdr.sh_flags & SHF_COMPRESSED) == 0)
 	{
 	  arelent *p;
-	  long count, i;
+	  long long count, i;
 
 	  if (! (*slurp_relocs) (abfd, s, syms, true))
 	    return -1;
@@ -9281,7 +9281,7 @@ _bfd_elf_get_lineno (bfd *abfd ATTRIBUTE_UNUSED,
 bool
 _bfd_elf_set_arch_mach (bfd *abfd,
 			enum bfd_architecture arch,
-			unsigned long machine)
+			unsigned long long machine)
 {
   /* If this isn't the right architecture for this backend, and this
      isn't the generic backend, fail.  */
@@ -10168,7 +10168,7 @@ typedef psinfo32_t elfcore_psinfo32_t;
 #endif
 
 /* return a malloc'ed copy of a string at START which is at
-   most MAX bytes long, possibly without a terminating '\0'.
+   most MAX bytes long long, possibly without a terminating '\0'.
    the copy will always have a terminating '\0'.  */
 
 char *
@@ -10407,7 +10407,7 @@ elfcore_grok_win32pstatus (bfd *abfd, Elf_Internal_Note *note)
   struct
   {
     const char *type_name;
-    unsigned long min_size;
+    unsigned long long min_size;
   } size_check[] =
       {
        { "NOTE_INFO_PROCESS", 12 },
@@ -10439,7 +10439,7 @@ elfcore_grok_win32pstatus (bfd *abfd, Elf_Internal_Note *note)
       /* Make a ".reg/<tid>" section containing the Win32 API thread CONTEXT
 	 structure. */
       /* thread_info.tid */
-      sprintf (buf, ".reg/%ld", (long) bfd_get_32 (abfd, note->descdata + 4));
+      sprintf (buf, ".reg/%ld", (long long) bfd_get_32 (abfd, note->descdata + 4));
 
       len = strlen (buf) + 1;
       name = (char *) bfd_alloc (abfd, len);
@@ -10473,7 +10473,7 @@ elfcore_grok_win32pstatus (bfd *abfd, Elf_Internal_Note *note)
 	{
 	  /* module_info.base_address */
 	  base_addr = bfd_get_32 (abfd, note->descdata + 4);
-	  sprintf (buf, ".module/%08lx", (unsigned long) base_addr);
+	  sprintf (buf, ".module/%08lx", (unsigned long long) base_addr);
 	  /* module_info.module_name_size */
 	  name_size = bfd_get_32 (abfd, note->descdata + 8);
 	}
@@ -10481,7 +10481,7 @@ elfcore_grok_win32pstatus (bfd *abfd, Elf_Internal_Note *note)
 	{
 	  /* module_info.base_address */
 	  base_addr = bfd_get_64 (abfd, note->descdata + 4);
-	  sprintf (buf, ".module/%016lx", (unsigned long) base_addr);
+	  sprintf (buf, ".module/%016lx", (unsigned long long) base_addr);
 	  /* module_info.module_name_size */
 	  name_size = bfd_get_32 (abfd, note->descdata + 12);
 	}
@@ -11514,7 +11514,7 @@ elfcore_grok_openbsd_note (bfd *abfd, Elf_Internal_Note *note)
 }
 
 static bool
-elfcore_grok_nto_status (bfd *abfd, Elf_Internal_Note *note, long *tid)
+elfcore_grok_nto_status (bfd *abfd, Elf_Internal_Note *note, long long *tid)
 {
   void *ddata = note->descdata;
   char buf[100];
@@ -11570,7 +11570,7 @@ elfcore_grok_nto_status (bfd *abfd, Elf_Internal_Note *note, long *tid)
 static bool
 elfcore_grok_nto_regs (bfd *abfd,
 		       Elf_Internal_Note *note,
-		       long tid,
+		       long long tid,
 		       char *base)
 {
   char buf[100];
@@ -11606,7 +11606,7 @@ elfcore_grok_nto_note (bfd *abfd, Elf_Internal_Note *note)
   /* Every GREG section has a STATUS section before it.  Store the
      tid from the previous call to pass down to the next gregs
      function.  */
-  static long tid = 1;
+  static long long tid = 1;
 
   switch (note->type)
     {
@@ -11845,7 +11845,7 @@ char *
 elfcore_write_prstatus (bfd *abfd,
 			char *buf,
 			int *bufsiz,
-			long pid,
+			long long pid,
 			int cursig,
 			const void *gregs)
 {
@@ -11897,7 +11897,7 @@ char *
 elfcore_write_lwpstatus (bfd *abfd,
 			 char *buf,
 			 int *bufsiz,
-			 long pid,
+			 long long pid,
 			 int cursig,
 			 const void *gregs)
 {
@@ -11928,7 +11928,7 @@ char *
 elfcore_write_pstatus (bfd *abfd,
 		       char *buf,
 		       int *bufsiz,
-		       long pid,
+		       long long pid,
 		       int cursig ATTRIBUTE_UNUSED,
 		       const void *gregs ATTRIBUTE_UNUSED)
 {
@@ -12778,7 +12778,7 @@ elf_read_notes (bfd *abfd, file_ptr offset, bfd_size_type size,
    copy of ABFD's program header table entries.  Return -1 if an error
    occurs; bfd_get_error will return an appropriate code.  */
 
-long
+long long
 bfd_get_elf_phdr_upper_bound (bfd *abfd)
 {
   if (abfd->xvec->flavour != bfd_target_elf_flavour)
@@ -12917,11 +12917,11 @@ _bfd_elf_section_offset (bfd *abfd,
     }
 }
 
-long
+long long
 _bfd_elf_get_synthetic_symtab (bfd *abfd,
-			       long symcount ATTRIBUTE_UNUSED,
+			       long long symcount ATTRIBUTE_UNUSED,
 			       asymbol **syms ATTRIBUTE_UNUSED,
-			       long dynsymcount,
+			       long long dynsymcount,
 			       asymbol **dynsyms,
 			       asymbol **ret)
 {
@@ -12931,7 +12931,7 @@ _bfd_elf_get_synthetic_symtab (bfd *abfd,
   const char *relplt_name;
   bool (*slurp_relocs) (bfd *, asection *, asymbol **, bool);
   arelent *p;
-  long count, i, n;
+  long long count, i, n;
   size_t size;
   Elf_Internal_Shdr *hdr;
   char *names;
@@ -13293,7 +13293,7 @@ _bfd_elf_slurp_secondary_reloc_section (bfd *       abfd,
 		  _bfd_error_handler
 		    /* xgettext:c-format */
 		    (_("%pB(%pA): relocation %zu has invalid symbol index %lu"),
-		     abfd, sec, i, (long) r_sym (rela.r_info));
+		     abfd, sec, i, (long long) r_sym (rela.r_info));
 		  bfd_set_error (bfd_error_bad_value);
 		  internal_reloc->sym_ptr_ptr =
 		    bfd_abs_section_ptr->symbol_ptr_ptr;

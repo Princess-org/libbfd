@@ -33,7 +33,7 @@ struct coff_comdat_info
      comdat section.  This is only meaningful to the object file format
      specific code; it is not an index into the list returned by
      bfd_canonicalize_symtab.  */
-  long symbol;
+  long long symbol;
 };
 
 /* The used_by_bfd field of a section may be set to a pointer to this

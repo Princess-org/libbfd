@@ -446,7 +446,7 @@ elf_x86_64_write_core_note (bfd *abfd, char *buf, int *bufsiz,
   const struct elf_backend_data *bed = get_elf_backend_data (abfd);
   va_list ap;
   const char *fname, *psargs;
-  long pid;
+  long long pid;
   int cursig;
   const void *gregs;
 
@@ -483,7 +483,7 @@ elf_x86_64_write_core_note (bfd *abfd, char *buf, int *bufsiz,
 
     case NT_PRSTATUS:
       va_start (ap, note_type);
-      pid = va_arg (ap, long);
+      pid = va_arg (ap, long long);
       cursig = va_arg (ap, int);
       gregs = va_arg (ap, const void *);
       va_end (ap);
@@ -1096,7 +1096,7 @@ elf_x86_64_check_tls_transition (bfd *abfd,
 				 const Elf_Internal_Rela *relend)
 {
   unsigned int val;
-  unsigned long r_symndx;
+  unsigned long long r_symndx;
   bool largepic = false;
   struct elf_link_hash_entry *h;
   bfd_vma offset;
@@ -1357,7 +1357,7 @@ elf_x86_64_tls_transition (struct bfd_link_info *info, bfd *abfd,
 			   const Elf_Internal_Rela *rel,
 			   const Elf_Internal_Rela *relend,
 			   struct elf_link_hash_entry *h,
-			   unsigned long r_symndx,
+			   unsigned long long r_symndx,
 			   bool from_relocate_section)
 {
   unsigned int from_type = *r_type;
@@ -2283,7 +2283,7 @@ elf_x86_64_scan_relocs (bfd *abfd, struct bfd_link_info *info,
 
 	      if (r_type == R_X86_64_PC32)
 		{
-		  /* Since something like ".long foo - ." may be used
+		  /* Since something like ".long long foo - ." may be used
 		     as pointer, make sure that PLT is used if foo is
 		     a function defined in a shared library.  */
 		  if ((sec->flags & SEC_CODE) == 0)
@@ -2556,7 +2556,7 @@ elf_x86_64_relocate_section (bfd *output_bfd,
     {
       unsigned int r_type, r_type_tls;
       reloc_howto_type *howto;
-      unsigned long r_symndx;
+      unsigned long long r_symndx;
       struct elf_link_hash_entry *h;
       struct elf_x86_link_hash_entry *eh;
       Elf_Internal_Sym *sym;
@@ -3417,7 +3417,7 @@ elf_x86_64_relocate_section (bfd *output_bfd,
 		    }
 		  else
 		    {
-		      long sindx;
+		      long long sindx;
 
 		      if (bfd_is_abs_section (sec))
 			sindx = 0;
@@ -4742,7 +4742,7 @@ elf_x86_64_reloc_type_class (const struct bfd_link_info *info,
     {
       /* Check relocation against STT_GNU_IFUNC symbol if there are
 	 dynamic symbols.  */
-      unsigned long r_symndx = htab->r_sym (rela->r_info);
+      unsigned long long r_symndx = htab->r_sym (rela->r_info);
       if (r_symndx != STN_UNDEF)
 	{
 	  Elf_Internal_Sym sym;
@@ -4913,18 +4913,18 @@ elf_x86_64_output_arch_local_syms
 /* Similar to _bfd_elf_get_synthetic_symtab.  Support PLTs with all
    dynamic relocations.   */
 
-static long
+static long long
 elf_x86_64_get_synthetic_symtab (bfd *abfd,
-				 long symcount ATTRIBUTE_UNUSED,
+				 long long symcount ATTRIBUTE_UNUSED,
 				 asymbol **syms ATTRIBUTE_UNUSED,
-				 long dynsymcount,
+				 long long dynsymcount,
 				 asymbol **dynsyms,
 				 asymbol **ret)
 {
-  long count, i, n;
+  long long count, i, n;
   int j;
   bfd_byte *plt_contents;
-  long relsize;
+  long long relsize;
   const struct elf_x86_lazy_plt_layout *lazy_plt;
   const struct elf_x86_non_lazy_plt_layout *non_lazy_plt;
   const struct elf_x86_lazy_plt_layout *lazy_bnd_plt;

@@ -70,8 +70,8 @@ htab_print_statistics (FILE *f, const char *name, htab_t table)
   fprintf (f, "%s hash statistics:\n", name);
   fprintf (f, "\t%u searches\n", table->searches);
   fprintf (f, "\t%u collisions\n", table->collisions);
-  fprintf (f, "\t%lu elements\n", (unsigned long) htab_elements (table));
-  fprintf (f, "\t%lu table size\n", (unsigned long) htab_size (table));
+  fprintf (f, "\t%lu elements\n", (unsigned long long) htab_elements (table));
+  fprintf (f, "\t%lu table size\n", (unsigned long long) htab_size (table));
 }
 
 /* hash.c -- hash table routines for BFD
@@ -195,7 +195,7 @@ htab_print_statistics (FILE *f, const char *name, htab_t table)
 	   created, the @var{copy} argument is used to decide whether to
 	   copy the string onto the hash table objalloc or not.  If
 	   @var{copy} is passed as <<FALSE>>, you must be careful not to
-	   deallocate or modify the string as long as the hash table
+	   deallocate or modify the string as long long as the hash table
 	   exists.
 
    INODE
@@ -384,7 +384,7 @@ htab_print_statistics (FILE *f, const char *name, htab_t table)
    .  const char *string;
    .  {* Hash code.  This is the full hash code, not the index into the
    .     table.  *}
-   .  unsigned long hash;
+   .  unsigned long long hash;
    .};
    .
    .{* A hash table.  *}
@@ -504,7 +504,7 @@ bfd_hash_table_init_n(struct bfd_hash_table* table,
 	unsigned int entsize,
 	unsigned int size)
 {
-	unsigned long alloc;
+	unsigned long long alloc;
 
 	alloc = size;
 	alloc *= sizeof(struct bfd_hash_entry*);
@@ -581,11 +581,11 @@ bfd_hash_table_free(struct bfd_hash_table* table)
 	table->memory = NULL;
 }
 
-static inline unsigned long
+static inline unsigned long long
 bfd_hash_hash(const char* string, unsigned int* lenp)
 {
 	const unsigned char* s;
-	unsigned long hash;
+	unsigned long long hash;
 	unsigned int len;
 	unsigned int c;
 
@@ -625,7 +625,7 @@ struct bfd_hash_entry*
 		bool create,
 		bool copy)
 {
-	unsigned long hash;
+	unsigned long long hash;
 	struct bfd_hash_entry* hashp;
 	unsigned int len;
 	unsigned int _index;
@@ -670,7 +670,7 @@ SYNOPSIS
 	struct bfd_hash_entry *bfd_hash_insert
 	  (struct bfd_hash_table *,
 	   const char *,
-	   unsigned long {*hash*});
+	   unsigned long long {*hash*});
 
 DESCRIPTION
 	Insert an entry in a hash table.
@@ -679,7 +679,7 @@ DESCRIPTION
 struct bfd_hash_entry*
 	bfd_hash_insert(struct bfd_hash_table* table,
 		const char* string,
-		unsigned long hash)
+		unsigned long long hash)
 {
 	struct bfd_hash_entry* hashp;
 	unsigned int _index;
@@ -696,10 +696,10 @@ struct bfd_hash_entry*
 
 	if (!table->frozen && table->count > table->size * 3 / 4)
 	{
-		unsigned long newsize = higher_prime_number(table->size);
+		unsigned long long newsize = higher_prime_number(table->size);
 		struct bfd_hash_entry** newtable;
 		unsigned int hi;
-		unsigned long alloc = newsize * sizeof(struct bfd_hash_entry*);
+		unsigned long long alloc = newsize * sizeof(struct bfd_hash_entry*);
 
 		/* If we can't find a higher prime, or we can't possibly alloc
 	   that much memory, don't try to grow the table.  */

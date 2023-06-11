@@ -64,7 +64,7 @@ static bool _bfd_elf_fix_symbol_flags
 
 asection *
 _bfd_elf_section_for_symbol (struct elf_reloc_cookie *cookie,
-			     unsigned long r_symndx,
+			     unsigned long long r_symndx,
 			     bool discard)
 {
   if (r_symndx >= cookie->locsymcount
@@ -778,7 +778,7 @@ bfd_elf_record_link_assignment (bfd *output_bfd,
 int
 bfd_elf_link_record_local_dynamic_symbol (struct bfd_link_info *info,
 					  bfd *input_bfd,
-					  long input_indx)
+					  long long input_indx)
 {
   size_t amt;
   struct elf_link_local_dynamic_entry *entry;
@@ -862,10 +862,10 @@ bfd_elf_link_record_local_dynamic_symbol (struct bfd_link_info *info,
 
 /* Return the dynindex of a local dynamic symbol.  */
 
-long
+long long
 _bfd_elf_link_lookup_local_dynindx (struct bfd_link_info *info,
 				    bfd *input_bfd,
-				    long input_indx)
+				    long long input_indx)
 {
   struct elf_link_local_dynamic_entry *e;
 
@@ -963,12 +963,12 @@ _bfd_elf_omit_section_dynsym_all
    and strip_excluded_output_sections setting dynindx for sections
    that are stripped.)  */
 
-static unsigned long
+static unsigned long long
 _bfd_elf_link_renumber_dynsyms (bfd *output_bfd,
 				struct bfd_link_info *info,
-				unsigned long *section_sym_count)
+				unsigned long long *section_sym_count)
 {
-  unsigned long dynsymcount = 0;
+  unsigned long long dynsymcount = 0;
   bool do_sec = section_sym_count != NULL;
 
   if (bfd_link_pic (info)
@@ -2691,7 +2691,7 @@ elf_link_read_relocs_from_section (bfd *abfd,
 		/* xgettext:c-format */
 		(_("%pB: bad reloc symbol index (%#" PRIx64 " >= %#lx)"
 		   " for offset %#" PRIx64 " in section `%pA'"),
-		 abfd, (uint64_t) r_symndx, (unsigned long) nsyms,
+		 abfd, (uint64_t) r_symndx, (unsigned long long) nsyms,
 		 (uint64_t) irela->r_offset, sec);
 	      bfd_set_error (bfd_error_bad_value);
 	      return false;
@@ -4391,7 +4391,7 @@ elf_link_add_object_symbols (bfd *abfd, struct bfd_link_info *info)
 	  bfd_byte *dynbuf;
 	  bfd_byte *extdyn;
 	  unsigned int elfsec;
-	  unsigned long shlink;
+	  unsigned long long shlink;
 
 	  if (!bfd_malloc_and_get_section (abfd, s, &dynbuf))
 	    {
@@ -4747,8 +4747,8 @@ elf_link_add_object_symbols (bfd *abfd, struct bfd_link_info *info)
     {
       /* xgettext:c-format */
       _bfd_error_handler (_("%pB: invalid version offset %lx (max %lx)"),
-			  abfd, (long) extsymoff,
-			  (long) (extversym_end - extversym) / sizeof (* extversym));
+			  abfd, (long long) extsymoff,
+			  (long long) (extversym_end - extversym) / sizeof (* extversym));
       bfd_set_error (bfd_error_bad_value);
       goto error_free_vers;
     }
@@ -4816,8 +4816,8 @@ elf_link_add_object_symbols (bfd *abfd, struct bfd_link_info *info)
 	  name = bfd_elf_string_from_elf_section (abfd, shindex, hdr->sh_name);
 	  _bfd_error_handler (_("%pB: %s local symbol at index %lu"
 				" (>= sh_info of %lu)"),
-			      abfd, name, (long) (isym - isymbuf + extsymoff),
-			      (long) extsymoff);
+			      abfd, name, (long long) (isym - isymbuf + extsymoff),
+			      (long long) extsymoff);
 
 	  /* Dynamic object relocations are not processed by ld, so
 	     ld won't run into the problem mentioned above.  */
@@ -5534,7 +5534,7 @@ elf_link_add_object_symbols (bfd *abfd, struct bfd_link_info *info)
 	  relend = rel + s->reloc_count;
 	  for ( ; rel < relend; rel++)
 	    {
-	      unsigned long r_symndx = rel->r_info >> r_sym_shift;
+	      unsigned long long r_symndx = rel->r_info >> r_sym_shift;
 	      struct elf_link_hash_entry *h;
 
 	      /* Skip local symbols.  */
@@ -6148,7 +6148,7 @@ bfd_elf_link_add_symbols (bfd *abfd, struct bfd_link_info *info)
 
 struct hash_codes_info
 {
-  unsigned long *hashcodes;
+  unsigned long long *hashcodes;
   bool error;
 };
 
@@ -6160,7 +6160,7 @@ elf_collect_hash_codes (struct elf_link_hash_entry *h, void *data)
 {
   struct hash_codes_info *inf = (struct hash_codes_info *) data;
   const char *name;
-  unsigned long ha;
+  unsigned long long ha;
   char *alc = NULL;
 
   /* Ignore indirect symbols.  These are added by the versioning code.  */
@@ -6203,21 +6203,21 @@ struct collect_gnu_hash_codes
 {
   bfd *output_bfd;
   const struct elf_backend_data *bed;
-  unsigned long int nsyms;
-  unsigned long int maskbits;
-  unsigned long int *hashcodes;
-  unsigned long int *hashval;
-  unsigned long int *indx;
-  unsigned long int *counts;
+  unsigned long long int nsyms;
+  unsigned long long int maskbits;
+  unsigned long long int *hashcodes;
+  unsigned long long int *hashval;
+  unsigned long long int *indx;
+  unsigned long long int *counts;
   bfd_vma *bitmask;
   bfd_byte *contents;
   bfd_size_type xlat;
-  long int min_dynindx;
-  unsigned long int bucketcount;
-  unsigned long int symindx;
-  long int local_indx;
-  long int shift1, shift2;
-  unsigned long int mask;
+  long long int min_dynindx;
+  unsigned long long int bucketcount;
+  unsigned long long int symindx;
+  long long int local_indx;
+  long long int shift1, shift2;
+  unsigned long long int mask;
   bool error;
 };
 
@@ -6229,7 +6229,7 @@ elf_collect_gnu_hash_codes (struct elf_link_hash_entry *h, void *data)
 {
   struct collect_gnu_hash_codes *s = (struct collect_gnu_hash_codes *) data;
   const char *name;
-  unsigned long ha;
+  unsigned long long ha;
   char *alc = NULL;
 
   /* Ignore indirect symbols.  These are added by the versioning code.  */
@@ -6282,8 +6282,8 @@ static bool
 elf_gnu_hash_process_symidx (struct elf_link_hash_entry *h, void *data)
 {
   struct collect_gnu_hash_codes *s = (struct collect_gnu_hash_codes *) data;
-  unsigned long int bucket;
-  unsigned long int val;
+  unsigned long long int bucket;
+  unsigned long long int val;
 
   /* Ignore indirect symbols.  */
   if (h->dynindx == -1)
@@ -6311,7 +6311,7 @@ elf_gnu_hash_process_symidx (struct elf_link_hash_entry *h, void *data)
   s->bitmask[val] |= ((bfd_vma) 1) << (s->hashval[h->dynindx] & s->mask);
   s->bitmask[val]
     |= ((bfd_vma) 1) << ((s->hashval[h->dynindx] >> s->shift2) & s->mask);
-  val = s->hashval[h->dynindx] & ~(unsigned long int) 1;
+  val = s->hashval[h->dynindx] & ~(unsigned long long int) 1;
   if (s->counts[bucket] == 1)
     /* Last element terminates the chain.  */
     val |= 1;
@@ -6364,12 +6364,12 @@ static const size_t elf_buckets[] =
    (= short chain lengths) and table size.  */
 static size_t
 compute_bucket_count (struct bfd_link_info *info ATTRIBUTE_UNUSED,
-		      unsigned long int *hashcodes ATTRIBUTE_UNUSED,
-		      unsigned long int nsyms,
+		      unsigned long long int *hashcodes ATTRIBUTE_UNUSED,
+		      unsigned long long int nsyms,
 		      int gnu_hash)
 {
   size_t best_size = 0;
-  unsigned long int i;
+  unsigned long long int i;
 
   if (info->optimize)
     {
@@ -6379,7 +6379,7 @@ compute_bucket_count (struct bfd_link_info *info ATTRIBUTE_UNUSED,
       bfd *dynobj = elf_hash_table (info)->dynobj;
       size_t dynsymcount = elf_hash_table (info)->dynsymcount;
       const struct elf_backend_data *bed = get_elf_backend_data (dynobj);
-      unsigned long int *counts;
+      unsigned long long int *counts;
       bfd_size_type amt;
       unsigned int no_improvement_count = 0;
 
@@ -6401,8 +6401,8 @@ compute_bucket_count (struct bfd_link_info *info ATTRIBUTE_UNUSED,
       /* Create array where we count the collisions in.  We must use bfd_malloc
 	 since the size could be large.  */
       amt = maxsize;
-      amt *= sizeof (unsigned long int);
-      counts = (unsigned long int *) bfd_malloc (amt);
+      amt *= sizeof (unsigned long long int);
+      counts = (unsigned long long int *) bfd_malloc (amt);
       if (counts == NULL)
 	return 0;
 
@@ -6413,13 +6413,13 @@ compute_bucket_count (struct bfd_link_info *info ATTRIBUTE_UNUSED,
 	{
 	  /* Walk through the array of hashcodes and count the collisions.  */
 	  uint64_t max;
-	  unsigned long int j;
-	  unsigned long int fact;
+	  unsigned long long int j;
+	  unsigned long long int fact;
 
 	  if (gnu_hash && (i & 31) == 0)
 	    continue;
 
-	  memset (counts, '\0', i * sizeof (unsigned long int));
+	  memset (counts, '\0', i * sizeof (unsigned long long int));
 
 	  /* Determine how often each hash bucket is used.  */
 	  for (j = 0; j < nsyms; ++j)
@@ -6441,7 +6441,7 @@ compute_bucket_count (struct bfd_link_info *info ATTRIBUTE_UNUSED,
 # if 1
 	  /* Variant 1: optimize for short chains.  We add the squares
 	     of all the chain lengths (which favors many small chain
-	     over a few long chains).  */
+	     over a few long long chains).  */
 	  for (j = 0; j < i; ++j)
 	    max += counts[j] * counts[j];
 
@@ -6468,7 +6468,7 @@ compute_bucket_count (struct bfd_link_info *info ATTRIBUTE_UNUSED,
 	      best_size = i;
 	      no_improvement_count = 0;
 	    }
-	  /* PR 11843: Avoid futile long searches for the best bucket size
+	  /* PR 11843: Avoid futile long long searches for the best bucket size
 	     when there are a large number of symbols.  */
 	  else if (++no_improvement_count == 100)
 	    break;
@@ -7534,7 +7534,7 @@ bool
 bfd_elf_size_dynsym_hash_dynstr (bfd *output_bfd, struct bfd_link_info *info)
 {
   const struct elf_backend_data *bed;
-  unsigned long section_sym_count;
+  unsigned long long section_sym_count;
   bfd_size_type dynsymcount = 0;
 
   if (!is_elf_hash_table (info->hash))
@@ -7606,18 +7606,18 @@ bfd_elf_size_dynsym_hash_dynstr (bfd *output_bfd, struct bfd_link_info *info)
 	 computes the hash values for all the names we export.  */
       if (info->emit_hash)
 	{
-	  unsigned long int *hashcodes;
+	  unsigned long long int *hashcodes;
 	  struct hash_codes_info hashinf;
 	  bfd_size_type amt;
-	  unsigned long int nsyms;
+	  unsigned long long int nsyms;
 	  size_t bucketcount;
 	  size_t hash_entry_size;
 
 	  /* Compute the hash values for all exported symbols.  At the same
 	     time store the values in an array so that we could use them for
 	     optimizations.  */
-	  amt = dynsymcount * sizeof (unsigned long int);
-	  hashcodes = (unsigned long int *) bfd_malloc (amt);
+	  amt = dynsymcount * sizeof (unsigned long long int);
+	  hashcodes = (unsigned long long int *) bfd_malloc (amt);
 	  if (hashcodes == NULL)
 	    return false;
 	  hashinf.hashcodes = hashcodes;
@@ -7668,8 +7668,8 @@ bfd_elf_size_dynsym_hash_dynstr (bfd *output_bfd, struct bfd_link_info *info)
 	  /* Compute the hash values for all exported symbols.  At the same
 	     time store the values in an array so that we could use them for
 	     optimizations.  */
-	  amt = dynsymcount * 2 * sizeof (unsigned long int);
-	  cinfo.hashcodes = (long unsigned int *) bfd_malloc (amt);
+	  amt = dynsymcount * 2 * sizeof (unsigned long long int);
+	  cinfo.hashcodes = (long long unsigned int *) bfd_malloc (amt);
 	  if (cinfo.hashcodes == NULL)
 	    return false;
 
@@ -7725,7 +7725,7 @@ bfd_elf_size_dynsym_hash_dynstr (bfd *output_bfd, struct bfd_link_info *info)
 	    }
 	  else
 	    {
-	      unsigned long int maskwords, maskbitslog2, x;
+	      unsigned long long int maskwords, maskbitslog2, x;
 	      BFD_ASSERT (cinfo.min_dynindx != -1);
 
 	      x = cinfo.nsyms;
@@ -7750,7 +7750,7 @@ bfd_elf_size_dynsym_hash_dynstr (bfd *output_bfd, struct bfd_link_info *info)
 	      cinfo.shift2 = maskbitslog2;
 	      cinfo.maskbits = 1 << maskbitslog2;
 	      maskwords = 1 << (maskbitslog2 - cinfo.shift1);
-	      amt = bucketcount * sizeof (unsigned long int) * 2;
+	      amt = bucketcount * sizeof (unsigned long long int) * 2;
 	      amt += maskwords * sizeof (bfd_vma);
 	      cinfo.bitmask = (bfd_vma *) bfd_malloc (amt);
 	      if (cinfo.bitmask == NULL)
@@ -7759,7 +7759,7 @@ bfd_elf_size_dynsym_hash_dynstr (bfd *output_bfd, struct bfd_link_info *info)
 		  return false;
 		}
 
-	      cinfo.counts = (long unsigned int *) (cinfo.bitmask + maskwords);
+	      cinfo.counts = (long long unsigned int *) (cinfo.bitmask + maskwords);
 	      cinfo.indx = cinfo.counts + bucketcount;
 	      cinfo.symindx = dynsymcount - cinfo.nsyms;
 	      memset (cinfo.bitmask, 0, maskwords * sizeof (bfd_vma));
@@ -8209,7 +8209,7 @@ bfd_elf_get_bfd_needed_list (bfd *abfd,
   asection *s;
   bfd_byte *dynbuf = NULL;
   unsigned int elfsec;
-  unsigned long shlink;
+  unsigned long long shlink;
   bfd_byte *extdyn, *extdynend;
   size_t extdynsize;
   void (*swap_dyn_in) (bfd *, const void *, Elf_Internal_Dyn *);
@@ -8281,7 +8281,7 @@ bfd_elf_get_bfd_needed_list (bfd *abfd,
 
 struct elf_symbuf_symbol
 {
-  unsigned long st_name;	/* Symbol name, index in string tbl */
+  unsigned long long st_name;	/* Symbol name, index in string tbl */
   unsigned char st_info;	/* Type and binding attributes */
   unsigned char st_other;	/* Visibilty, and target specific */
 };
@@ -8702,7 +8702,7 @@ struct elf_final_link_info
   Elf_Internal_Sym *internal_syms;
   /* Array large enough to hold a symbol index for each local symbol
      of any input BFD.  */
-  long *indices;
+  long long *indices;
   /* Array large enough to hold a section pointer for each local
      symbol of any input BFD.  */
   asection **sections;
@@ -8721,7 +8721,7 @@ struct local_hash_entry
   /* Size of the local symbol name.  */
   size_t size;
   /* Number of the duplicated local symbol names.  */
-  long count;
+  long long count;
 };
 
 /* Create an entry in the local symbol hash table.  */
@@ -8862,7 +8862,7 @@ resolve_symbol (const char *name,
 						   sym->st_name);
 #ifdef DEBUG
       printf ("Comparing string: '%s' vs. '%s' = 0x%lx\n",
-	      name, candidate, (unsigned long) sym->st_value);
+	      name, candidate, (unsigned long long) sym->st_value);
 #endif
       if (candidate && strcmp (candidate, name) == 0)
 	{
@@ -8872,7 +8872,7 @@ resolve_symbol (const char *name,
 	  *result += sec->output_offset + sec->output_section->vma;
 #ifdef DEBUG
 	  printf ("Found symbol with value %8.8lx\n",
-		  (unsigned long) *result);
+		  (unsigned long long) *result);
 #endif
 	  return true;
 	}
@@ -8892,7 +8892,7 @@ resolve_symbol (const char *name,
 		 + global_entry->u.def.section->output_offset);
 #ifdef DEBUG
       printf ("Found GLOBAL symbol '%s' with value %8.8lx\n",
-	      global_entry->root.string, (unsigned long) *result);
+	      global_entry->root.string, (unsigned long long) *result);
 #endif
       return true;
     }
@@ -9141,7 +9141,7 @@ eval_symbol (bfd_vma *result,
 
 static void
 put_value (bfd_vma size,
-	   unsigned long chunksz,
+	   unsigned long long chunksz,
 	   bfd *input_bfd,
 	   bfd_vma x,
 	   bfd_byte *location)
@@ -9183,7 +9183,7 @@ put_value (bfd_vma size,
 
 static bfd_vma
 get_value (bfd_vma size,
-	   unsigned long chunksz,
+	   unsigned long long chunksz,
 	   bfd *input_bfd,
 	   bfd_byte *location)
 {
@@ -9236,15 +9236,15 @@ get_value (bfd_vma size,
 }
 
 static void
-decode_complex_addend (unsigned long *start,   /* in bits */
-		       unsigned long *oplen,   /* in bits */
-		       unsigned long *len,     /* in bits */
-		       unsigned long *wordsz,  /* in bytes */
-		       unsigned long *chunksz, /* in bytes */
-		       unsigned long *lsb0_p,
-		       unsigned long *signed_p,
-		       unsigned long *trunc_p,
-		       unsigned long encoded)
+decode_complex_addend (unsigned long long *start,   /* in bits */
+		       unsigned long long *oplen,   /* in bits */
+		       unsigned long long *len,     /* in bits */
+		       unsigned long long *wordsz,  /* in bytes */
+		       unsigned long long *chunksz, /* in bytes */
+		       unsigned long long *lsb0_p,
+		       unsigned long long *signed_p,
+		       unsigned long long *trunc_p,
+		       unsigned long long encoded)
 {
   * start     =	 encoded	& 0x3F;
   * len	      = (encoded >>  6) & 0x3F;
@@ -9264,7 +9264,7 @@ bfd_elf_perform_complex_relocation (bfd *input_bfd,
 				    bfd_vma relocation)
 {
   bfd_vma shift, x, mask;
-  unsigned long start, oplen, len, wordsz, chunksz, lsb0_p, signed_p, trunc_p;
+  unsigned long long start, oplen, len, wordsz, chunksz, lsb0_p, signed_p, trunc_p;
   bfd_reloc_status_type r;
   bfd_size_type octets;
 
@@ -9294,8 +9294,8 @@ bfd_elf_perform_complex_relocation (bfd *input_bfd,
 	  "chunksz %ld, start %ld, len %ld, oplen %ld\n"
 	  "    dest: %8.8lx, mask: %8.8lx, reloc: %8.8lx\n",
 	  lsb0_p, signed_p, trunc_p, wordsz, chunksz, start, len,
-	  oplen, (unsigned long) x, (unsigned long) mask,
-	  (unsigned long) relocation);
+	  oplen, (unsigned long long) x, (unsigned long long) mask,
+	  (unsigned long long) relocation);
 #endif
 
   r = bfd_reloc_ok;
@@ -9315,8 +9315,8 @@ bfd_elf_perform_complex_relocation (bfd *input_bfd,
 	  "         shifted mask: %8.8lx\n"
 	  " shifted/masked reloc: %8.8lx\n"
 	  "               result: %8.8lx\n",
-	  (unsigned long) relocation, (unsigned long) (mask << shift),
-	  (unsigned long) ((relocation & mask) << shift), (unsigned long) x);
+	  (unsigned long long) relocation, (unsigned long long) (mask << shift),
+	  (unsigned long long) ((relocation & mask) << shift), (unsigned long long) x);
 #endif
   put_value (wordsz, chunksz, input_bfd, x, contents + octets);
   return r;
@@ -10013,7 +10013,7 @@ elf_link_output_symstrtab (void *finf,
     elf_tdata (flinfo->output_bfd)->has_gnu_osabi |= elf_gnu_osabi_unique;
 
   if (name == NULL || *name == '\0')
-    elfsym->st_name = (unsigned long) -1;
+    elfsym->st_name = (unsigned long long) -1;
   else
     {
       /* Call _bfd_elf_strtab_offset after _bfd_elf_strtab_finalize
@@ -10081,9 +10081,9 @@ elf_link_output_symstrtab (void *finf,
 	    }
 	}
       elfsym->st_name
-	= (unsigned long) _bfd_elf_strtab_add (flinfo->symstrtab,
+	= (unsigned long long) _bfd_elf_strtab_add (flinfo->symstrtab,
 					       versioned_name, false);
-      if (elfsym->st_name == (unsigned long) -1)
+      if (elfsym->st_name == (unsigned long long) -1)
 	return 0;
     }
 
@@ -10151,11 +10151,11 @@ elf_link_swap_symbols_out (struct elf_final_link_info *flinfo)
   for (i = 0; i < flinfo->output_bfd->symcount; i++)
     {
       struct elf_sym_strtab *elfsym = &hash_table->strtab[i];
-      if (elfsym->sym.st_name == (unsigned long) -1)
+      if (elfsym->sym.st_name == (unsigned long long) -1)
 	elfsym->sym.st_name = 0;
       else
 	elfsym->sym.st_name
-	  = (unsigned long) _bfd_elf_strtab_offset (flinfo->symstrtab,
+	  = (unsigned long long) _bfd_elf_strtab_offset (flinfo->symstrtab,
 						    elfsym->sym.st_name);
 
       /* Inform the linker of the addition of this symbol.  */
@@ -10402,7 +10402,7 @@ elf_link_output_extsym (struct bfd_hash_entry *bh, void *data)
   Elf_Internal_Sym sym;
   asection *input_sec;
   const struct elf_backend_data *bed;
-  long indx;
+  long long indx;
   int ret;
   unsigned int type;
 
@@ -11036,7 +11036,7 @@ elf_link_input_bfd (struct elf_final_link_info *flinfo, bfd *input_bfd)
   Elf_Internal_Sym *isymbuf;
   Elf_Internal_Sym *isym;
   Elf_Internal_Sym *isymend;
-  long *pindex;
+  long long *pindex;
   asection **ppsection;
   asection *o;
   const struct elf_backend_data *bed;
@@ -11101,7 +11101,7 @@ elf_link_input_bfd (struct elf_final_link_info *flinfo, bfd *input_bfd)
       asection *isec;
       const char *name;
       Elf_Internal_Sym osym;
-      long indx;
+      long long indx;
       int ret;
 
       *pindex = -1;
@@ -11291,7 +11291,7 @@ elf_link_input_bfd (struct elf_final_link_info *flinfo, bfd *input_bfd)
 	{
 	  /* Deal with the group signature symbol.  */
 	  struct bfd_elf_section_data *sec_data = elf_section_data (o);
-	  unsigned long symndx = sec_data->this_hdr.sh_info;
+	  unsigned long long symndx = sec_data->this_hdr.sh_info;
 	  asection *osec = o->output_section;
 
 	  BFD_ASSERT (bfd_link_relocatable (flinfo->info));
@@ -11321,7 +11321,7 @@ elf_link_input_bfd (struct elf_final_link_info *flinfo, bfd *input_bfd)
 		  Elf_Internal_Sym sym = isymbuf[symndx];
 		  asection *sec = flinfo->sections[symndx]->output_section;
 		  const char *name;
-		  long indx;
+		  long long indx;
 		  int ret;
 
 		  name = bfd_elf_string_from_elf_section (input_bfd,
@@ -11423,7 +11423,7 @@ elf_link_input_bfd (struct elf_final_link_info *flinfo, bfd *input_bfd)
 	  relend = rel + o->reloc_count;
 	  for ( ; rel < relend; rel++)
 	    {
-	      unsigned long r_symndx = rel->r_info >> r_sym_shift;
+	      unsigned long long r_symndx = rel->r_info >> r_sym_shift;
 	      unsigned int s_type;
 	      asection **ps, *sec;
 	      struct elf_link_hash_entry *h = NULL;
@@ -11504,12 +11504,12 @@ elf_link_input_bfd (struct elf_final_link_info *flinfo, bfd *input_bfd)
 		  printf ("Encountered a complex symbol!");
 		  printf (" (input_bfd %s, section %s, reloc %ld\n",
 			  bfd_get_filename (input_bfd), o->name,
-			  (long) (rel - internal_relocs));
+			  (long long) (rel - internal_relocs));
 		  printf (" symbol: idx  %8.8lx, name %s\n",
 			  r_symndx, sym_name);
 		  printf (" reloc : info %8.8lx, addr %8.8lx\n",
-			  (unsigned long) rel->r_info,
-			  (unsigned long) rel->r_offset);
+			  (unsigned long long) rel->r_info,
+			  (unsigned long long) rel->r_offset);
 #endif
 		  if (!eval_symbol (&val, &sym_name, input_bfd, flinfo, dot,
 				    isymbuf, locsymcount, s_type == STT_SRELC))
@@ -11621,7 +11621,7 @@ elf_link_input_bfd (struct elf_final_link_info *flinfo, bfd *input_bfd)
 		last_offset += o->output_section->vma;
 	      for (next_erel = 0; irela < irelaend; irela++, next_erel++)
 		{
-		  unsigned long r_symndx;
+		  unsigned long long r_symndx;
 		  asection *sec;
 		  Elf_Internal_Sym sym;
 
@@ -11671,7 +11671,7 @@ elf_link_input_bfd (struct elf_final_link_info *flinfo, bfd *input_bfd)
 			  && flinfo->sections[r_symndx] == NULL))
 		    {
 		      struct elf_link_hash_entry *rh;
-		      unsigned long indx;
+		      unsigned long long indx;
 
 		      /* This is a reloc against a global symbol.  We
 			 have not yet output all the local symbols, so
@@ -11755,10 +11755,10 @@ elf_link_input_bfd (struct elf_final_link_info *flinfo, bfd *input_bfd)
 		    {
 		      if (flinfo->indices[r_symndx] == -1)
 			{
-			  unsigned long shlink;
+			  unsigned long long shlink;
 			  const char *name;
 			  asection *osec;
-			  long indx;
+			  long long indx;
 
 			  if (flinfo->info->strip == strip_all)
 			    {
@@ -11963,7 +11963,7 @@ elf_reloc_link_order (bfd *output_bfd,
 		      struct bfd_link_order *link_order)
 {
   reloc_howto_type *howto;
-  long indx;
+  long long indx;
   bfd_vma offset;
   bfd_vma addend;
   struct bfd_elf_section_reloc_data *reldata;
@@ -12137,9 +12137,9 @@ elf_output_implib (bfd *abfd, struct bfd_link_info *info)
   enum bfd_architecture arch;
   unsigned int mach;
   asymbol **sympp = NULL;
-  long symsize;
-  long symcount;
-  long src_count;
+  long long symsize;
+  long long symcount;
+  long long src_count;
   elf_symbol_type *osymbuf;
   size_t amt;
 
@@ -12709,8 +12709,8 @@ bfd_elf_final_link (bfd *abfd, struct bfd_link_info *info)
       if (flinfo.internal_syms == NULL)
 	goto error_return;
 
-      amt = max_sym_count * sizeof (long);
-      flinfo.indices = (long int *) bfd_malloc (amt);
+      amt = max_sym_count * sizeof (long long);
+      flinfo.indices = (long long int *) bfd_malloc (amt);
       if (flinfo.indices == NULL)
 	goto error_return;
 
@@ -12931,7 +12931,7 @@ bfd_elf_final_link (bfd *abfd, struct bfd_link_info *info)
 	    {
 	      int indx;
 	      bfd_byte *dest;
-	      long dynindx;
+	      long long dynindx;
 
 	      dynindx = elf_section_data (s)->dynindx;
 	      if (dynindx <= 0)
@@ -13712,7 +13712,7 @@ _bfd_elf_gc_mark_rsec (struct bfd_link_info *info, asection *sec,
 		       struct elf_reloc_cookie *cookie,
 		       bool *start_stop)
 {
-  unsigned long r_symndx;
+  unsigned long long r_symndx;
   struct elf_link_hash_entry *h, *hw;
 
   r_symndx = cookie->rel->r_info >> cookie->r_sym_shift;
@@ -14768,7 +14768,7 @@ bfd_elf_reloc_symbol_deleted_p (bfd_vma offset, void *cookie)
 
   for (; rcookie->rel < rcookie->relend; rcookie->rel++)
     {
-      unsigned long r_symndx;
+      unsigned long long r_symndx;
 
       if (! rcookie->bad_symtab)
 	if (rcookie->rel->r_offset > offset)
@@ -15177,7 +15177,7 @@ _bfd_elf_default_got_elt_size (bfd *abfd,
 			       struct bfd_link_info *info ATTRIBUTE_UNUSED,
 			       struct elf_link_hash_entry *h ATTRIBUTE_UNUSED,
 			       bfd *ibfd ATTRIBUTE_UNUSED,
-			       unsigned long symndx ATTRIBUTE_UNUSED)
+			       unsigned long long symndx ATTRIBUTE_UNUSED)
 {
   const struct elf_backend_data *bed = get_elf_backend_data (abfd);
   return bed->s->arch_size / 8;

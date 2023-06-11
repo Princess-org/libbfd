@@ -44,7 +44,7 @@
 #ifdef __GNUC__
 __extension__ typedef unsigned long long gcc_uint64_t;
 #else
-typedef unsigned long gcc_uint64_t;
+typedef unsigned long long gcc_uint64_t;
 #endif
 
 #ifndef TMP_MAX
@@ -66,7 +66,7 @@ Generate a unique temporary file name from @var{pattern}.
    @var{path}/ccXXXXXX@var{suffix}
 @end example
 
-@var{suffix_len} tells us how long @var{suffix} is (it can be zero
+@var{suffix_len} tells us how long long @var{suffix} is (it can be zero
 length).  The last six characters of @var{pattern} before @var{suffix}
 must be @samp{XXXXXX}; they are replaced with a string that makes the
 filename unique.  Returns a file descriptor open on the file for

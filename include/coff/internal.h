@@ -65,9 +65,9 @@ struct internal_filehdr
   /* Standard coff internal info.  */
   unsigned short f_magic;	/* magic number			*/
   unsigned int   f_nscns;	/* number of sections		*/
-  long f_timdat;		/* time & date stamp		*/
+  long long f_timdat;		/* time & date stamp		*/
   bfd_vma f_symptr;		/* file pointer to symtab	*/
-  long f_nsyms;			/* number of symtab entries	*/
+  long long f_nsyms;			/* number of symtab entries	*/
   unsigned short f_opthdr;	/* sizeof(optional hdr)		*/
   unsigned short f_flags;	/* flags			*/
   unsigned short f_target_id;	/* (TI COFF specific)		*/
@@ -124,14 +124,14 @@ typedef struct _IMAGE_DATA_DIRECTORY
 /* Extra structure used in debug directory.  */
 struct internal_IMAGE_DEBUG_DIRECTORY
 {
-  unsigned long  Characteristics;
-  unsigned long  TimeDateStamp;
+  unsigned long long  Characteristics;
+  unsigned long long  TimeDateStamp;
   unsigned short MajorVersion;
   unsigned short MinorVersion;
-  unsigned long  Type;
-  unsigned long  SizeOfData;
-  unsigned long  AddressOfRawData;
-  unsigned long  PointerToRawData;
+  unsigned long long  Type;
+  unsigned long long  SizeOfData;
+  unsigned long long AddressOfRawData;
+  unsigned long long  PointerToRawData;
 };
 
 #define PE_IMAGE_DEBUG_TYPE_UNKNOWN          0
@@ -157,10 +157,10 @@ struct internal_IMAGE_DEBUG_DIRECTORY
 
 typedef struct _CODEVIEW_INFO
 {
-  unsigned long CVSignature;
+  unsigned long long CVSignature;
   char          Signature[CV_INFO_SIGNATURE_LENGTH];
   unsigned int  SignatureLength;
-  unsigned long Age;
+  unsigned long long Age;
   /* char PdbFileName[];  */
 } CODEVIEW_INFO;
 
@@ -274,14 +274,14 @@ struct internal_aouthdr
   /* ECOFF stuff */
   bfd_vma bss_start;		/* Base of bss section.		*/
   bfd_vma gp_value;		/* GP register value.		*/
-  unsigned long gprmask;	/* General registers used.	*/
-  unsigned long cprmask[4];	/* Coprocessor registers used.	*/
-  unsigned long fprmask;	/* Floating pointer registers used.  */
+  unsigned long long gprmask;	/* General registers used.	*/
+  unsigned long long cprmask[4];	/* Coprocessor registers used.	*/
+  unsigned long long fprmask;	/* Floating pointer registers used.  */
 
   /* Apollo stuff */
-  long o_inlib;			/* inlib data */
-  long o_sri;			/* Static Resource Information */
-  long vid[2];			/* Version id */
+  long long o_inlib;			/* inlib data */
+  long long o_sri;			/* Static Resource Information */
+  long long vid[2];			/* Version id */
 
   struct internal_extra_pe_aouthdr pe;
 };
@@ -406,9 +406,9 @@ struct internal_scnhdr
   bfd_vma s_scnptr;		/* file ptr to raw data for section */
   bfd_vma s_relptr;		/* file ptr to relocation	*/
   bfd_vma s_lnnoptr;		/* file ptr to line numbers	*/
-  unsigned long s_nreloc;	/* number of relocation entries	*/
-  unsigned long s_nlnno;	/* number of line number entries*/
-  unsigned long s_flags;	/* flags			*/
+  unsigned long long s_nreloc;	/* number of relocation entries	*/
+  unsigned long long s_nlnno;	/* number of line number entries*/
+  unsigned long long s_flags;	/* flags			*/
   unsigned char s_page;         /* TI COFF load page            */
 };
 
@@ -453,7 +453,7 @@ struct internal_lineno
     bfd_signed_vma l_symndx;		/* function name symbol index, iff l_lnno == 0*/
     bfd_signed_vma l_paddr;		/* (physical) address of line number	*/
   }     l_addr;
-  unsigned long l_lnno;		/* line number		*/
+  unsigned long long l_lnno;		/* line number		*/
 };
 
 /********************** SYMBOLS **********************/
@@ -526,11 +526,11 @@ struct internal_syment
 #define DTYPE(x)	(((x) & N_TMASK) >> N_BTSHFT)
 
 #define ISPTR(x) \
-  (((unsigned long) (x) & N_TMASK) == ((unsigned long) DT_PTR << N_BTSHFT))
+  (((unsigned long long) (x) & N_TMASK) == ((unsigned long long) DT_PTR << N_BTSHFT))
 #define ISFCN(x) \
-  (((unsigned long) (x) & N_TMASK) == ((unsigned long) DT_FCN << N_BTSHFT))
+  (((unsigned long long) (x) & N_TMASK) == ((unsigned long long) DT_FCN << N_BTSHFT))
 #define ISARY(x) \
-  (((unsigned long) (x) & N_TMASK) == ((unsigned long) DT_ARY << N_BTSHFT))
+  (((unsigned long long) (x) & N_TMASK) == ((unsigned long long) DT_ARY << N_BTSHFT))
 #define ISTAG(x) \
   ((x) == C_STRTAG || (x) == C_UNTAG || (x) == C_ENTAG)
 #define DECREF(x) \
@@ -687,11 +687,11 @@ union internal_auxent
 struct internal_reloc
 {
   bfd_vma r_vaddr;		/* Virtual address of reference */
-  long r_symndx;		/* Index into symbol table	*/
+  long long r_symndx;		/* Index into symbol table	*/
   unsigned short r_type;	/* Relocation type		*/
   unsigned char r_size;		/* Used by RS/6000 and ECOFF	*/
   unsigned char r_extern;	/* Used by ECOFF		*/
-  unsigned long r_offset;	/* Used by Alpha ECOFF, SPARC, others */
+  unsigned long long r_offset;	/* Used by Alpha ECOFF, SPARC, others */
 };
 
 #define IMAGE_REL_BASED_ABSOLUTE		0

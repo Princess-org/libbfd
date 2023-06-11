@@ -75,7 +75,7 @@ struct ecoff_backend_data
   bfd *(*get_elt_at_filepos) (bfd *, file_ptr, struct bfd_link_info *);
 };
 
-/* ECOFF targets don't support COFF long section names, so this
+/* ECOFF targets don't support COFF long long section names, so this
   macro is provided to use as an initialiser for the related
   members of the embedded bfd_coff_backend_data struct.  */
 #define ECOFF_NO_LONG_SECTION_NAMES (false), _bfd_ecoff_no_long_sections
@@ -102,8 +102,8 @@ typedef struct ecoff_tdata
 
   /* The start and end of the text segment.  Only valid for an
      existing file, not for one we are creating.  */
-  unsigned long text_start;
-  unsigned long text_end;
+  unsigned long long text_start;
+  unsigned long long text_end;
 
   /* The cached gp value.  This is used when relocating.  */
   bfd_vma gp;
@@ -117,9 +117,9 @@ typedef struct ecoff_tdata
      input files are combined into the masks of the output file.
      These are not all used for all targets, but that's OK, because
      the relevant ones are the only ones swapped in and out.  */
-  unsigned long gprmask;
-  unsigned long fprmask;
-  unsigned long cprmask[4];
+  unsigned long long gprmask;
+  unsigned long long fprmask;
+  unsigned long long cprmask[4];
 
   /* The ECOFF symbolic debugging information.  */
   struct ecoff_debug_info debug_info;
@@ -211,7 +211,7 @@ struct ecoff_link_hash_entry
 {
   struct bfd_link_hash_entry root;
   /* Symbol index in output file.  */
-  long indx;
+  long long indx;
   /* BFD that ext field value came from.  */
   bfd *abfd;
   /* ECOFF external symbol information.  */
@@ -284,8 +284,8 @@ extern bool _bfd_ecoff_write_armap
 #define _bfd_ecoff_update_armap_timestamp _bfd_bool_bfd_true
 #define _bfd_ecoff_bfd_is_target_special_symbol _bfd_bool_bfd_asymbol_false
 
-extern long _bfd_ecoff_get_symtab_upper_bound (bfd *);
-extern long _bfd_ecoff_canonicalize_symtab (bfd *, asymbol **);
+extern long long _bfd_ecoff_get_symtab_upper_bound (bfd *);
+extern long long _bfd_ecoff_canonicalize_symtab (bfd *, asymbol **);
 extern asymbol *_bfd_ecoff_make_empty_symbol (bfd *);
 extern void _bfd_ecoff_print_symbol
   (bfd *, void *, asymbol *, bfd_print_symbol_type);
@@ -308,12 +308,12 @@ extern bool _bfd_ecoff_find_nearest_line
 #define _bfd_ecoff_find_inliner_info _bfd_nosymbols_find_inliner_info
 
 #define _bfd_ecoff_get_reloc_upper_bound coff_get_reloc_upper_bound
-extern long _bfd_ecoff_canonicalize_reloc
+extern long long _bfd_ecoff_canonicalize_reloc
   (bfd *, asection *, arelent **, asymbol **);
 /* ecoff_bfd_reloc_type_lookup defined by backend. */
 
 extern bool _bfd_ecoff_set_arch_mach
-  (bfd *, enum bfd_architecture, unsigned long);
+  (bfd *, enum bfd_architecture, unsigned long long);
 extern bool _bfd_ecoff_set_section_contents
   (bfd *, asection *, const void * location, file_ptr, bfd_size_type);
 

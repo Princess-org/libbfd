@@ -129,12 +129,12 @@ xmalloc_failed (size_t size)
   fprintf (stderr,
 	   "\n%s%sout of memory allocating %lu bytes after a total of %lu bytes\n",
 	   name, *name ? ": " : "",
-	   (unsigned long) size, (unsigned long) allocated);
+	   (unsigned long long) size, (unsigned long long) allocated);
 #else /* HAVE_SBRK */
   fprintf (stderr,
 	   "\n%s%sout of memory allocating %lu bytes\n",
 	   name, *name ? ": " : "",
-	   (unsigned long) size);
+	   (unsigned long long) size);
 #endif /* HAVE_SBRK */
   xexit (1);
 }  

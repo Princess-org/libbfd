@@ -436,7 +436,7 @@ struct debug_lineno
   struct debug_file *file;
   /* Line numbers, terminated by a -1 or the end of the array.  */
 #define DEBUG_LINENO_COUNT 10
-  unsigned long linenos[DEBUG_LINENO_COUNT];
+  unsigned long long linenos[DEBUG_LINENO_COUNT];
   /* Addresses for the line numbers.  */
   bfd_vma addrs[DEBUG_LINENO_COUNT];
 };
@@ -965,7 +965,7 @@ debug_end_block (void *handle, bfd_vma addr)
    with a given address.  */
 
 bool
-debug_record_line (void *handle, unsigned long lineno, bfd_vma addr)
+debug_record_line (void *handle, unsigned long long lineno, bfd_vma addr)
 {
   struct debug_handle *info = (struct debug_handle *) handle;
   struct debug_lineno *l;
@@ -982,7 +982,7 @@ debug_record_line (void *handle, unsigned long lineno, bfd_vma addr)
     {
       for (i = 0; i < DEBUG_LINENO_COUNT; i++)
 	{
-	  if (l->linenos[i] == (unsigned long) -1)
+	  if (l->linenos[i] == (unsigned long long) -1)
 	    {
 	      l->linenos[i] = lineno;
 	      l->addrs[i] = addr;
@@ -1005,7 +1005,7 @@ debug_record_line (void *handle, unsigned long lineno, bfd_vma addr)
   l->linenos[0] = lineno;
   l->addrs[0] = addr;
   for (i = 1; i < DEBUG_LINENO_COUNT; i++)
-    l->linenos[i] = (unsigned long) -1;
+    l->linenos[i] = (unsigned long long) -1;
 
   if (info->current_lineno != NULL)
     info->current_lineno->next = l;
@@ -2915,7 +2915,7 @@ debug_write_linenos (struct debug_handle *info,
       while (info->current_write_lineno_index < DEBUG_LINENO_COUNT)
 	{
 	  if (l->linenos[info->current_write_lineno_index]
-	      == (unsigned long) -1)
+	      == (unsigned long long) -1)
 	    break;
 
 	  if (l->addrs[info->current_write_lineno_index] >= address)

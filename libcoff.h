@@ -65,10 +65,10 @@ typedef struct coff_tdata
   file_ptr sym_filepos;
 
   struct coff_ptr_struct *raw_syments;
-  unsigned long raw_syment_count;
+  unsigned long long raw_syment_count;
 
   /* These are only valid once writing has begun.  */
-  unsigned long int relocbase;
+  unsigned long long int relocbase;
 
   /* These members communicate important constants about the symbol table
      to GDB's symbol-reading code.  These `constants' unfortunately vary
@@ -91,7 +91,7 @@ typedef struct coff_tdata
   /* The length of the strings table.  For error checking.  */
   bfd_size_type strings_len;
 
-  /* Set if long section names are supported.  A writable copy of the COFF
+  /* Set if long long section names are supported.  A writable copy of the COFF
      backend flag _bfd_coff_long_section_names.  */
   bool long_section_names;
 
@@ -127,7 +127,7 @@ typedef struct coff_tdata
   void * dwarf2_find_line_info;
 
   /* The timestamp from the COFF file header.  */
-  long timestamp;
+  long long timestamp;
 
   /* A stub (extra data prepended before the COFF image) and its size.
      Used by coff-go32-exe, it contains executable data that loads the
@@ -211,7 +211,7 @@ struct xcoff_tdata
 
   /* Used by the XCOFF backend linker.  */
   asection **csects;
-  long *debug_indices;
+  long long *debug_indices;
   unsigned int *lineno_counts;
   unsigned int import_file_id;
 };
@@ -233,8 +233,8 @@ struct xcoff_section_tdata
      going to clobber it there.  */
   unsigned int lineno_count;
   /* The first and last symbol indices for symbols used by this csect.  */
-  unsigned long first_symndx;
-  unsigned long last_symndx;
+  unsigned long long first_symndx;
+  unsigned long long last_symndx;
 };
 
 /* An accessor macro the xcoff_section_tdata structure.  */
@@ -248,7 +248,7 @@ struct pei_section_tdata
   /* The virtual size of the section.  */
   bfd_size_type virt_size;
   /* The PE section flags.  */
-  long pe_flags;
+  long long pe_flags;
 };
 
 /* An accessor macro for the pei_section_tdata structure.  */
@@ -264,7 +264,7 @@ struct coff_link_hash_entry
   /* Symbol index in output file.  This is initialized to -1.  It is
      set to -2 if the symbol is used by a reloc.  It is set to -3 if
      this symbol is defined in a discarded section.  */
-  long indx;
+  long long indx;
 
   /* Symbol type.  */
   unsigned short type;
@@ -343,9 +343,9 @@ extern bfd_cleanup coff_object_p
   (bfd *);
 extern struct bfd_section *coff_section_from_bfd_index
   (bfd *, int);
-extern long coff_get_symtab_upper_bound
+extern long long coff_get_symtab_upper_bound
   (bfd *);
-extern long coff_canonicalize_symtab
+extern long long coff_canonicalize_symtab
   (bfd *, asymbol **);
 extern int coff_count_linenumbers
   (bfd *);
@@ -372,7 +372,7 @@ extern bool _bfd_coff_free_symbols
   (bfd *);
 extern struct coff_ptr_struct *coff_get_normalized_symtab
   (bfd *);
-extern long coff_get_reloc_upper_bound
+extern long long coff_get_reloc_upper_bound
   (bfd *, sec_ptr);
 extern asymbol *coff_make_empty_symbol
   (bfd *);
@@ -434,7 +434,7 @@ struct coff_debug_merge_element
   unsigned int type;
 
   /* Symbol index for complex type.  */
-  long tagndx;
+  long long tagndx;
 };
 
 /* A linked list of debug merge entries for a given name.  */
@@ -448,7 +448,7 @@ struct coff_debug_merge_type
   int type_class;
 
   /* Symbol index where this type is defined.  */
-  long indx;
+  long long indx;
 
   /* List of elements.  */
   struct coff_debug_merge_element *elements;
@@ -514,18 +514,18 @@ struct coff_final_link_info
      global symbol writer to convert the storage class of defined global
      symbols from global to static. */
   bool global_to_static;
-  /* Hash table for long symbol names.  */
+  /* Hash table for long long symbol names.  */
   struct bfd_strtab_hash *strtab;
   /* When doing a relocatable link, an array of information kept for
      each output section, indexed by the target_index field.  */
   struct coff_link_section_info *section_info;
   /* Symbol index of last C_FILE symbol (-1 if none).  */
-  long last_file_index;
+  long long last_file_index;
   /* Contents of last C_FILE symbol.  */
   struct internal_syment last_file;
   /* Symbol index of first aux entry of last .bf symbol with an empty
      endndx field (-1 if none).  */
-  long last_bf_index;
+  long long last_bf_index;
   /* Contents of last_bf_index aux entry.  */
   union internal_auxent last_bf;
   /* Hash table used to merge debug information.  */
@@ -536,7 +536,7 @@ struct coff_final_link_info
   asection **sec_ptrs;
   /* Buffer large enough to hold output indices of symbols of any
      input file.  */
-  long *sym_indices;
+  long long *sym_indices;
   /* Buffer large enough to hold output symbols for any input file.  */
   bfd_byte *outsyms;
   /* Buffer large enough to hold external line numbers for any input
@@ -632,13 +632,13 @@ extern const char *bfd_coff_group_name
 
 /* Functions in xcofflink.c.  */
 
-extern long _bfd_xcoff_get_dynamic_symtab_upper_bound
+extern long long _bfd_xcoff_get_dynamic_symtab_upper_bound
   (bfd *);
-extern long _bfd_xcoff_canonicalize_dynamic_symtab
+extern long long _bfd_xcoff_canonicalize_dynamic_symtab
   (bfd *, asymbol **);
-extern long _bfd_xcoff_get_dynamic_reloc_upper_bound
+extern long long _bfd_xcoff_get_dynamic_reloc_upper_bound
   (bfd *);
-extern long _bfd_xcoff_canonicalize_dynamic_reloc
+extern long long _bfd_xcoff_canonicalize_dynamic_reloc
   (bfd *, arelent **, asymbol **);
 extern struct bfd_link_hash_table *_bfd_xcoff_bfd_link_hash_table_create
   (bfd *);

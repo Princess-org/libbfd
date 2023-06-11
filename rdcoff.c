@@ -50,12 +50,12 @@ struct coff_symbols
   /* The symbols.  */
   asymbol **syms;
   /* The number of symbols.  */
-  long symcount;
+  long long symcount;
   /* The index of the current symbol.  */
-  long symno;
+  long long symno;
   /* The index of the current symbol in the COFF symbol table (where
      each auxent counts as a symbol).  */
-  long coff_symno;
+  long long coff_symno;
 };
 
 /* This structure is used to map symbol indices to types.  */
@@ -72,7 +72,7 @@ struct coff_types
 };
 
 static debug_type parse_coff_base_type
-  (bfd *, struct coff_symbols *, struct coff_types **, long, int,
+  (bfd *, struct coff_symbols *, struct coff_types **, long long, int,
    union internal_auxent *, void *);
 static debug_type parse_coff_struct_type
   (bfd *, struct coff_symbols *, struct coff_types **, int,
@@ -84,7 +84,7 @@ static debug_type parse_coff_enum_type
 /* Return the slot for a type.  */
 
 static debug_type *
-coff_get_slot (void *dhandle, struct coff_types **types, long indx)
+coff_get_slot (void *dhandle, struct coff_types **types, long long indx)
 {
   unsigned int base_index;
 
@@ -109,7 +109,7 @@ coff_get_slot (void *dhandle, struct coff_types **types, long indx)
 
 static debug_type
 parse_coff_type (bfd *abfd, struct coff_symbols *symbols,
-		 struct coff_types **types, long coff_symno, int ntype,
+		 struct coff_types **types, long long coff_symno, int ntype,
 		 union internal_auxent *pauxent, bool useaux,
 		 void *dhandle)
 {
@@ -206,7 +206,7 @@ parse_coff_type (bfd *abfd, struct coff_symbols *symbols,
 
 static debug_type
 parse_coff_base_type (bfd *abfd, struct coff_symbols *symbols,
-		      struct coff_types **types, long coff_symno, int ntype,
+		      struct coff_types **types, long long coff_symno, int ntype,
 		      union internal_auxent *pauxent, void *dhandle)
 {
   debug_type ret;
@@ -242,7 +242,7 @@ parse_coff_base_type (bfd *abfd, struct coff_symbols *symbols,
 
     case T_LONG:
       ret = debug_make_int_type (dhandle, 4, false);
-      name = "long";
+      name = "long long";
       break;
 
     case T_FLOAT:
@@ -257,7 +257,7 @@ parse_coff_base_type (bfd *abfd, struct coff_symbols *symbols,
 
     case T_LNGDBL:
       ret = debug_make_float_type (dhandle, 12);
-      name = "long double";
+      name = "long long double";
       break;
 
     case T_UCHAR:
@@ -277,7 +277,7 @@ parse_coff_base_type (bfd *abfd, struct coff_symbols *symbols,
 
     case T_ULONG:
       ret = debug_make_int_type (dhandle, 4, true);
-      name = "unsigned long";
+      name = "unsigned long long";
       break;
 
     case T_STRUCT:
@@ -322,7 +322,7 @@ parse_coff_struct_type (bfd *abfd, struct coff_symbols *symbols,
 			struct coff_types **types, int ntype,
 			union internal_auxent *pauxent, void *dhandle)
 {
-  long symend;
+  long long symend;
   int alloc;
   debug_field *fields, *xfields;
   int count;
@@ -340,7 +340,7 @@ parse_coff_struct_type (bfd *abfd, struct coff_symbols *symbols,
 	 && symbols->symno < symbols->symcount)
     {
       asymbol *sym;
-      long this_coff_symno;
+      long long this_coff_symno;
       struct internal_syment syment;
       union internal_auxent auxent;
       union internal_auxent *psubaux;
@@ -438,7 +438,7 @@ parse_coff_enum_type (bfd *abfd, struct coff_symbols *symbols,
 		      struct coff_types **types ATTRIBUTE_UNUSED,
 		      union internal_auxent *pauxent, void *dhandle)
 {
-  long symend;
+  long long symend;
   int alloc;
   const char **names, **xnames;
   bfd_signed_vma *vals, *xvals;
@@ -513,7 +513,7 @@ parse_coff_enum_type (bfd *abfd, struct coff_symbols *symbols,
 
 static bool
 parse_coff_symbol (bfd *abfd ATTRIBUTE_UNUSED, struct coff_types **types,
-		   asymbol *sym, long coff_symno,
+		   asymbol *sym, long long coff_symno,
 		   struct internal_syment *psyment, void *dhandle,
 		   debug_type type, bool within_function)
 {
@@ -617,18 +617,18 @@ external_coff_symbol_p (int sym_class)
    handles them.  */
 
 bool
-parse_coff (bfd *abfd, asymbol **syms, long symcount, void *dhandle)
+parse_coff (bfd *abfd, asymbol **syms, long long symcount, void *dhandle)
 {
   struct coff_symbols symbols;
   struct coff_types *types;
-  long next_c_file;
+  long long next_c_file;
   const char *fnname;
   int fnclass;
   int fntype;
   bfd_vma fnend;
   alent *linenos;
   bool within_function;
-  long this_coff_symno;
+  long long this_coff_symno;
 
   symbols.syms = syms;
   symbols.symcount = symcount;

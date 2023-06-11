@@ -24,7 +24,7 @@
 #if BFD_SUPPORTS_PLUGINS
 
 #include <assert.h>
-#ifdef HAVE_DLFCN_H
+#if HAVE_DLFCN_H
 #include <dlfcn.h>
 #elif defined (HAVE_WINDOWS_H)
 #include <windows.h>
@@ -499,6 +499,9 @@ register_ld_plugin_object_p (bfd_cleanup (*object_p) (bfd *, bool))
 {
   ld_plugin_object_p = object_p;
 }
+
+#define LIBDIR ""
+#define BINDIR ""
 
 static void
 build_plugin_list (bfd *abfd)

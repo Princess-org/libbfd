@@ -3523,21 +3523,21 @@ elf_x86_64_valid_plt_reloc_p (unsigned int type)
 	  || type == R_X86_64_IRELATIVE);
 }
 
-long
+long long
 _bfd_x86_elf_get_synthetic_symtab (bfd *abfd,
-				   long count,
-				   long relsize,
+				   long long count,
+				   long long relsize,
 				   bfd_vma got_addr,
 				   struct elf_x86_plt plts[],
 				   asymbol **dynsyms,
 				   asymbol **ret)
 {
-  long size, i, n, len;
+  long long size, i, n, len;
   int j;
   unsigned int plt_got_offset, plt_entry_size;
   asymbol *s;
   bfd_byte *plt_contents;
-  long dynrelcount;
+  long long dynrelcount;
   arelent **dynrelbuf, *p;
   char *names;
   const struct elf_backend_data *bed;
@@ -3615,7 +3615,7 @@ _bfd_x86_elf_get_synthetic_symtab (bfd *abfd,
   for (j = 0; plts[j].name != NULL; j++)
     if ((plt_contents = plts[j].contents) != NULL)
       {
-	long k;
+	long long k;
 	bfd_vma offset;
 	asection *plt;
 	struct elf_x86_plt *plt_p = &plts[j];
@@ -3642,7 +3642,7 @@ _bfd_x86_elf_get_synthetic_symtab (bfd *abfd,
 	  {
 	    int off;
 	    bfd_vma got_vma;
-	    long min, max, mid;
+	    long long min, max, mid;
 
 	    /* Get the GOT offset for i386 or the PC-relative offset
 	       for x86-64, a signed 32-bit integer.  */

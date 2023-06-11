@@ -413,7 +413,7 @@ coff_link_add_symbols (bfd *abfd,
 	     section, which seems to be wrong since it might cause the
 	     literal to change.
 
-	     As long as there are no external references to the
+	     As long long as there are no external references to the
 	     symbols, which there shouldn't be, we can treat the .data
 	     and .rdata instances as separate symbols.  The comdat
 	     code in the linker will do the appropriate merging.  Here
@@ -742,7 +742,7 @@ _bfd_coff_final_link (bfd *abfd,
       if (bfd_coff_long_section_names (abfd)
 	  && strlen (o->name) > SCNNMLEN)
 	{
-	  /* This section has a long name which must go in the string
+	  /* This section has a long long name which must go in the string
 	     table.  This must correspond to the code in
 	     coff_write_object_contents which puts the string index
 	     into the s_name field of the section header.  That is why
@@ -848,8 +848,8 @@ _bfd_coff_final_link (bfd *abfd,
   flaginfo.internal_syms = (struct internal_syment *) bfd_malloc (amt);
   amt = max_sym_count * sizeof (asection *);
   flaginfo.sec_ptrs = (asection **) bfd_malloc (amt);
-  amt = max_sym_count * sizeof (long);
-  flaginfo.sym_indices = (long int *) bfd_malloc (amt);
+  amt = max_sym_count * sizeof (long long);
+  flaginfo.sym_indices = (long long int *) bfd_malloc (amt);
   flaginfo.outsyms = (bfd_byte *) bfd_malloc ((max_sym_count + 1) * symesz);
   amt = max_lineno_count * bfd_coff_linesz (abfd);
   flaginfo.linenos = (bfd_byte *) bfd_malloc (amt);
@@ -1372,7 +1372,7 @@ mark_relocs (struct coff_final_link_info *flaginfo, bfd *input_bfd)
 	 in the relocation table.  This will then be picked up in the
 	 skip/don't-skip pass.  */
       for (; irel < irelend; irel++)
-	if ((unsigned long) irel->r_symndx < obj_raw_syment_count (input_bfd))
+	if ((unsigned long long) irel->r_symndx < obj_raw_syment_count (input_bfd))
 	  flaginfo->sym_indices[irel->r_symndx] = -1;
     }
 }
@@ -1399,8 +1399,8 @@ _bfd_coff_link_input_bfd (struct coff_final_link_info *flaginfo, bfd *input_bfd)
   bfd_byte *esym_end;
   struct internal_syment *isymp;
   asection **secpp;
-  long *indexp;
-  unsigned long output_index;
+  long long *indexp;
+  unsigned long long output_index;
   bfd_byte *outsym;
   struct coff_link_hash_entry **sym_hash;
   asection *o;
@@ -1684,7 +1684,7 @@ _bfd_coff_link_input_bfd (struct coff_final_link_info *flaginfo, bfd *input_bfd)
 		  && islp->n_sclass != C_EOS)
 		{
 		  union internal_auxent eleaux;
-		  long indx;
+		  long long indx;
 
 		  bfd_coff_swap_aux_in (input_bfd, (esl + isymesz),
 					islp->n_type, islp->n_sclass, 0,
@@ -1699,7 +1699,7 @@ _bfd_coff_link_input_bfd (struct coff_final_link_info *flaginfo, bfd *input_bfd)
 		      && (indx
 			  < ((esym -
 			      (bfd_byte *) obj_coff_external_syms (input_bfd))
-			     / (long) isymesz)))
+			     / (long long) isymesz)))
 		    {
 		      (*epp)->tagndx = flaginfo->sym_indices[indx];
 		      if ((*epp)->tagndx < 0)
@@ -1772,7 +1772,7 @@ _bfd_coff_link_input_bfd (struct coff_final_link_info *flaginfo, bfd *input_bfd)
 	      const char *name;
 	      bfd_size_type indx;
 
-	      /* This symbol has a long name.  Enter it in the string
+	      /* This symbol has a long long name.  Enter it in the string
 		 table we are building.  Note that we do not check
 		 bfd_coff_symname_in_debug.  That is only true for
 		 XCOFF, and XCOFF requires different linking code
@@ -1900,7 +1900,7 @@ _bfd_coff_link_input_bfd (struct coff_final_link_info *flaginfo, bfd *input_bfd)
 
 	  if (global)
 	    {
-	      long indx;
+	      long long indx;
 	      struct coff_link_hash_entry *h;
 
 	      indx = ((esym - (bfd_byte *) obj_coff_external_syms (input_bfd))
@@ -1993,7 +1993,7 @@ _bfd_coff_link_input_bfd (struct coff_final_link_info *flaginfo, bfd *input_bfd)
 
 	      if (isymp->n_sclass == C_FILE)
 		{
-		  /* If this is a long filename, we must put it in the
+		  /* If this is a long long filename, we must put it in the
 		     string table.  */
 		  if (auxp->x_file.x_n.x_n.x_zeroes == 0
 		      && auxp->x_file.x_n.x_n.x_offset != 0)
@@ -2023,7 +2023,7 @@ _bfd_coff_link_input_bfd (struct coff_final_link_info *flaginfo, bfd *input_bfd)
 	      else if ((isymp->n_sclass != C_STAT || isymp->n_type != T_NULL)
 		       && isymp->n_sclass != C_NT_WEAK)
 		{
-		  unsigned long indx;
+		  unsigned long long indx;
 
 		  if (ISFCN (isymp->n_type)
 		      || ISTAG (isymp->n_sclass)
@@ -2054,7 +2054,7 @@ _bfd_coff_link_input_bfd (struct coff_final_link_info *flaginfo, bfd *input_bfd)
 		  indx = auxp->x_sym.x_tagndx.u32;
 		  if (indx > 0 && indx < obj_raw_syment_count (input_bfd))
 		    {
-		      long symindx;
+		      long long symindx;
 
 		      symindx = flaginfo->sym_indices[indx];
 		      if (symindx < 0)
@@ -2204,10 +2204,10 @@ _bfd_coff_link_input_bfd (struct coff_final_link_info *flaginfo, bfd *input_bfd)
 	      if (iline.l_lnno != 0)
 		iline.l_addr.l_paddr += offset;
 	      else if (iline.l_addr.l_symndx >= 0
-		       && ((unsigned long) iline.l_addr.l_symndx
+		       && ((unsigned long long) iline.l_addr.l_symndx
 			   < obj_raw_syment_count (input_bfd)))
 		{
-		  long indx;
+		  long long indx;
 
 		  indx = flaginfo->sym_indices[iline.l_addr.l_symndx];
 
@@ -2383,7 +2383,7 @@ _bfd_coff_link_input_bfd (struct coff_final_link_info *flaginfo, bfd *input_bfd)
 	    {
 	      struct coff_link_hash_entry *h;
 	      asection *ps = NULL;
-	      long symndx = irel->r_symndx;
+	      long long symndx = irel->r_symndx;
 	      if (symndx < 0)
 		continue;
 	      h = obj_coff_sym_hashes (input_bfd)[symndx];
@@ -2470,7 +2470,7 @@ _bfd_coff_link_input_bfd (struct coff_final_link_info *flaginfo, bfd *input_bfd)
 		    }
 		  else
 		    {
-		      long indx;
+		      long long indx;
 
 		      indx = flaginfo->sym_indices[irel->r_symndx];
 		      if (indx != -1)
@@ -2924,7 +2924,7 @@ _bfd_coff_generic_relocate_section (bfd *output_bfd,
   relend = rel + input_section->reloc_count;
   for (; rel < relend; rel++)
     {
-      long symndx;
+      long long symndx;
       struct coff_link_hash_entry *h;
       struct internal_syment *sym;
       bfd_vma addend;
@@ -2941,7 +2941,7 @@ _bfd_coff_generic_relocate_section (bfd *output_bfd,
 	  sym = NULL;
 	}
       else if (symndx < 0
-	       || (unsigned long) symndx >= obj_raw_syment_count (input_bfd))
+	       || (unsigned long long) symndx >= obj_raw_syment_count (input_bfd))
 	{
 	  _bfd_error_handler
 	    /* xgettext: c-format */

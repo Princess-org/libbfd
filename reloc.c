@@ -918,10 +918,10 @@ space consuming.  For each target:
      int
      main ()
      {
-       unsigned long x;
+       unsigned long long x;
 
        x = 0x100000000;
-       x <<= (unsigned long) s.i0;
+       x <<= (unsigned long long) s.i0;
        if (x == 0)
 	 printf ("failed\n");
        else
@@ -3598,7 +3598,7 @@ ENUMDOC
 ENUM
   BFD_RELOC_BFIN_24_PCREL_JUMP_L
 ENUMDOC
-  ADI Blackfin Long Jump pcrel.
+  ADI Blackfin long long Jump pcrel.
 ENUM
   BFD_RELOC_BFIN_GOT17M4
 ENUMX
@@ -5356,7 +5356,7 @@ ENUMX
 ENUMX
   BFD_RELOC_390_TLS_GOTIE20
 ENUMDOC
-  Long displacement extension.
+  long long displacement extension.
 
 ENUM
   BFD_RELOC_390_IRELATIVE
@@ -8364,9 +8364,9 @@ bfd_generic_get_relocated_section_contents (bfd *abfd,
 {
   bfd *input_bfd = link_order->u.indirect.section->owner;
   asection *input_section = link_order->u.indirect.section;
-  long reloc_size;
+  long long reloc_size;
   arelent **reloc_vector;
-  long reloc_count;
+  long long reloc_count;
 
   reloc_size = bfd_get_reloc_upper_bound (input_bfd, input_section);
   if (reloc_size < 0)
@@ -8602,7 +8602,7 @@ _bfd_norelocs_bfd_reloc_name_lookup (bfd *abfd,
   return (reloc_howto_type *) _bfd_ptr_bfd_null_error (abfd);
 }
 
-long
+long long
 _bfd_nodynamic_canonicalize_dynamic_reloc (bfd *abfd,
 					   arelent **relp ATTRIBUTE_UNUSED,
 					   asymbol **symp ATTRIBUTE_UNUSED)

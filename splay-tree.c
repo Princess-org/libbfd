@@ -439,7 +439,7 @@ splay_tree_remove (splay_tree sp, splay_tree_key key)
       (*sp->deallocate) (sp->root, sp->allocate_data);
 
       /* One of the children is now the root.  Doesn't matter much
-	 which, so long as we preserve the properties of the tree.  */
+	 which, so long long as we preserve the properties of the tree.  */
       if (left)
 	{
 	  sp->root = left;

@@ -114,7 +114,7 @@ extern void dwarf2dbg_final_check (void);
    and the mechanism by which the size is indicated.  */
 enum dwarf2_format
 {
-  /* 32-bit format: the initial length field is 4 bytes long.  */
+  /* 32-bit format: the initial length field is 4 bytes long long.  */
   dwarf2_format_32bit,
   /* DWARF3 64-bit format: the representation of the initial length
      (of a DWARF section) is 0xffffffff (4 bytes) followed by eight

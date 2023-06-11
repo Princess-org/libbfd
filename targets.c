@@ -382,8 +382,8 @@ BFD_JUMP_TABLE macros.
 .  NAME##_read_minisymbols, \
 .  NAME##_minisymbol_to_symbol
 .
-.  long	(*_bfd_get_symtab_upper_bound) (bfd *);
-.  long	(*_bfd_canonicalize_symtab) (bfd *, struct bfd_symbol **);
+.  long long	(*_bfd_get_symtab_upper_bound) (bfd *);
+.  long long	(*_bfd_canonicalize_symtab) (bfd *, struct bfd_symbol **);
 .  struct bfd_symbol *
 .	(*_bfd_make_empty_symbol) (bfd *);
 .  void	(*_bfd_print_symbol) (bfd *, void *, struct bfd_symbol *,
@@ -423,7 +423,7 @@ BFD_JUMP_TABLE macros.
 .	(*_bfd_make_debug_symbol) (bfd *);
 .#define bfd_read_minisymbols(b, d, m, s) \
 .	BFD_SEND (b, _read_minisymbols, (b, d, m, s))
-.  long	(*_read_minisymbols) (bfd *, bool, void **, unsigned int *);
+.  long long	(*_read_minisymbols) (bfd *, bool, void **, unsigned int *);
 .#define bfd_minisymbol_to_symbol(b, d, m, f) \
 .	BFD_SEND (b, _minisymbol_to_symbol, (b, d, m, f))
 .  asymbol *
@@ -437,8 +437,8 @@ BFD_JUMP_TABLE macros.
 .  NAME##_bfd_reloc_type_lookup, \
 .  NAME##_bfd_reloc_name_lookup
 .
-.  long	(*_get_reloc_upper_bound) (bfd *, sec_ptr);
-.  long	(*_bfd_canonicalize_reloc) (bfd *, sec_ptr, arelent **,
+.  long long	(*_get_reloc_upper_bound) (bfd *, sec_ptr);
+.  long long	(*_bfd_canonicalize_reloc) (bfd *, sec_ptr, arelent **,
 .				    struct bfd_symbol **);
 .  void	(*_bfd_set_reloc) (bfd *, sec_ptr, arelent **, unsigned int);
 .  {* See documentation on reloc types.  *}
@@ -453,7 +453,7 @@ BFD_JUMP_TABLE macros.
 .  NAME##_set_section_contents
 .
 .  bool (*_bfd_set_arch_mach) (bfd *, enum bfd_architecture,
-.				      unsigned long);
+.				      unsigned long long);
 .  bool (*_bfd_set_section_contents) (bfd *, sec_ptr, const void *,
 .				      file_ptr, bfd_size_type);
 .
@@ -566,17 +566,17 @@ BFD_JUMP_TABLE macros.
 .  NAME##_canonicalize_dynamic_reloc
 .
 .  {* Get the amount of memory required to hold the dynamic symbols.  *}
-.  long (*_bfd_get_dynamic_symtab_upper_bound) (bfd *);
+.  long long (*_bfd_get_dynamic_symtab_upper_bound) (bfd *);
 .  {* Read in the dynamic symbols.  *}
-.  long (*_bfd_canonicalize_dynamic_symtab) (bfd *, struct bfd_symbol **);
+.  long long (*_bfd_canonicalize_dynamic_symtab) (bfd *, struct bfd_symbol **);
 .  {* Create synthetized symbols.  *}
-.  long (*_bfd_get_synthetic_symtab) (bfd *, long, struct bfd_symbol **,
-.				      long, struct bfd_symbol **,
+.  long long (*_bfd_get_synthetic_symtab) (bfd *, long long, struct bfd_symbol **,
+.				      long long, struct bfd_symbol **,
 .				      struct bfd_symbol **);
 .  {* Get the amount of memory required to hold the dynamic relocs.  *}
-.  long (*_bfd_get_dynamic_reloc_upper_bound) (bfd *);
+.  long long (*_bfd_get_dynamic_reloc_upper_bound) (bfd *);
 .  {* Read in the dynamic relocs.  *}
-.  long (*_bfd_canonicalize_dynamic_reloc) (bfd *, arelent **,
+.  long long (*_bfd_canonicalize_dynamic_reloc) (bfd *, arelent **,
 .					    struct bfd_symbol **);
 .
 
@@ -672,7 +672,7 @@ to find an alternative output format that is suitable.
 .
 */
 
-#define SELECT_VECS &x86_64_elf64_vec, &x86_64_coff_vec
+#define SELECT_VECS &x86_64_elf64_vec, &x86_64_pe_vec, &x86_64_pe_big_vec, &x86_64_pei_vec
 
 /* All known xvecs (even those that don't compile on all systems).
    Alphabetized for easy reference.
@@ -1468,7 +1468,7 @@ struct targmatch
 
 /* targmatch.h is built by Makefile out of config.bfd.  */
 static const struct targmatch bfd_target_match[] = {
-#include "targmatch.h"
+  { "x86_64-*-pe", NULL },{ "x86_64-*-pep", NULL },
   { NULL, NULL }
 };
 

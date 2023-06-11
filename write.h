@@ -91,7 +91,7 @@ struct fix
   fragS *fx_frag;
 
   /* The location within the frag where the fixup occurs.  */
-  unsigned long fx_where;
+  unsigned long long fx_where;
 
   /* NULL or Symbol whose value we add in.  */
   symbolS *fx_addsy;
@@ -173,19 +173,19 @@ extern addressT dot_value;
 extern fragS *dot_frag;
 extern struct reloc_list* reloc_list;
 
-extern void append (char **, char *, unsigned long);
+extern void append (char **, char *, unsigned long long);
 extern void record_alignment (segT, unsigned);
 extern int get_recorded_alignment (segT);
 extern void write_object_file (void);
-extern long relax_frag (segT, fragS *, long);
+extern long long relax_frag (segT, fragS *, long long);
 extern int relax_segment (struct frag *, segT, int);
 extern void number_to_chars_littleendian (char *, valueT, int);
 extern void number_to_chars_bigendian (char *, valueT, int);
-extern fixS *fix_new (fragS *, unsigned long, unsigned long, symbolS *,
+extern fixS *fix_new (fragS *, unsigned long long, unsigned long long, symbolS *,
 		      offsetT, int, bfd_reloc_code_real_type);
-extern fixS *fix_at_start (fragS *, unsigned long, symbolS *,
+extern fixS *fix_at_start (fragS *, unsigned long long, symbolS *,
 			   offsetT, int, bfd_reloc_code_real_type);
-extern fixS *fix_new_exp (fragS *, unsigned long, unsigned long,
+extern fixS *fix_new_exp (fragS *, unsigned long long, unsigned long long,
 			  expressionS *, int, bfd_reloc_code_real_type);
 extern void write_print_statistics (FILE *);
 extern void as_bad_subtract (fixS *);

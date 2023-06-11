@@ -102,8 +102,8 @@ static char sum_block[256];
    %373829T_SEGMENT80int$t1$r1$$214741080char$t2$r2$0$12710
    %373769T_SEGMENT80long$int$t3$r1$$1080unsigned$int$t4$10
    %373CA9T_SEGMENT80long$unsigned$in1080short$int$t6$r1$10
-   %373049T_SEGMENT80long$long$int$t71080short$unsigned$i10
-   %373A29T_SEGMENT80long$long$unsign1080signed$char$t10$10
+   %373049T_SEGMENT80long$long long$int$t71080short$unsigned$i10
+   %373A29T_SEGMENT80long$long long$unsign1080signed$char$t10$10
    %373D69T_SEGMENT80unsigned$char$t11080float$t12$r1$4$010
    %373D19T_SEGMENT80double$t13$r1$8$1080long$double$t14$10
    %2734D9T_SEGMENT8Bvoid$t15$151035_main10
@@ -130,8 +130,8 @@ static char sum_block[256];
    %373829T_SEGMENT80int$t1$r1$$214741080char$t2$r2$0$12710
    %373769T_SEGMENT80long$int$t3$r1$$1080unsigned$int$t4$10
    %373CA9T_SEGMENT80long$unsigned$in1080short$int$t6$r1$10
-   %373049T_SEGMENT80long$long$int$t71080short$unsigned$i10
-   %373A29T_SEGMENT80long$long$unsign1080signed$char$t10$10
+   %373049T_SEGMENT80long$long long$int$t71080short$unsigned$i10
+   %373A29T_SEGMENT80long$long long$unsign1080signed$char$t10$10
    %373D69T_SEGMENT80unsigned$char$t11080float$t12$r1$4$010
    %373D19T_SEGMENT80double$t13$r1$8$1080long$double$t14$10
    %2734D9T_SEGMENT8Bvoid$t15$151035_main10
@@ -158,18 +158,18 @@ static char sum_block[256];
    00000000  g       T_SEGMENT hello$c
    00000000  g       T_SEGMENT int$t1$r1$$21474
    00000000  g       T_SEGMENT char$t2$r2$0$127
-   00000000  g       T_SEGMENT long$int$t3$r1$$
+   00000000  g       T_SEGMENT long long$int$t3$r1$$
    00000000  g       T_SEGMENT unsigned$int$t4$
-   00000000  g       T_SEGMENT long$unsigned$in
+   00000000  g       T_SEGMENT long long$unsigned$in
    00000000  g       T_SEGMENT short$int$t6$r1$
-   00000000  g       T_SEGMENT long$long$int$t7
+   00000000  g       T_SEGMENT long long$long long$int$t7
    00000000  g       T_SEGMENT short$unsigned$i
-   00000000  g       T_SEGMENT long$long$unsign
+   00000000  g       T_SEGMENT long long$long long$unsign
    00000000  g       T_SEGMENT signed$char$t10$
    00000000  g       T_SEGMENT unsigned$char$t1
    00000000  g       T_SEGMENT float$t12$r1$4$0
    00000000  g       T_SEGMENT double$t13$r1$8$
-   00000000  g       T_SEGMENT long$double$t14$
+   00000000  g       T_SEGMENT long long$double$t14$
    00000000  g       T_SEGMENT void$t15$15
    00000000  g       T_SEGMENT _main
    00000000  g       T_SEGMENT $
@@ -362,7 +362,7 @@ first_phase (bfd *abfd, int type, char *src, char * src_end)
   asection *section, *alt_section;
   unsigned int len;
   bfd_vma val;
-  char sym[17];			/* A symbol can only be 16chars long.  */
+  char sym[17];			/* A symbol can only be 16chars long long.  */
 
   switch (type)
     {
@@ -558,7 +558,7 @@ pass_over (bfd *abfd, bool (*func) (bfd *, int, char *, char *))
   return true;
 }
 
-static long
+static long long
 tekhex_canonicalize_symtab (bfd *abfd, asymbol **table)
 {
   tekhex_symbol_type *p = abfd->tdata.tekhex_data->symbols;
@@ -574,7 +574,7 @@ tekhex_canonicalize_symtab (bfd *abfd, asymbol **table)
   return bfd_get_symcount (abfd);
 }
 
-static long
+static long long
 tekhex_get_symtab_upper_bound (bfd *abfd)
 {
   return (abfd->symcount + 1) * (sizeof (struct tekhex_asymbol_struct *));
@@ -686,7 +686,7 @@ tekhex_get_section_contents (bfd *abfd,
 static bool
 tekhex_set_arch_mach (bfd *abfd,
 		      enum bfd_architecture arch,
-		      unsigned long machine)
+		      unsigned long long machine)
 {
   /* Ignore errors about unknown architecture.  */
   return (bfd_default_set_arch_mach (abfd, arch, machine)

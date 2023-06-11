@@ -86,7 +86,7 @@ struct artdata
   char *extended_names;		/* Clever intel extension.  */
   bfd_size_type extended_names_size; /* Size of extended names.  */
   /* When more compilers are standard C, this can be a time_t.  */
-  long  armap_timestamp;	/* Timestamp value written into armap.
+  long long  armap_timestamp;	/* Timestamp value written into armap.
 				   This is used for BSD archives to check
 				   that the timestamp is recent enough
 				   for the BSD linker to not complain,
@@ -205,9 +205,9 @@ extern int _bfd_int_bfd_0
   (bfd *) ATTRIBUTE_HIDDEN;
 extern unsigned int _bfd_uint_bfd_0
   (bfd *) ATTRIBUTE_HIDDEN;
-extern long _bfd_long_bfd_0
+extern long long _bfd_long_bfd_0
   (bfd *) ATTRIBUTE_HIDDEN;
-extern long _bfd_long_bfd_n1_error
+extern long long _bfd_long_bfd_n1_error
   (bfd *) ATTRIBUTE_HIDDEN;
 extern void _bfd_void_bfd
   (bfd *) ATTRIBUTE_HIDDEN;
@@ -236,7 +236,7 @@ extern bool _bfd_coff_write_armap
 extern void *_bfd_generic_read_ar_hdr
   (bfd *) ATTRIBUTE_HIDDEN;
 extern void _bfd_ar_spacepad
-  (char *, size_t, const char *, long) ATTRIBUTE_HIDDEN;
+  (char *, size_t, const char *, long long) ATTRIBUTE_HIDDEN;
 extern bool _bfd_ar_sizepad
   (char *, size_t, bfd_size_type) ATTRIBUTE_HIDDEN;
 
@@ -428,7 +428,7 @@ extern bool _bfd_vms_lib_ia64_mkarchive
    support.  Use BFD_JUMP_TABLE_SYMBOLS (_bfd_nosymbols).  */
 
 #define _bfd_nosymbols_get_symtab_upper_bound _bfd_long_bfd_n1_error
-extern long _bfd_nosymbols_canonicalize_symtab
+extern long long _bfd_nosymbols_canonicalize_symtab
   (bfd *, asymbol **) ATTRIBUTE_HIDDEN;
 #define _bfd_nosymbols_make_empty_symbol _bfd_generic_make_empty_symbol
 extern void _bfd_nosymbols_print_symbol
@@ -457,7 +457,7 @@ extern bool _bfd_nosymbols_find_inliner_info
   (bfd *, const char **, const char **, unsigned int *) ATTRIBUTE_HIDDEN;
 extern asymbol *_bfd_nosymbols_bfd_make_debug_symbol
   (bfd *) ATTRIBUTE_HIDDEN;
-extern long _bfd_nosymbols_read_minisymbols
+extern long long _bfd_nosymbols_read_minisymbols
   (bfd *, bool, void **, unsigned int *) ATTRIBUTE_HIDDEN;
 extern asymbol *_bfd_nosymbols_minisymbol_to_symbol
   (bfd *, bool, const void *, asymbol *) ATTRIBUTE_HIDDEN;
@@ -465,9 +465,9 @@ extern asymbol *_bfd_nosymbols_minisymbol_to_symbol
 /* Routines to use for BFD_JUMP_TABLE_RELOCS when there is no reloc
    support.  Use BFD_JUMP_TABLE_RELOCS (_bfd_norelocs).  */
 
-extern long _bfd_norelocs_get_reloc_upper_bound
+extern long long _bfd_norelocs_get_reloc_upper_bound
   (bfd *, asection *) ATTRIBUTE_HIDDEN;
-extern long _bfd_norelocs_canonicalize_reloc
+extern long long _bfd_norelocs_canonicalize_reloc
   (bfd *, asection *, arelent **, asymbol **) ATTRIBUTE_HIDDEN;
 extern void _bfd_norelocs_set_reloc
   (bfd *, asection *, arelent **, unsigned int) ATTRIBUTE_HIDDEN;
@@ -480,7 +480,7 @@ extern reloc_howto_type *_bfd_norelocs_bfd_reloc_name_lookup
    be written.  Use BFD_JUMP_TABLE_WRITE (_bfd_nowrite).  */
 
 extern bool _bfd_nowrite_set_arch_mach
-  (bfd *, enum bfd_architecture, unsigned long) ATTRIBUTE_HIDDEN;
+  (bfd *, enum bfd_architecture, unsigned long long) ATTRIBUTE_HIDDEN;
 extern bool _bfd_nowrite_set_section_contents
   (bfd *, asection *, const void *, file_ptr, bfd_size_type) ATTRIBUTE_HIDDEN;
 
@@ -541,10 +541,10 @@ extern struct bfd_link_hash_entry *_bfd_nolink_bfd_define_start_stop
 #define _bfd_nodynamic_get_dynamic_symtab_upper_bound _bfd_long_bfd_n1_error
 #define _bfd_nodynamic_canonicalize_dynamic_symtab \
   _bfd_nosymbols_canonicalize_symtab
-extern long _bfd_nodynamic_get_synthetic_symtab
-  (bfd *, long, asymbol **, long, asymbol **, asymbol **) ATTRIBUTE_HIDDEN;
+extern long long _bfd_nodynamic_get_synthetic_symtab
+  (bfd *, long long, asymbol **, long long, asymbol **, asymbol **) ATTRIBUTE_HIDDEN;
 #define _bfd_nodynamic_get_dynamic_reloc_upper_bound _bfd_long_bfd_n1_error
-extern long _bfd_nodynamic_canonicalize_dynamic_reloc
+extern long long _bfd_nodynamic_canonicalize_dynamic_reloc
   (bfd *, arelent **, asymbol **) ATTRIBUTE_HIDDEN;
 
 /* Generic routine to determine of the given symbol is a local
@@ -553,7 +553,7 @@ extern bool bfd_generic_is_local_label_name
   (bfd *, const char *) ATTRIBUTE_HIDDEN;
 
 /* Generic minisymbol routines.  */
-extern long _bfd_generic_read_minisymbols
+extern long long _bfd_generic_read_minisymbols
   (bfd *, bool, void **, unsigned int *) ATTRIBUTE_HIDDEN;
 extern asymbol *_bfd_generic_minisymbol_to_symbol
   (bfd *, bool, const void *, asymbol *) ATTRIBUTE_HIDDEN;

@@ -153,7 +153,7 @@ static void elf_debug_file (Elf_Internal_Ehdr *);
 /* Structure swapping routines */
 
 /* Should perhaps use put_offset, put_word, etc.  For now, the two versions
-   can be handled by explicitly specifying 32 bits or "the long type".  */
+   can be handled by explicitly specifying 32 bits or "the long long type".  */
 #if ARCH_SIZE == 64
 #define H_PUT_WORD		H_PUT_64
 #define H_PUT_SIGNED_WORD	H_PUT_S64
@@ -865,7 +865,7 @@ elf_object_p (bfd *abfd)
 	   || elf_section_data (s)->this_hdr.sh_type == SHT_RELA)
 	  && elf_section_data (s)->this_hdr.sh_info > 0)
 	{
-	  unsigned long targ_index;
+	  unsigned long long targ_index;
 	  asection *targ_sec;
 
 	  targ_index = elf_section_data (s)->this_hdr.sh_info;
@@ -1188,12 +1188,12 @@ elf_checksum_contents (bfd *abfd,
   return true;
 }
 
-long
+long long
 elf_slurp_symbol_table (bfd *abfd, asymbol **symptrs, bool dynamic)
 {
   Elf_Internal_Shdr *hdr;
   Elf_Internal_Shdr *verhdr;
-  unsigned long symcount;	/* Number of external ELF symbols */
+  unsigned long long symcount;	/* Number of external ELF symbols */
   elf_symbol_type *sym;		/* Pointer to current bfd symbol */
   elf_symbol_type *symbase;	/* Buffer for generated bfd symbols */
   Elf_Internal_Sym *isym;
@@ -1433,7 +1433,7 @@ elf_slurp_symbol_table (bfd *abfd, asymbol **symptrs, bool dynamic)
   /* Fill in the user's symbol pointer vector if needed.  */
   if (symptrs)
     {
-      long l = symcount;
+      long long l = symcount;
 
       sym = symbase;
       while (l-- > 0)
@@ -1523,7 +1523,7 @@ elf_slurp_reloc_table_from_section (bfd *abfd,
 	  _bfd_error_handler
 	    /* xgettext:c-format */
 	    (_("%pB(%pA): relocation %d has invalid symbol index %ld"),
-	     abfd, asect, i, (long) ELF_R_SYM (rela.r_info));
+	     abfd, asect, i, (long long) ELF_R_SYM (rela.r_info));
 	  bfd_set_error (bfd_error_bad_value);
 	  relent->sym_ptr_ptr = bfd_abs_section_ptr->symbol_ptr_ptr;
 	}
@@ -1646,24 +1646,24 @@ elf_debug_section (int num, Elf_Internal_Shdr *hdr)
 {
   fprintf (stderr, "\nSection#%d '%s' 0x%.8lx\n", num,
 	   hdr->bfd_section != NULL ? hdr->bfd_section->name : "",
-	   (long) hdr);
+	   (long long) hdr);
   fprintf (stderr,
 	   "sh_name      = %ld\tsh_type      = %ld\tsh_flags     = %ld\n",
-	   (long) hdr->sh_name,
-	   (long) hdr->sh_type,
-	   (long) hdr->sh_flags);
+	   (long long) hdr->sh_name,
+	   (long long) hdr->sh_type,
+	   (long long) hdr->sh_flags);
   fprintf (stderr,
 	   "sh_addr      = %ld\tsh_offset    = %ld\tsh_size      = %ld\n",
-	   (long) hdr->sh_addr,
-	   (long) hdr->sh_offset,
-	   (long) hdr->sh_size);
+	   (long long) hdr->sh_addr,
+	   (long long) hdr->sh_offset,
+	   (long long) hdr->sh_size);
   fprintf (stderr,
 	   "sh_link      = %ld\tsh_info      = %ld\tsh_addralign = %ld\n",
-	   (long) hdr->sh_link,
-	   (long) hdr->sh_info,
-	   (long) hdr->sh_addralign);
+	   (long long) hdr->sh_link,
+	   (long long) hdr->sh_info,
+	   (long long) hdr->sh_addralign);
   fprintf (stderr, "sh_entsize   = %ld\n",
-	   (long) hdr->sh_entsize);
+	   (long long) hdr->sh_entsize);
   fflush (stderr);
 }
 #endif
@@ -1672,13 +1672,13 @@ elf_debug_section (int num, Elf_Internal_Shdr *hdr)
 static void
 elf_debug_file (Elf_Internal_Ehdr *ehdrp)
 {
-  fprintf (stderr, "e_entry      = 0x%.8lx\n", (long) ehdrp->e_entry);
-  fprintf (stderr, "e_phoff      = %ld\n", (long) ehdrp->e_phoff);
-  fprintf (stderr, "e_phnum      = %ld\n", (long) ehdrp->e_phnum);
-  fprintf (stderr, "e_phentsize  = %ld\n", (long) ehdrp->e_phentsize);
-  fprintf (stderr, "e_shoff      = %ld\n", (long) ehdrp->e_shoff);
-  fprintf (stderr, "e_shnum      = %ld\n", (long) ehdrp->e_shnum);
-  fprintf (stderr, "e_shentsize  = %ld\n", (long) ehdrp->e_shentsize);
+  fprintf (stderr, "e_entry      = 0x%.8lx\n", (long long) ehdrp->e_entry);
+  fprintf (stderr, "e_phoff      = %ld\n", (long long) ehdrp->e_phoff);
+  fprintf (stderr, "e_phnum      = %ld\n", (long long) ehdrp->e_phnum);
+  fprintf (stderr, "e_phentsize  = %ld\n", (long long) ehdrp->e_phentsize);
+  fprintf (stderr, "e_shoff      = %ld\n", (long long) ehdrp->e_shoff);
+  fprintf (stderr, "e_shnum      = %ld\n", (long long) ehdrp->e_shnum);
+  fprintf (stderr, "e_shentsize  = %ld\n", (long long) ehdrp->e_shentsize);
 }
 #endif
 

@@ -100,7 +100,7 @@ typedef struct verilog_data_struct
 tdata_type;
 
 static bool
-verilog_set_arch_mach (bfd *abfd, enum bfd_architecture arch, unsigned long mach)
+verilog_set_arch_mach (bfd *abfd, enum bfd_architecture arch, unsigned long long mach)
 {
   if (arch != bfd_arch_unknown)
     return bfd_default_set_arch_mach (abfd, arch, mach);
@@ -221,7 +221,7 @@ verilog_write_record (bfd *abfd,
   if (((end - data) * 2) /* Number of hex characters we want to emit.  */
       + ((end - data) / VerilogDataWidth) /* Number of spaces we want to emit.  */
       + 2 /* The carriage return & line feed characters.  */
-      > (long) sizeof (buffer))
+      > (long long) sizeof (buffer))
     {
       /* FIXME: Should we generate an error message ?  */
       return false;

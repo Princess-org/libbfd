@@ -68,7 +68,7 @@
 #include "budbg.h"
 #include "objdump.h"
 
-#if 0 /* HAVE_MMAP */
+#ifdef HAVE_MMAP
 #include <sys/mman.h>
 #endif
 
@@ -200,23 +200,23 @@ static enum bfd_endian endian = BFD_ENDIAN_UNKNOWN;
 static asymbol **syms;
 
 /* Number of symbols in `syms'.  */
-static long symcount = 0;
+static long long symcount = 0;
 
 /* The sorted symbol table.  */
 static asymbol **sorted_syms;
 
 /* Number of symbols in `sorted_syms'.  */
-static long sorted_symcount = 0;
+static long long sorted_symcount = 0;
 
 /* The dynamic symbol table.  */
 static asymbol **dynsyms;
 
 /* The synthetic symbol table.  */
 static asymbol *synthsyms;
-static long synthcount = 0;
+static long long synthcount = 0;
 
 /* Number of symbols in `dynsyms'.  */
-static long dynsymcount = 0;
+static long long dynsymcount = 0;
 
 static bfd_byte *stabs;
 static bfd_size_type stab_size;
@@ -844,11 +844,11 @@ dump_section_header (bfd *abfd, asection *section, void *data)
 
   printf ("%3d %-*s %08lx  ", section->index, longest_section_name,
 	  sanitize_string (bfd_section_name (section)),
-	  (unsigned long) bfd_section_size (section) / opb);
+	  (unsigned long long) bfd_section_size (section) / opb);
   bfd_printf_vma (abfd, bfd_section_vma (section));
   printf ("  ");
   bfd_printf_vma (abfd, section->lma);
-  printf ("  %08lx  2**%u", (unsigned long) section->filepos,
+  printf ("  %08lx  2**%u", (unsigned long long) section->filepos,
 	  bfd_section_alignment (section));
   if (! wide_output)
     printf ("\n                ");
@@ -996,7 +996,7 @@ slurp_symtab (bfd *abfd)
   if (!(bfd_get_file_flags (abfd) & HAS_SYMS))
     return NULL;
 
-  long storage = bfd_get_symtab_upper_bound (abfd);
+  long long storage = bfd_get_symtab_upper_bound (abfd);
   if (storage < 0)
     {
       non_fatal (_("failed to read symbol table from: %s"),
@@ -1025,7 +1025,7 @@ static asymbol **
 slurp_dynamic_symtab (bfd *abfd)
 {
   dynsymcount = 0;
-  long storage = bfd_get_dynamic_symtab_upper_bound (abfd);
+  long long storage = bfd_get_dynamic_symtab_upper_bound (abfd);
   if (storage < 0)
     {
       if (!(bfd_get_file_flags (abfd) & DYNAMIC))
@@ -1067,8 +1067,8 @@ is_significant_symbol_name (const char * name)
    COUNT is the number of elements in SYMBOLS.
    Return the number of useful symbols.  */
 
-static long
-remove_useless_symbols (asymbol **symbols, long count)
+static long long
+remove_useless_symbols (asymbol **symbols, long long count)
 {
   asymbol **in_ptr = symbols, **out_ptr = symbols;
 
@@ -1332,7 +1332,7 @@ objdump_print_symname (bfd *abfd, struct disassemble_info *inf,
 static inline bool
 sym_ok (bool want_section,
 	bfd *abfd ATTRIBUTE_UNUSED,
-	long place,
+	long long place,
 	asection *sec,
 	struct disassemble_info *inf)
 {
@@ -1369,7 +1369,7 @@ sym_ok (bool want_section,
 static asymbol *
 find_symbol_for_address (bfd_vma vma,
 			 struct disassemble_info *inf,
-			 long *place)
+			 long long *place)
 {
   /* @@ Would it speed things up to cache the last two symbols returned,
      and maybe their address ranges?  For many processors, only one memory
@@ -1377,15 +1377,15 @@ find_symbol_for_address (bfd_vma vma,
      constantly churned by code doing heavy memory accesses.  */
 
   /* Indices in `sorted_syms'.  */
-  long min = 0;
-  long max_count = sorted_symcount;
-  long thisplace;
+  long long min = 0;
+  long long max_count = sorted_symcount;
+  long long thisplace;
   struct objdump_disasm_info *aux;
   bfd *abfd;
   asection *sec;
   unsigned int opb;
   bool want_section;
-  long rel_count;
+  long long rel_count;
 
   if (sorted_symcount < 1)
     return NULL;
@@ -1462,8 +1462,8 @@ find_symbol_for_address (bfd_vma vma,
 
   if (! sym_ok (want_section, abfd, thisplace, sec, inf))
     {
-      long i;
-      long newplace = sorted_symcount;
+      long long i;
+      long long newplace = sorted_symcount;
 
       for (i = min - 1; i >= 0; i--)
 	{
@@ -1636,7 +1636,7 @@ objdump_print_addr_with_sym (bfd *abfd, asection *sec, asymbol *sym,
   if (display_file_offsets)
     inf->fprintf_styled_func (inf->stream, dis_style_text,
 			      _(" (File Offset: 0x%lx)"),
-			      (long int)(sec->filepos + (vma - sec->vma)));
+			      (long long int)(sec->filepos + (vma - sec->vma)));
 }
 
 /* Print an address (VMA), symbolically if possible.
@@ -1664,7 +1664,7 @@ objdump_print_addr (bfd_vma vma,
       if (display_file_offsets)
 	inf->fprintf_styled_func (inf->stream, dis_style_text,
 				  _(" (File Offset: 0x%lx)"),
-				  (long int) (inf->section->filepos
+				  (long long int) (inf->section->filepos
 					      + (vma - inf->section->vma)));
       return;
     }
@@ -1911,7 +1911,7 @@ slurp_file (const char *   fn,
 
   *size_return = fst_return->st_size;
 
-#if 0 /*HAVE_MMAP*/
+#ifdef HAVE_MMAP
   ps = getpagesize ();
   msize = (*size_return + ps - 1) & ~(ps - 1);
   map = mmap (NULL, msize, PROT_READ, MAP_SHARED, fd, 0);
@@ -1943,7 +1943,7 @@ index_file (const char *map, size_t size, unsigned int *maxline)
   int chars_per_line = 45; /* First iteration will use 40.  */
   unsigned int lineno;
   const char **linemap = NULL;
-  unsigned long line_map_size = 0;
+  unsigned long long line_map_size = 0;
 
   lineno = 0;
   lstart = map;
@@ -1968,7 +1968,7 @@ index_file (const char *map, size_t size, unsigned int *maxline)
 
       if (linemap == NULL || line_map_size < lineno + 1)
 	{
-	  unsigned long newsize;
+	  unsigned long long newsize;
 
 	  chars_per_line -= line_map_decrease;
 	  if (chars_per_line <= 1)
@@ -2058,7 +2058,7 @@ update_source_path (const char *filename, bfd *abfd)
 
   if (p != NULL)
     {
-      long mtime = bfd_get_mtime (abfd);
+      long long mtime = bfd_get_mtime (abfd);
 
       if (fst.st_mtime > mtime)
 	warn (_("source file %s is more recent than object file\n"),
@@ -3306,8 +3306,8 @@ disassemble_bytes (struct disassemble_info *inf,
 	      && addr_offset + octets / opb < stop_offset)
 	    printf (_("\t... (skipping %lu zeroes, "
 		      "resuming at file offset: 0x%lx)\n"),
-		    (unsigned long) (octets / opb),
-		    (unsigned long) (section->filepos
+		    (unsigned long long) (octets / opb),
+		    (unsigned long long) (section->filepos
 				     + addr_offset + octets / opb));
 	  else
 	    printf ("\t...\n");
@@ -3681,10 +3681,10 @@ disassemble_section (bfd *abfd, asection *section, void *inf)
   arelent **rel_ppend;
   bfd_vma stop_offset;
   asymbol *sym = NULL;
-  long place = 0;
-  long rel_count;
+  long long place = 0;
+  long long rel_count;
   bfd_vma rel_offset;
-  unsigned long addr_offset;
+  unsigned long long addr_offset;
   bool do_print;
   enum loop_control
   {
@@ -3752,7 +3752,7 @@ disassemble_section (bfd *abfd, asection *section, void *inf)
       if ((section->flags & SEC_RELOC) != 0
 	  && (dump_reloc_info || pinfo->disassembler_needs_relocs))
 	{
-	  long relsize;
+	  long long relsize;
 
 	  relsize = bfd_get_reloc_upper_bound (abfd, section);
 	  if (relsize < 0)
@@ -4074,7 +4074,7 @@ disassemble_data (bfd *abfd)
 {
   struct disassemble_info disasm_info;
   struct objdump_disasm_info aux;
-  long i;
+  long long i;
 
   print_files = NULL;
   prev_functionname = NULL;
@@ -4172,7 +4172,7 @@ disassemble_data (bfd *abfd)
   disassemble_init_for_target (& disasm_info);
 
   /* Pre-load the dynamic relocs as we may need them during the disassembly.  */
-  long relsize = bfd_get_dynamic_reloc_upper_bound (abfd);
+  long long relsize = bfd_get_dynamic_reloc_upper_bound (abfd);
 
   if (relsize > 0)
     {
@@ -4254,11 +4254,11 @@ load_specific_debug_section (enum dwarf_section_display_enum debug,
 						       syms) != NULL;
       if (ret)
 	{
-	  long reloc_size = bfd_get_reloc_upper_bound (abfd, sec);
+	  long long reloc_size = bfd_get_reloc_upper_bound (abfd, sec);
 
 	  if (reloc_size > 0)
 	    {
-	      long reloc_count;
+	      long long reloc_count;
 	      arelent **relocs;
 
 	      relocs = (arelent **) xmalloc (reloc_size);
@@ -4531,7 +4531,7 @@ print_section_stabs (bfd *abfd,
   for (i = -1; (size_t) (stabs_end - stabp) >= STABSIZE; stabp += STABSIZE, i++)
     {
       const char *name;
-      unsigned long strx;
+      unsigned long long strx;
       unsigned char type, other;
       unsigned short desc;
       bfd_vma value;
@@ -5014,7 +5014,7 @@ dump_section (bfd *abfd, asection *section, void *dummy ATTRIBUTE_UNUSED)
   printf (_("Contents of section %s:"), sanitize_string (section->name));
   if (display_file_offsets)
     printf (_("  (Starting at file offset: 0x%lx)"),
-	    (unsigned long) (section->filepos + start_offset));
+	    (unsigned long long) (section->filepos + start_offset));
   printf ("\n");
 
   if (!bfd_get_full_section_contents (abfd, section, &data))
@@ -5106,8 +5106,8 @@ static void
 dump_symbols (bfd *abfd ATTRIBUTE_UNUSED, bool dynamic)
 {
   asymbol **current;
-  long max_count;
-  long count;
+  long long max_count;
+  long long count;
 
   if (dynamic)
     {
@@ -5190,7 +5190,7 @@ dump_symbols (bfd *abfd ATTRIBUTE_UNUSED, bool dynamic)
 }
 
 static void
-dump_reloc_set (bfd *abfd, asection *sec, arelent **relpp, long relcount)
+dump_reloc_set (bfd *abfd, asection *sec, arelent **relpp, long long relcount)
 {
   arelent **p;
   char *last_filename, *last_functionname;
@@ -5367,8 +5367,8 @@ dump_relocs_in_section (bfd *abfd,
 			void *dummy ATTRIBUTE_UNUSED)
 {
   arelent **relpp;
-  long relcount;
-  long relsize;
+  long long relcount;
+  long long relsize;
 
   if (   bfd_is_abs_section (section)
       || bfd_is_und_section (section)
@@ -5424,9 +5424,9 @@ dump_relocs (bfd *abfd)
 static void
 dump_dynamic_relocs (bfd *abfd)
 {
-  long relsize;
+  long long relsize;
   arelent **relpp;
-  long relcount;
+  long long relcount;
 
   relsize = bfd_get_dynamic_reloc_upper_bound (abfd);
 
@@ -5614,7 +5614,7 @@ dump_bfd (bfd *abfd, bool is_mainfile)
 	  for (i = first_separate_info; i != NULL; i = i->next)
 	    {
 	      asymbol **  extra_syms;
-	      long        old_symcount = symcount;
+	      long long        old_symcount = symcount;
 
 	      extra_syms = slurp_symtab (i->handle);
 
@@ -5897,7 +5897,7 @@ main (int argc, char **argv)
       switch (c)
 	{
 	case 0:
-	  break;		/* We've been given a long option.  */
+	  break;		/* We've been given a long long option.  */
 	case 'm':
 	  machine = optarg;
 	  break;

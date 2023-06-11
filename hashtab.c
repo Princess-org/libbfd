@@ -67,7 +67,7 @@ Boston, MA 02110-1301, USA.  */
 #define CHAR_BIT 8
 #endif
 
-static unsigned int higher_prime_index (unsigned long);
+static unsigned int higher_prime_index (unsigned long long);
 static hashval_t htab_mod_1 (hashval_t, hashval_t, hashval_t, int);
 static hashval_t htab_mod (hashval_t, htab_t);
 static hashval_t htab_mod_m2 (hashval_t, htab_t);
@@ -170,7 +170,7 @@ static struct prime_ent const prime_tab[] = {
    nearest prime number which is greater than N, and near a power of two. */
 
 static unsigned int
-higher_prime_index (unsigned long n)
+higher_prime_index (unsigned long long n)
 {
   unsigned int low = 0;
   unsigned int high = sizeof(prime_tab) / sizeof(prime_tab[0]);

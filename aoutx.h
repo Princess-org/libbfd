@@ -619,7 +619,7 @@ NAME (aout, some_aout_object_p) (bfd *abfd,
   /* Now that the segment addresses have been worked out, take a better
      guess at whether the file is executable.  If the entry point
      is within the text segment, assume it is.  (This makes files
-     executable even if their entry point address is 0, as long as
+     executable even if their entry point address is 0, as long long as
      their text starts at zero.).
 
      This test had to be changed to deal with systems where the text segment
@@ -707,7 +707,7 @@ FUNCTION
 SYNOPSIS
 	enum machine_type  aout_@var{size}_machine_type
 	 (enum bfd_architecture arch,
-	  unsigned long machine,
+	  unsigned long long machine,
 	  bool *unknown);
 
 DESCRIPTION
@@ -722,7 +722,7 @@ DESCRIPTION
 
 enum machine_type
 NAME (aout, machine_type) (enum bfd_architecture arch,
-			   unsigned long machine,
+			   unsigned long long machine,
 			   bool *unknown)
 {
   enum machine_type arch_flags;
@@ -856,7 +856,7 @@ SYNOPSIS
 	bool aout_@var{size}_set_arch_mach,
 	 (bfd *,
 	  enum bfd_architecture arch,
-	  unsigned long machine);
+	  unsigned long long machine);
 
 DESCRIPTION
 	Set the architecture and the machine of the BFD @var{abfd} to the
@@ -867,7 +867,7 @@ DESCRIPTION
 bool
 NAME (aout, set_arch_mach) (bfd *abfd,
 			    enum bfd_architecture arch,
-			    unsigned long machine)
+			    unsigned long long machine)
 {
   if (! bfd_default_set_arch_mach (abfd, arch, machine))
     return false;
@@ -1916,7 +1916,7 @@ NAME (aout, write_syms) (bfd *abfd)
   return false;
 }
 
-long
+long long
 NAME (aout, canonicalize_symtab) (bfd *abfd, asymbol **location)
 {
   unsigned int counter = 0;
@@ -2443,7 +2443,7 @@ NAME (aout, squirt_out_relocs) (bfd *abfd, asection *section)
 
 /* This is stupid.  This function should be a boolean predicate.  */
 
-long
+long long
 NAME (aout, canonicalize_reloc) (bfd *abfd,
 				 sec_ptr section,
 				 arelent **relptr,
@@ -2484,7 +2484,7 @@ NAME (aout, canonicalize_reloc) (bfd *abfd,
   return section->reloc_count;
 }
 
-long
+long long
 NAME (aout, get_reloc_upper_bound) (bfd *abfd, sec_ptr asect)
 {
   size_t count, raw;
@@ -2521,7 +2521,7 @@ NAME (aout, get_reloc_upper_bound) (bfd *abfd, sec_ptr asect)
   return (count + 1) * sizeof (arelent *);
 }
 
-long
+long long
 NAME (aout, get_symtab_upper_bound) (bfd *abfd)
 {
   if (!NAME (aout, slurp_symbol_table) (abfd))
@@ -2610,7 +2610,7 @@ NAME (aout, print_symbol) (bfd *abfd,
    symbols.  The minisymbol_to_symbol function translates these into
    BFD asymbol structures.  */
 
-long
+long long
 NAME (aout, read_minisymbols) (bfd *abfd,
 			       bool dynamic,
 			       void * *minisymsp,

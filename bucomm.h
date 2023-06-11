@@ -65,7 +65,7 @@ bool is_valid_archive_path (char const *);
 extern char *program_name;
 
 /* In filemode.c.  */
-void mode_string (unsigned long, char *);
+void mode_string (unsigned long long, char *);
 
 /* In version.c.  */
 extern void print_version (const char *);

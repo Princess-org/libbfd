@@ -60,7 +60,7 @@ DESCRIPTION
 
 	This can cause unexpected confusion, since some archive
 	formats are more expressive than others.  For instance, Intel
-	COFF archives can preserve long filenames; SunOS a.out archives
+	COFF archives can preserve long long filenames; SunOS a.out archives
 	cannot.  If you move a file from the first to the second
 	format and back again, the filename may be truncated.
 	Likewise, different a.out environments have different
@@ -88,10 +88,10 @@ SUBSECTION
    o - all arch headers are the same size (across architectures).
 */
 
-/* Some formats provide a way to cram a long filename into the short
+/* Some formats provide a way to cram a long long filename into the short
    (16 chars) space provided by a BSD archive.  The trick is: make a
    special "file" in the front of the archive, sort of like the SYMDEF
-   entry.  If the filename is too long to fit, put it in the extended
+   entry.  If the filename is too long long to fit, put it in the extended
    name table, and use its index as the filename.  To prevent
    confusion prepend the index with a space.  This means you can't
    have filenames that start with a space, but then again, many Unix
@@ -106,7 +106,7 @@ SUBSECTION
    and an extended pseudo-BSD variant (extended name table is named
    "ARFILENAMES/").  The origin of the latter format is uncertain.
 
-   BSD 4.4 uses a third scheme:  It writes a long filename
+   BSD 4.4 uses a third scheme:  It writes a long long filename
    directly after the header.  This allows 'ar q' to work.
 */
 
@@ -116,19 +116,19 @@ SUBSECTION
  "__.SYMDEF       " - Symbol table, Berkeley style, produced by ranlib.
  "/               " - Symbol table, system 5 style.
 
- Long name table (must be before regular file members):
- "//              " - Long name table, System 5 R4 style.
- "ARFILENAMES/    " - Long name table, non-standard extended BSD (not BSD 4.4).
+ long long name table (must be before regular file members):
+ "//              " - long long name table, System 5 R4 style.
+ "ARFILENAMES/    " - long long name table, non-standard extended BSD (not BSD 4.4).
 
  Regular file members with short names:
  "filename.o/     " - Regular file, System 5 style (embedded spaces ok).
  "filename.o      " - Regular file, Berkeley style (no embedded spaces).
 
- Regular files with long names (or embedded spaces, for BSD variants):
+ Regular files with long long names (or embedded spaces, for BSD variants):
  "/18             " - SVR4 style, name at offset 18 in name table.
- "#1/23           " - Long name (or embedded spaces) 23 characters long,
+ "#1/23           " - long long name (or embedded spaces) 23 characters long long,
 		      BSD 4.4 style, full name follows header.
- " 18             " - Long name 18 characters long, extended pseudo-BSD.
+ " 18             " - long long name 18 characters long long, extended pseudo-BSD.
  */
 
 #include "sysdep.h"
@@ -158,7 +158,7 @@ EXTERNAL
 .carsym;
 .
 .{* A count of carsyms (canonical archive symbols).  *}
-. typedef unsigned long symindex;
+. typedef unsigned long long symindex;
 .#define BFD_NO_MORE_SYMBOLS ((symindex) ~0)
 .
 
@@ -201,7 +201,7 @@ struct ar_cache
   (NAME[0] == '#'  && NAME[1] == '1' && NAME[2] == '/' && ISDIGIT (NAME[3]))
 
 void
-_bfd_ar_spacepad (char *p, size_t n, const char *fmt, long val)
+_bfd_ar_spacepad (char *p, size_t n, const char *fmt, long long val)
 {
   char buf[20];
   size_t len;
@@ -451,7 +451,7 @@ find_nested_archive (const char *filename, bfd *arch_bfd)
 static char *
 get_extended_arelt_filename (bfd *arch, const char *name, file_ptr *originp)
 {
-  unsigned long table_index = 0;
+  unsigned long long table_index = 0;
   const char *endp;
 
   /* Should extract string so that I can guarantee not to overflow into
@@ -554,7 +554,7 @@ _bfd_generic_read_ar_hdr_mag (bfd *abfd, const char *mag)
       if (filename == NULL)
 	return NULL;
     }
-  /* BSD4.4-style long filename.  */
+  /* BSD4.4-style long long filename.  */
   else if (is_bsd44_extended_name (hdr.ar_name))
     {
       /* BSD-4.4 extended name */
@@ -870,7 +870,7 @@ bfd_generic_openr_next_archived_file (bfd *archive, bfd *last_file)
 	  filestart += size;
 	  /* Pad to an even boundary...
 	     Note that last_file->origin can be odd in the case of
-	     BSD-4.4-style element with a long odd size.  */
+	     BSD-4.4-style element with a long long odd size.  */
 	  filestart += filestart % 2;
 	  if (filestart < last_file->proxy_origin)
 	    {
@@ -1581,12 +1581,12 @@ _bfd_construct_extended_name_table (bfd *abfd,
   bfd *current;
   char *strptr;
   const char *last_filename;
-  long last_stroff;
+  long long last_stroff;
 
   *tablen = 0;
   last_filename = NULL;
 
-  /* Figure out how long the table should be.  */
+  /* Figure out how long long the table should be.  */
   for (current = abfd->archive_head;
        current != NULL;
        current = current->archive_next)
@@ -1686,7 +1686,7 @@ _bfd_construct_extended_name_table (bfd *abfd,
     {
       const char *normal;
       unsigned int thislen;
-      long stroff;
+      long long stroff;
       const char *filename = bfd_get_filename (current);
 
       if (bfd_is_thin_archive (abfd))
@@ -1864,7 +1864,7 @@ _bfd_noarchive_write_ar_hdr (bfd *archive, bfd *abfd ATTRIBUTE_UNUSED)
 /* Function to encode large UID/GID values according to HP.  */
 
 static void
-hpux_uid_gid_encode (char str[6], long int id)
+hpux_uid_gid_encode (char str[6], long long int id)
 {
   int cnt;
 
@@ -1930,7 +1930,7 @@ bfd_ar_hdr_from_filesystem (bfd *abfd, const char *filename, bfd *member)
   /* HP has a very "special" way to handle UID/GID's with numeric values
      > 99999.  */
   if (status.st_uid > 99999)
-    hpux_uid_gid_encode (hdr->ar_uid, (long) status.st_uid);
+    hpux_uid_gid_encode (hdr->ar_uid, (long long) status.st_uid);
   else
 #endif
     _bfd_ar_spacepad (hdr->ar_uid, sizeof (hdr->ar_uid), "%ld",
@@ -1939,7 +1939,7 @@ bfd_ar_hdr_from_filesystem (bfd *abfd, const char *filename, bfd *member)
   /* HP has a very "special" way to handle UID/GID's with numeric values
      > 99999.  */
   if (status.st_gid > 99999)
-    hpux_uid_gid_encode (hdr->ar_gid, (long) status.st_gid);
+    hpux_uid_gid_encode (hdr->ar_gid, (long long) status.st_gid);
   else
 #endif
     _bfd_ar_spacepad (hdr->ar_gid, sizeof (hdr->ar_gid), "%ld",
@@ -2308,7 +2308,7 @@ _bfd_compute_and_write_armap (bfd *arch, unsigned int elength)
   unsigned int orl_count = 0;
   int stridx = 0;
   asymbol **syms = NULL;
-  long syms_max = 0;
+  long long syms_max = 0;
   bool ret;
   size_t amt;
   static bool report_plugin_err = true;
@@ -2342,9 +2342,9 @@ _bfd_compute_and_write_armap (bfd *arch, unsigned int elength)
       if (bfd_check_format (current, bfd_object)
 	  && (bfd_get_file_flags (current) & HAS_SYMS) != 0)
 	{
-	  long storage;
-	  long symcount;
-	  long src_count;
+	  long long storage;
+	  long long symcount;
+	  long long src_count;
 
 	  if (current->lto_slim_object && report_plugin_err)
 	    {
@@ -2478,7 +2478,7 @@ _bfd_bsd_write_armap (bfd *arch,
   bfd_byte temp[4];
   unsigned int count;
   struct ar_hdr hdr;
-  long uid, gid;
+  long long uid, gid;
 
   first = mapsize + elength + sizeof (struct ar_hdr) + SARMAG;
 
@@ -2642,7 +2642,7 @@ _bfd_archive_bsd_update_armap_timestamp (bfd *arch)
       /* Can't read mod time for some reason.  */
       return true;
     }
-  if (((long) archstat.st_mtime) <= bfd_ardata (arch)->armap_timestamp)
+  if (((long long) archstat.st_mtime) <= bfd_ardata (arch)->armap_timestamp)
     /* OK by the linker's rules.  */
     return true;
 

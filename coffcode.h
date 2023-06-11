@@ -93,7 +93,7 @@ SUBSUBSECTION
 	the target source file itself.
 
 SUBSUBSECTION
-	Coff long section names
+	Coff long long section names
 
 	In the standard Coff object format, section names are limited to
 	the eight bytes available in the @code{s_name} field of the
@@ -102,9 +102,9 @@ SUBSUBSECTION
 	the longest section names permitted are a full eight characters.
 
 	The Microsoft PE variants of the Coff object file format add
-	an extension to support the use of long section names.  This
+	an extension to support the use of long long section names.  This
 	extension is defined in section 4 of the Microsoft PE/COFF
-	specification (rev 8.1).  If a section name is too long to fit
+	specification (rev 8.1).  If a section name is too long long to fit
 	into the section header's @code{s_name} field, it is instead
 	placed into the string table, and the @code{s_name} field is
 	filled with a slash ("/") followed by the ASCII decimal
@@ -113,11 +113,11 @@ SUBSUBSECTION
 
 	Note that this implies that the extension can only be used in object
 	files, as executables do not contain a string table.  The standard
-	specifies that long section names from objects emitted into executable
+	specifies that long long section names from objects emitted into executable
 	images are to be truncated.
 
 	However, as a GNU extension, BFD can generate executable images
-	that contain a string table and long section names.  This
+	that contain a string table and long long section names.  This
 	would appear to be technically valid, as the standard only says
 	that Coff debugging information is deprecated, not forbidden,
 	and in practice it works, although some tools that parse PE files
@@ -126,20 +126,20 @@ SUBSUBSECTION
 
 	The functionality is supported in BFD by code implemented under
 	the control of the macro @code{COFF_LONG_SECTION_NAMES}.  If not
-	defined, the format does not support long section names in any way.
+	defined, the format does not support long long section names in any way.
 	If defined, it is used to initialise a flag,
 	@code{_bfd_coff_long_section_names}, and a hook function pointer,
 	@code{_bfd_coff_set_long_section_names}, in the Coff backend data
-	structure.  The flag controls the generation of long section names
+	structure.  The flag controls the generation of long long section names
 	in output BFDs at runtime; if it is false, as it will be by default
-	when generating an executable image, long section names are truncated;
-	if true, the long section names extension is employed.  The hook
+	when generating an executable image, long long section names are truncated;
+	if true, the long long section names extension is employed.  The hook
 	points to a function that allows the value of a copy of the flag
 	in coff object tdata to be altered at runtime, on formats that
-	support long section names at all; on other formats it points
+	support long long section names at all; on other formats it points
 	to a stub that returns an error indication.
 
-	With input BFDs, the flag is set according to whether any long section
+	With input BFDs, the flag is set according to whether any long long section
 	names are detected while reading the section headers.  For a completely
 	new BFD, the flag is set to the default for the target format.  This
 	information can be used by a client of the BFD library when deciding
@@ -148,7 +148,7 @@ SUBSUBSECTION
 	in-place will retain whatever format it had on input.
 
 	If @code{COFF_LONG_SECTION_NAMES} is simply defined (blank), or is
-	defined to the value "1", then long section names are enabled by
+	defined to the value "1", then long long section names are enabled by
 	default; if it is defined to the value zero, they are disabled by
 	default (but still accepted in input BFDs).  The header @file{coffcode.h}
 	defines a macro, @code{COFF_DEFAULT_LONG_SECTION_NAMES}, which is
@@ -216,7 +216,7 @@ SUBSUBSECTION
 	(@code{".file"}).
 
 	At this time the symbol names are moved around. Coff stores
-	all symbols less than nine characters long physically
+	all symbols less than nine characters long long physically
 	within the symbol table; longer strings are kept at the end of
 	the file in the string table. This pass moves all strings
 	into memory and replaces them with pointers to the strings.
@@ -384,21 +384,21 @@ CODE_FRAGMENT
 /* If the input macro Y is blank or '1', return an odd number; if it is
    '0', return an even number.  Result undefined in all other cases.  */
 #define BLANKOR1TOODD(y)		 COFFLONGSECTIONCATHELPER(1,y)
-/* Defined to numerical 0 or 1 according to whether generation of long
+/* Defined to numerical 0 or 1 according to whether generation of long long
    section names is disabled or enabled by default.  */
 #define COFF_ENABLE_LONG_SECTION_NAMES   (BLANKOR1TOODD(COFF_LONG_SECTION_NAMES) & 1)
-/* Where long section names are supported, we allow them to be enabled
+/* Where long long section names are supported, we allow them to be enabled
    and disabled at runtime, so select an appropriate hook function for
    _bfd_coff_set_long_section_names.  */
 #define COFF_LONG_SECTION_NAMES_SETTER   bfd_coff_set_long_section_names_allowed
 #else /* !defined (COFF_LONG_SECTION_NAMES) */
-/* If long section names are not supported, this stub disallows any
+/* If long long section names are not supported, this stub disallows any
    attempt to enable them at run-time.  */
 #define COFF_LONG_SECTION_NAMES_SETTER   bfd_coff_set_long_section_names_disallowed
 #endif /* defined (COFF_LONG_SECTION_NAMES) */
 
 /* Define a macro that can be used to initialise both the fields relating
-   to long section names in the backend data struct simultaneously.  */
+   to long long section names in the backend data struct simultaneously.  */
 #if COFF_ENABLE_LONG_SECTION_NAMES
 #define COFF_DEFAULT_LONG_SECTION_NAMES  (true), COFF_LONG_SECTION_NAMES_SETTER
 #else /* !COFF_ENABLE_LONG_SECTION_NAMES */
@@ -447,10 +447,10 @@ bfd_coff_set_long_section_names_disallowed (bfd *abfd ATTRIBUTE_UNUSED,
 #define STYP_DEBUG_INFO STYP_INFO
 #endif
 
-static long
+static long long
 sec_to_styp_flags (const char *sec_name, flagword sec_flags)
 {
-  long styp_flags = 0;
+  long long styp_flags = 0;
 
   if (!strcmp (sec_name, _TEXT))
     {
@@ -591,10 +591,10 @@ sec_to_styp_flags (const char *sec_name, flagword sec_flags)
    should be set up properly in gas (or whatever assembler is in use),
    and honor whatever objcopy/strip, etc. sent us as input.  */
 
-static long
+static long long
 sec_to_styp_flags (const char *sec_name, flagword sec_flags)
 {
-  long styp_flags = 0;
+  long long styp_flags = 0;
   bool is_dbg = false;
 
   if (startswith (sec_name, DOT_DEBUG)
@@ -692,7 +692,7 @@ styp_to_sec_flags (bfd *abfd,
 		   flagword *flags_ptr)
 {
   struct internal_scnhdr *internal_s = (struct internal_scnhdr *) hdr;
-  unsigned long styp_flags = internal_s->s_flags;
+  unsigned long long styp_flags = internal_s->s_flags;
   flagword sec_flags = 0;
 
 #ifdef STYP_BLOCK
@@ -1145,7 +1145,7 @@ styp_to_sec_flags (bfd *abfd,
 		   flagword *flags_ptr)
 {
   struct internal_scnhdr *internal_s = (struct internal_scnhdr *) hdr;
-  unsigned long styp_flags = internal_s->s_flags;
+  unsigned long long styp_flags = internal_s->s_flags;
   flagword sec_flags;
   bool result = true;
   bool is_dbg = false;
@@ -1173,7 +1173,7 @@ styp_to_sec_flags (bfd *abfd,
   /* Process each flag bit in styp_flags in turn.  */
   while (styp_flags)
     {
-      unsigned long flag = styp_flags & - styp_flags;
+      unsigned long long flag = styp_flags & - styp_flags;
       char * unhandled = NULL;
 
       styp_flags &= ~ flag;
@@ -2115,7 +2115,7 @@ coff_mkobject_hook (bfd * abfd,
 static bool
 coff_set_arch_mach_hook (bfd *abfd, void * filehdr)
 {
-  unsigned long machine;
+  unsigned long long machine;
   enum bfd_architecture arch;
   struct internal_filehdr *internal_f = (struct internal_filehdr *) filehdr;
 
@@ -2465,7 +2465,7 @@ coff_print_aux (bfd *abfd ATTRIBUTE_UNUSED,
 		     aux->u.auxent.x_csect.x_scnlen.u64);
 	  else
 	    fprintf (file, "%4ld",
-		     (long) (aux->u.auxent.x_csect.x_scnlen.p - table_base));
+		     (long long) (aux->u.auxent.x_csect.x_scnlen.p - table_base));
 	}
       fprintf (file,
 	       " prmhsh %u snhsh %u typ %d algn %d clss %u stb %u snstb %u",
@@ -2873,7 +2873,7 @@ coff_set_flags (bfd * abfd,
 static bool
 coff_set_arch_mach (bfd * abfd,
 		    enum bfd_architecture arch,
-		    unsigned long machine)
+		    unsigned long long machine)
 {
   unsigned dummy1;
   unsigned short dummy2;
@@ -3448,8 +3448,8 @@ coff_write_object_contents (bfd * abfd)
   file_ptr reloc_base;
   file_ptr lineno_base;
   file_ptr sym_base;
-  unsigned long reloc_size = 0, reloc_count = 0;
-  unsigned long lnno_size = 0;
+  unsigned long long reloc_size = 0, reloc_count = 0;
+  unsigned long long lnno_size = 0;
   bool long_section_names;
   asection *text_sec = NULL;
   asection *data_sec = NULL;
@@ -3566,7 +3566,7 @@ coff_write_object_contents (bfd * abfd)
       strncpy (section.s_name, current->name, SCNNMLEN);
 
 #ifdef COFF_LONG_SECTION_NAMES
-      /* Handle long section names as in PE.  This must be compatible
+      /* Handle long long section names as in PE.  This must be compatible
 	 with the code in coff_write_symbols and _bfd_coff_final_link.  */
       if (bfd_coff_long_section_names (abfd))
 	{
@@ -3577,7 +3577,7 @@ coff_write_object_contents (bfd * abfd)
 	    {
 
 	      /* An inherent limitation of the /nnnnnnn notation used to indicate
-		 the offset of the long name in the string table is that we
+		 the offset of the long long name in the string table is that we
 		 cannot address entries beyone the ten million byte boundary.  */
 	      if (string_size < 10000000)
 		{
@@ -3593,21 +3593,21 @@ coff_write_object_contents (bfd * abfd)
 		  /* We do not need to use snprintf here as we have already
 		     verified that string_size is not too big, plus we have
 		     an overlarge buffer, just in case.  */
-		  sprintf (s_name_buf, "/%lu", (unsigned long) string_size);
+		  sprintf (s_name_buf, "/%lu", (unsigned long long) string_size);
 		  /* Then strncpy takes care of any padding for us.  */
 		  strncpy (section.s_name, s_name_buf, SCNNMLEN);
 		}
 	      else
 #ifdef COFF_WITH_PE
 		{
-		  /* PE use a base 64 encoding for long section names whose
+		  /* PE use a base 64 encoding for long long section names whose
 		     index is very large.  But contrary to RFC 4648, there is
 		     no padding: 6 characters must be generated.  */
 		  static const char base64[] =
 		    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 		    "abcdefghijklmnopqrstuvwxyz"
 		    "0123456789+/";
-		  unsigned long off = string_size;
+		  unsigned long long off = string_size;
 		  unsigned i;
 
 		  section.s_name[0] = '/';
@@ -3629,7 +3629,7 @@ coff_write_object_contents (bfd * abfd)
 		  _bfd_error_handler
 		    /* xgettext:c-format */
 		    (_("%pB: section %pA: string table overflow at offset %ld"),
-		    abfd, current, (unsigned long) string_size);
+		    abfd, current, (unsigned long long) string_size);
 		  return false;
 		}
 
@@ -3894,7 +3894,7 @@ coff_write_object_contents (bfd * abfd)
     {
       file_ptr cur_ptr = scn_base
 			 + abfd->section_count * bfd_coff_scnhsz (abfd);
-      long fill_size = (abfd->sections->filepos - cur_ptr);
+      long long fill_size = (abfd->sections->filepos - cur_ptr);
       bfd_byte *b = bfd_zmalloc (fill_size);
       if (b)
 	{
@@ -4082,7 +4082,7 @@ coff_write_object_contents (bfd * abfd)
 #ifdef COFF_LONG_SECTION_NAMES
   else if (long_section_names && ! obj_coff_strings_written (abfd))
     {
-      /* If we have long section names we have to write out the string
+      /* If we have long long section names we have to write out the string
 	 table even if there are no symbols.  */
       if (! coff_write_symbols (abfd))
 	return false;
@@ -4490,7 +4490,7 @@ coff_slurp_line_table (bfd *abfd, asection *asect)
       if (cache_ptr->line_number == 0)
 	{
 	  combined_entry_type * ent;
-	  unsigned long symndx;
+	  unsigned long long symndx;
 	  coff_symbol_type *sym;
 
 	  have_func = false;
@@ -5314,7 +5314,7 @@ coff_rtype_to_howto (bfd *abfd ATTRIBUTE_UNUSED,
 
 /* This is stupid.  This function should be a boolean predicate.  */
 
-static long
+static long long
 coff_canonicalize_reloc (bfd * abfd,
 			 sec_ptr section,
 			 arelent ** relptr,

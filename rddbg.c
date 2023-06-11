@@ -32,9 +32,9 @@
 #include "budbg.h"
 
 static bool read_section_stabs_debugging_info
-  (bfd *, asymbol **, long, void *, bool *);
+  (bfd *, asymbol **, long long, void *, bool *);
 static bool read_symbol_stabs_debugging_info
-  (bfd *, asymbol **, long, void *, bool *);
+  (bfd *, asymbol **, long long, void *, bool *);
 static void save_stab (int, int, bfd_vma, const char *);
 static void stab_context (void);
 static void free_saved_stabs (void);
@@ -43,7 +43,7 @@ static void free_saved_stabs (void);
    pointer.  */
 
 void *
-read_debugging_info (bfd *abfd, asymbol **syms, long symcount,
+read_debugging_info (bfd *abfd, asymbol **syms, long long symcount,
 		     bool no_messages)
 {
   void *dhandle;
@@ -92,7 +92,7 @@ read_debugging_info (bfd *abfd, asymbol **syms, long symcount,
 /* Read stabs in sections debugging information from a BFD.  */
 
 static bool
-read_section_stabs_debugging_info (bfd *abfd, asymbol **syms, long symcount,
+read_section_stabs_debugging_info (bfd *abfd, asymbol **syms, long long symcount,
 				   void *dhandle, bool *pfound)
 {
   static struct
@@ -199,7 +199,7 @@ read_section_stabs_debugging_info (bfd *abfd, asymbol **syms, long symcount,
 		    {
 		      fprintf (stderr, _("%s: %s: stab entry %ld is corrupt, strx = 0x%x, type = %d\n"),
 			       bfd_get_filename (abfd), names[i].secname,
-			       (long) (stab - stabs) / 12, strx, type);
+			       (long long) (stab - stabs) / 12, strx, type);
 		      continue;
 		    }
 
@@ -223,7 +223,7 @@ read_section_stabs_debugging_info (bfd *abfd, asymbol **syms, long symcount,
 			{
 			  fprintf (stderr, _("%s: %s: stab entry %ld is corrupt\n"),
 				   bfd_get_filename (abfd), names[i].secname,
-				   (long) (stab - stabs) / 12);
+				   (long long) (stab - stabs) / 12);
 			  break;
 			}
 
@@ -275,7 +275,7 @@ read_section_stabs_debugging_info (bfd *abfd, asymbol **syms, long symcount,
 /* Read stabs in the symbol table.  */
 
 static bool
-read_symbol_stabs_debugging_info (bfd *abfd, asymbol **syms, long symcount,
+read_symbol_stabs_debugging_info (bfd *abfd, asymbol **syms, long long symcount,
 				  void *dhandle, bool *pfound)
 {
   void *shandle;

@@ -394,7 +394,7 @@ struct comp_unit
   bfd_byte *info_ptr_unit;
 
   /* The offset into .debug_line of the line number table.  */
-  unsigned long line_offset;
+  unsigned long long line_offset;
 
   /* Pointer to the first child die for the comp unit.  */
   bfd_byte *first_child_die_ptr;
@@ -2733,7 +2733,7 @@ decode_line_info (struct comp_unit *unit)
 	/* xgettext: c-format */
 	(_("DWARF error: line info data is bigger (%#" PRIx64 ")"
 	   " than the space remaining in the section (%#lx)"),
-	 (uint64_t) lh.total_length, (unsigned long) (line_end - line_ptr));
+	 (uint64_t) lh.total_length, (unsigned long long) (line_end - line_ptr));
       bfd_set_error (bfd_error_bad_value);
       return NULL;
     }
@@ -4183,7 +4183,7 @@ scan_unit_for_symbols (struct comp_unit *unit)
 			  _bfd_error_handler (_("DWARF error: could not find "
 						"variable specification "
 						"at offset 0x%lx"),
-					      (unsigned long) attr.u.val);
+					      (unsigned long long) attr.u.val);
 			  break;
 			}
 		    }

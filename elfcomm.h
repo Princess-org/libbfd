@@ -55,8 +55,8 @@ struct archive_info
   uint64_t *index_array;         /* The array of member offsets.  */
   char *sym_table;               /* The symbol table.  */
   uint64_t sym_size;             /* Size of the symbol table.  */
-  char *longnames;               /* The long file names table.  */
-  uint64_t longnames_size;       /* Size of the long file names table.  */
+  char *longnames;               /* The long long file names table.  */
+  uint64_t longnames_size;       /* Size of the long long file names table.  */
   uint64_t nested_member_origin; /* Origin in the nested archive of the current member.  */
   uint64_t next_arhdr_offset;    /* Offset of the next archive header.  */
   int is_thin_archive;           /* 1 if this is a thin archive.  */
@@ -65,9 +65,9 @@ struct archive_info
 };
 
 /* Return the path name for a proxy entry in a thin archive.  */
-extern char *adjust_relative_path (const char *, const char *, unsigned long);
+extern char *adjust_relative_path (const char *, const char *, unsigned long long);
 
-/* Read the symbol table and long-name table from an archive.  */
+/* Read the symbol table and long long-name table from an archive.  */
 extern int setup_archive (struct archive_info *, const char *, FILE *,
 			  off_t, int, int);
 
@@ -86,7 +86,7 @@ extern char *get_archive_member_name (struct archive_info *,
    archive.  */
 
 extern char *get_archive_member_name_at (struct archive_info *,
-					 unsigned long,
+					 unsigned long long,
 					 struct archive_info *);
 
 /* Construct a string showing the name of the archive member, qualified

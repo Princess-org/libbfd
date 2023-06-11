@@ -170,10 +170,10 @@ sec_merge_maybe_resize (struct sec_merge_hash *table, unsigned added)
   if (bfdtab->count + added > table->nbuckets * 2 / 3)
     {
       unsigned i;
-      unsigned long newnb = table->nbuckets * 2;
+      unsigned long long newnb = table->nbuckets * 2;
       struct sec_merge_hash_entry **newv;
       uint64_t *newl;
-      unsigned long alloc;
+      unsigned long long alloc;
 
       while (bfdtab->count + added > newnb * 2 / 3)
 	{
@@ -1110,7 +1110,7 @@ _bfd_merged_section_offset (bfd *output_bfd ATTRIBUTE_UNUSED, asection **psec,
 	return offset;
     }
 
-  long lb = secinfo->ofstolowbound[offset / OFSDIV];
+  long long lb = secinfo->ofstolowbound[offset / OFSDIV];
   *psec = secinfo->reprsec;
 
   /* No need for bounds checking on lb, as we've added a sentinel that's

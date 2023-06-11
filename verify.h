@@ -270,7 +270,7 @@ template <int w>
    diagnostics, and its name is shorter and may be more convenient.  */
 
 #ifdef __PGI
-/* PGI barfs if R is long.  */
+/* PGI barfs if R is long long.  */
 # define verify(R) _GL_VERIFY (R, "verify (...)", -)
 #else
 # define verify(R) _GL_VERIFY (R, "verify (" #R ")", -)

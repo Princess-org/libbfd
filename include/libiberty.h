@@ -160,7 +160,7 @@ extern char *reconcat (char *, const char *, ...) ATTRIBUTE_MALLOC ATTRIBUTE_RET
    strings.  You must pass NULL as the last argument of this function,
    to terminate the list of strings.  */
 
-extern unsigned long concat_length (const char *, ...) ATTRIBUTE_SENTINEL;
+extern unsigned long long concat_length (const char *, ...) ATTRIBUTE_SENTINEL;
 
 /* Concatenate an arbitrary number of strings into a SUPPLIED area of
    memory.  You must pass NULL as the last argument of this function,
@@ -215,7 +215,7 @@ extern int gettimeofday (struct timeval *, void *);
 
 /* Get the amount of time the process has run, in microseconds.  */
 
-extern long get_run_time (void);
+extern long long get_run_time (void);
 
 /* Generate a relocated path to some installation directory.  Allocates
    return value using malloc.  */
@@ -590,10 +590,10 @@ extern int pex_get_status (struct pex_obj *, int count, int *vector);
 
 struct pex_time
 {
-  unsigned long user_seconds;
-  unsigned long user_microseconds;
-  unsigned long system_seconds;
-  unsigned long system_microseconds;
+  unsigned long long user_seconds;
+  unsigned long long user_microseconds;
+  unsigned long long system_seconds;
+  unsigned long long system_microseconds;
 };
 
 extern int pex_get_times (struct pex_obj *, int count,
@@ -692,12 +692,12 @@ extern int strverscmp (const char *, const char *);
 #endif
 
 #if defined(HAVE_DECL_STRTOL) && !HAVE_DECL_STRTOL
-extern long int strtol (const char *nptr,
+extern long long int strtol (const char *nptr,
                         char **endptr, int base);
 #endif
 
 #if defined(HAVE_DECL_STRTOUL) && !HAVE_DECL_STRTOUL
-extern unsigned long int strtoul (const char *nptr,
+extern unsigned long long int strtoul (const char *nptr,
                                   char **endptr, int base);
 #endif
 
@@ -717,7 +717,7 @@ extern unsigned long long int strtoull (const char *nptr,
 extern void setproctitle (const char *name, ...);
 
 /* Increase stack limit if possible.  */
-extern void stack_limit_increase (unsigned long);
+extern void stack_limit_increase (unsigned long long);
 
 #define ARRAY_SIZE(a) (sizeof (a) / sizeof ((a)[0]))
 
@@ -734,7 +734,7 @@ extern void *C_alloca (size_t) ATTRIBUTE_MALLOC;
 # undef C_ALLOCA
 # define ASTRDUP(X) \
   (__extension__ ({ const char *const libiberty_optr = (X); \
-   const unsigned long libiberty_len = strlen (libiberty_optr) + 1; \
+   const unsigned long long libiberty_len = strlen (libiberty_optr) + 1; \
    char *const libiberty_nptr = (char *) alloca (libiberty_len); \
    (char *) memcpy (libiberty_nptr, libiberty_optr, libiberty_len); }))
 #else
@@ -745,7 +745,7 @@ extern void *C_alloca (size_t) ATTRIBUTE_MALLOC;
 # define C_ALLOCA 1
 extern const char *libiberty_optr;
 extern char *libiberty_nptr;
-extern unsigned long libiberty_len;
+extern unsigned long long libiberty_len;
 # define ASTRDUP(X) \
   (libiberty_optr = (X), \
    libiberty_len = strlen (libiberty_optr) + 1, \

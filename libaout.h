@@ -218,7 +218,7 @@ struct aout_backend_data
 
 struct internal_exec
 {
-  long a_info;			/* Magic number and flags, packed.  */
+  long long a_info;			/* Magic number and flags, packed.  */
   bfd_vma a_text;		/* Length of text, in bytes.  */
   bfd_vma a_data;		/* Length of data, in bytes.  */
   bfd_vma a_bss;		/* Length of uninitialized data area in mem.  */
@@ -314,7 +314,7 @@ enum machine_type
 
 #ifndef N_SET_DYNAMIC
 # define N_SET_DYNAMIC(execp, dynamic) \
-((execp)->a_info = (dynamic) ? (long) ((execp)->a_info | 0x80000000) : \
+((execp)->a_info = (dynamic) ? (long long) ((execp)->a_info | 0x80000000) : \
 ((execp)->a_info & 0x7fffffff))
 #endif
 
@@ -385,14 +385,14 @@ struct aoutdata
   unsigned symbol_entry_size;
 
   /* Page size - needed for alignment of demand paged files.  */
-  unsigned long page_size;
+  unsigned long long page_size;
 
   /* Segment size - needed for alignment of demand paged files.  */
-  unsigned long segment_size;
+  unsigned long long segment_size;
 
   /* Zmagic disk block size - need to align the start of the text
      section in ZMAGIC binaries.  Normally the same as page_size.  */
-  unsigned long zmagic_disk_block_size;
+  unsigned long long zmagic_disk_block_size;
 
   unsigned exec_bytes_size;
   unsigned vma_adjusted : 1;
@@ -483,10 +483,10 @@ extern bool NAME (aout, mkobject)
   (bfd *);
 
 extern enum machine_type NAME (aout, machine_type)
-  (enum bfd_architecture, unsigned long, bool *);
+  (enum bfd_architecture, unsigned long long, bool *);
 
 extern bool NAME (aout, set_arch_mach)
-  (bfd *, enum bfd_architecture, unsigned long);
+  (bfd *, enum bfd_architecture, unsigned long long);
 
 extern bool NAME (aout, new_section_hook)
   (bfd *, asection *);
@@ -510,10 +510,10 @@ extern bool NAME (aout, write_syms)
 extern void NAME (aout, reclaim_symbol_table)
   (bfd *);
 
-extern long NAME (aout, get_symtab_upper_bound)
+extern long long NAME (aout, get_symtab_upper_bound)
   (bfd *);
 
-extern long NAME (aout, canonicalize_symtab)
+extern long long NAME (aout, canonicalize_symtab)
   (bfd *, asymbol **);
 
 extern void NAME (aout, swap_ext_reloc_in)
@@ -533,10 +533,10 @@ extern reloc_howto_type * NAME (aout, reloc_name_lookup)
 extern bool NAME (aout, slurp_reloc_table)
   (bfd *, sec_ptr, asymbol **);
 
-extern long NAME (aout, canonicalize_reloc)
+extern long long NAME (aout, canonicalize_reloc)
   (bfd *, sec_ptr, arelent **, asymbol **);
 
-extern long NAME (aout, get_reloc_upper_bound)
+extern long long NAME (aout, get_reloc_upper_bound)
   (bfd *, sec_ptr);
 
 extern void NAME (aout, reclaim_reloc)
@@ -555,7 +555,7 @@ extern bool NAME (aout, find_nearest_line)
   (bfd *, asymbol **, asection *, bfd_vma,
    const char **, const char **, unsigned int *, unsigned int *);
 
-extern long NAME (aout, read_minisymbols)
+extern long long NAME (aout, read_minisymbols)
   (bfd *, bool, void * *, unsigned int *);
 
 extern asymbol * NAME (aout, minisymbol_to_symbol)

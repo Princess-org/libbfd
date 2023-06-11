@@ -63,10 +63,10 @@ SUBSECTION
 	allocating storage, and the actual reading process. This is an
 	excerpt from an application which reads the symbol table:
 
-|         long storage_needed;
+|         long long storage_needed;
 |         asymbol **symbol_table;
-|         long number_of_symbols;
-|         long i;
+|         long long number_of_symbols;
+|         long long i;
 |
 |         storage_needed = bfd_get_symtab_upper_bound (abfd);
 |
@@ -807,15 +807,15 @@ DESCRIPTION
    This is used when the backend does not provide a more efficient
    version.  It just uses BFD asymbol structures as mini symbols.  */
 
-long
+long long
 _bfd_generic_read_minisymbols (bfd *abfd,
 			       bool dynamic,
 			       void **minisymsp,
 			       unsigned int *sizep)
 {
-  long storage;
+  long long storage;
   asymbol **syms = NULL;
-  long symcount;
+  long long symcount;
 
   if (dynamic)
     storage = bfd_get_dynamic_symtab_upper_bound (abfd);
@@ -1005,7 +1005,7 @@ _bfd_stab_section_find_nearest_line (bfd *abfd,
     }
   else
     {
-      long reloc_size, reloc_count;
+      long long reloc_size, reloc_count;
       arelent **reloc_vector;
       int i;
       char *function_name;
@@ -1090,7 +1090,7 @@ _bfd_stab_section_find_nearest_line (bfd *abfd,
 	  for (pr = reloc_vector; *pr != NULL; pr++)
 	    {
 	      arelent *r;
-	      unsigned long val;
+	      unsigned long long val;
 	      asymbol *sym;
 	      bfd_size_type octets;
 
@@ -1324,8 +1324,8 @@ _bfd_stab_section_find_nearest_line (bfd *abfd,
   else
 #endif
     {
-      long low, high;
-      long mid = -1;
+      long long low, high;
+      long long mid = -1;
 
       /* Cache non-existent or invalid.  Do binary search on
 	 indextable.  */
@@ -1482,7 +1482,7 @@ _bfd_stab_cleanup (bfd *abfd ATTRIBUTE_UNUSED, void **pinfo)
   free (info->stabs);
 }
 
-long
+long long
 _bfd_nosymbols_canonicalize_symtab (bfd *abfd ATTRIBUTE_UNUSED,
 				    asymbol **location ATTRIBUTE_UNUSED)
 {
@@ -1581,7 +1581,7 @@ _bfd_nosymbols_bfd_make_debug_symbol (bfd *abfd)
   return (asymbol *) _bfd_ptr_bfd_null_error (abfd);
 }
 
-long
+long long
 _bfd_nosymbols_read_minisymbols (bfd *abfd,
 				 bool dynamic ATTRIBUTE_UNUSED,
 				 void **minisymsp ATTRIBUTE_UNUSED,
@@ -1599,11 +1599,11 @@ _bfd_nosymbols_minisymbol_to_symbol (bfd *abfd,
   return (asymbol *) _bfd_ptr_bfd_null_error (abfd);
 }
 
-long
+long long
 _bfd_nodynamic_get_synthetic_symtab (bfd *abfd,
-				     long symcount ATTRIBUTE_UNUSED,
+				     long long symcount ATTRIBUTE_UNUSED,
 				     asymbol **syms ATTRIBUTE_UNUSED,
-				     long dynsymcount ATTRIBUTE_UNUSED,
+				     long long dynsymcount ATTRIBUTE_UNUSED,
 				     asymbol **dynsyms ATTRIBUTE_UNUSED,
 				     asymbol **ret ATTRIBUTE_UNUSED)
 {

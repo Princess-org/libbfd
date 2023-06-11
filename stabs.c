@@ -306,7 +306,7 @@ _bfd_link_section_stabs (bfd *abfd,
 	  _bfd_error_handler
 	    /* xgettext:c-format */
 	    (_("%pB(%pA+%#lx): stabs entry has invalid string index"),
-	     abfd, stabsec, (long) (sym - stabbuf));
+	     abfd, stabsec, (long long) (sym - stabbuf));
 	  bfd_set_error (bfd_error_bad_value);
 	  goto error_return;
 	}
@@ -904,7 +904,7 @@ struct stab_handle
 	/* The symbol table.  */
 	asymbol** syms;
 	/* The number of symbols.  */
-	long symcount;
+	long long symcount;
 	/* The accumulated file name string.  */
 	char* so_string;
 	/* The value of the last N_SO symbol.  */
@@ -1088,7 +1088,7 @@ savestring(void* dhandle, const char* start, size_t len)
 static bfd_vma
 parse_number(const char** pp, bool* poverflow, const char* p_end)
 {
-	unsigned long ul;
+	unsigned long long ul;
 	const char* orig;
 
 	if (poverflow != NULL)
@@ -1106,17 +1106,17 @@ parse_number(const char** pp, bool* poverflow, const char* p_end)
 	ul = strtoul(*pp, (char**)pp, 0);
 	if (ul + 1 != 0 || errno == 0)
 	{
-		/* If bfd_vma is larger than unsigned long, and the number is
+		/* If bfd_vma is larger than unsigned long long, and the number is
 		   meant to be negative, we have to make sure that we sign
 		   extend properly.  */
 		if (*orig == '-')
-			return (bfd_vma)(bfd_signed_vma)(long)ul;
+			return (bfd_vma)(bfd_signed_vma)(long long)ul;
 		return (bfd_vma)ul;
 	}
 
 	/* Note that even though strtoul overflowed, it should have set *pp
 	   to the end of the number, which is where we want it.  */
-	if (sizeof(bfd_vma) > sizeof(unsigned long))
+	if (sizeof(bfd_vma) > sizeof(unsigned long long))
 	{
 		const char* p;
 		bool neg;
@@ -1219,7 +1219,7 @@ warn_stab(const char* p, const char* err)
 
 void*
 start_stab(void* dhandle ATTRIBUTE_UNUSED, bfd* abfd, bool sections,
-	asymbol** syms, long symcount)
+	asymbol** syms, long long symcount)
 {
 	struct stab_handle* ret;
 
@@ -1665,7 +1665,7 @@ parse_stab_string(void* dhandle, struct stab_handle* info, int stabtype,
 			/* Defining integer constants this way is kind of silly,
 			   since 'e' constants allows the compiler to give not only
 			   the value, but the type as well.  C has at least int,
-			   long, unsigned int, and long long as constant types;
+			   long long, unsigned int, and long long as constant types;
 			   other languages probably should have at least unsigned as
 			   well as signed constants.  */
 			if (!debug_record_int_const(dhandle, name, atoi(p)))
@@ -1743,7 +1743,7 @@ parse_stab_string(void* dhandle, struct stab_handle* info, int stabtype,
 		if (name != NULL)
 		{
 			char leading;
-			long c;
+			long long c;
 
 			leading = bfd_get_symbol_leading_char(info->abfd);
 			for (c = info->symcount, ps = info->syms; c > 0; --c, ++ps)
@@ -2746,7 +2746,7 @@ parse_stab_range_type(void* dhandle,
 }
 
 /* Sun's ACC uses a somewhat saner method for specifying the builtin
-   typedefs in every file (for int, long, etc):
+   typedefs in every file (for int, long long, etc):
 
 	type = b <signed> <width>; <offset>; <nbits>
 	signed = u or s.  Possible c in addition to u or s (for char?).
@@ -4393,7 +4393,7 @@ stab_xcoff_builtin_type(void* dhandle, struct stab_handle* info,
 		rettype = debug_make_int_type(dhandle, 2, false);
 		break;
 	case 3:
-		name = "long";
+		name = "long long";
 		rettype = debug_make_int_type(dhandle, 4, false);
 		break;
 	case 4:
@@ -4417,7 +4417,7 @@ stab_xcoff_builtin_type(void* dhandle, struct stab_handle* info,
 		rettype = debug_make_int_type(dhandle, 4, true);
 		break;
 	case 9:
-		name = "unsigned long";
+		name = "unsigned long long";
 		rettype = debug_make_int_type(dhandle, 4, true);
 		break;
 	case 10:
@@ -4436,9 +4436,9 @@ stab_xcoff_builtin_type(void* dhandle, struct stab_handle* info,
 		break;
 	case 13:
 		/* This is an IEEE double on the RS/6000, and different machines
-	   with different sizes for "long double" should use different
+	   with different sizes for "long long double" should use different
 	   negative type numbers.  See stabs.texinfo.  */
-		name = "long double";
+		name = "long long double";
 		rettype = debug_make_float_type(dhandle, 8);
 		break;
 	case 14:
@@ -5245,7 +5245,7 @@ stab_demangle_template(struct stab_demangle_info* minfo, const char** pp,
 				case 'v':	/* Void.  */
 					abort();
 				case 'x':	/* Long long.  */
-				case 'l':	/* Long.  */
+				case 'l':	/* long long.  */
 				case 'i':	/* Int.  */
 				case 's':	/* Short.  */
 				case 'w':	/* Wchar_t.  */
@@ -5260,7 +5260,7 @@ stab_demangle_template(struct stab_demangle_info* minfo, const char** pp,
 					charp = true;
 					done = true;
 					break;
-				case 'r':	/* Long double.  */
+				case 'r':	/* long long double.  */
 				case 'd':	/* Double.  */
 				case 'f':	/* Float.  */
 					realp = true;
@@ -5559,7 +5559,7 @@ stab_demangle_type(struct stab_demangle_info* minfo, const char** pp,
 	case 'A':
 		/* An array.  */
 	{
-		unsigned long high;
+		unsigned long long high;
 
 		++* pp;
 		high = 0;
@@ -5864,13 +5864,13 @@ stab_demangle_fund_type(struct stab_demangle_info* minfo, const char** pp,
 		++* pp;
 		break;
 
-	case 'l': /* long */
+	case 'l': /* long long */
 		if (ptype != NULL)
 		{
 			*ptype = debug_find_named_type(minfo->dhandle,
 				(unsignedp
-					? "long unsigned int"
-					: "long int"));
+					? "long long unsigned int"
+					: "long long int"));
 			if (*ptype == DEBUG_TYPE_NULL)
 				*ptype = debug_make_int_type(minfo->dhandle, 4, unsignedp);
 		}
@@ -5938,10 +5938,10 @@ stab_demangle_fund_type(struct stab_demangle_info* minfo, const char** pp,
 		++* pp;
 		break;
 
-	case 'r': /* long double */
+	case 'r': /* long long double */
 		if (ptype != NULL)
 		{
-			*ptype = debug_find_named_type(minfo->dhandle, "long double");
+			*ptype = debug_find_named_type(minfo->dhandle, "long long double");
 			if (*ptype == DEBUG_TYPE_NULL)
 				*ptype = debug_make_float_type(minfo->dhandle, 8);
 		}
@@ -6351,7 +6351,7 @@ stab_demangle_v3_arg(void* dhandle, struct stab_handle* info,
 			ret = debug_make_int_type(dhandle, 1, false);
 		else if (strcmp(p, "double") == 0)
 			ret = debug_make_float_type(dhandle, 8);
-		else if (strcmp(p, "long double") == 0)
+		else if (strcmp(p, "long long double") == 0)
 			ret = debug_make_float_type(dhandle, 8);
 		else if (strcmp(p, "float") == 0)
 			ret = debug_make_float_type(dhandle, 4);
@@ -6363,9 +6363,9 @@ stab_demangle_v3_arg(void* dhandle, struct stab_handle* info,
 			ret = debug_make_int_type(dhandle, 4, false);
 		else if (strcmp(p, "unsigned int") == 0)
 			ret = debug_make_int_type(dhandle, 4, true);
-		else if (strcmp(p, "long") == 0)
+		else if (strcmp(p, "long long") == 0)
 			ret = debug_make_int_type(dhandle, 4, false);
-		else if (strcmp(p, "unsigned long") == 0)
+		else if (strcmp(p, "unsigned long long") == 0)
 			ret = debug_make_int_type(dhandle, 4, true);
 		else if (strcmp(p, "__int128") == 0)
 			ret = debug_make_int_type(dhandle, 16, false);

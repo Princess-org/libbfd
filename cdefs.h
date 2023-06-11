@@ -559,7 +559,7 @@
    older glibc platforms.  */
 #ifndef __GNULIB_CDEFS
 # include <bits/wordsize.h>
-# include <bits/long-double.h>
+# include <bits/long long-double.h>
 #endif
 
 #if __LDOUBLE_REDIRECTS_TO_FLOAT128_ABI == 1
@@ -590,7 +590,7 @@
 #  define __LDBL_REDIR_NTH(name, proto) ... unused__ldbl_redir_nth
 
 # else
-_Static_assert (0, "IEEE 128-bits long double requires redirection on this platform");
+_Static_assert (0, "IEEE 128-bits long long double requires redirection on this platform");
 # endif
 #elif defined __LONG_DOUBLE_MATH_OPTIONAL && defined __NO_LONG_DOUBLE_MATH
 # define __LDBL_COMPAT 1

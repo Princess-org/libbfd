@@ -44,11 +44,11 @@
 #include "libcoff.h"
 #include "hashtab.h"
 
-/* Extract a long section name at STRINDEX and copy it to the bfd objstack.
+/* Extract a long long section name at STRINDEX and copy it to the bfd objstack.
    Return NULL in case of error.  */
 
 static char *
-extract_long_section_name(bfd *abfd, unsigned long strindex)
+extract_long_section_name(bfd *abfd, unsigned long long strindex)
 {
   const char *strings;
   char *name;
@@ -122,16 +122,16 @@ make_a_section_from_file (bfd *abfd,
 
   name = NULL;
 
-  /* Handle long section names as in PE.  On reading, we want to
-    accept long names if the format permits them at all, regardless
+  /* Handle long long section names as in PE.  On reading, we want to
+    accept long long names if the format permits them at all, regardless
     of the current state of the flag that dictates if we would generate
     them in outputs; this construct checks if that is the case by
     attempting to set the flag, without changing its state; the call
-    will fail for formats that do not support long names at all.  */
+    will fail for formats that do not support long long names at all.  */
   if (bfd_coff_set_long_section_names (abfd, bfd_coff_long_section_names (abfd))
       && hdr->s_name[0] == '/')
     {
-      /* Flag that this BFD uses long names, even though the format might
+      /* Flag that this BFD uses long long names, even though the format might
 	 expect them to be off by default.  This won't directly affect the
 	 format of any output BFD created from this one, but the information
 	 can be used to decide what to do.  */
@@ -158,10 +158,10 @@ make_a_section_from_file (bfd *abfd,
 	}
       else
 	{
-	  /* PE classic long section name.  The '/' is followed by the index
+	  /* PE classic long long section name.  The '/' is followed by the index
 	     in the strtab.  The index is formatted as a decimal string.  */
 	  char buf[SCNNMLEN];
-	  long strindex;
+	  long long strindex;
 	  char *p;
 
 	  memcpy (buf, hdr->s_name + 1, SCNNMLEN - 1);
@@ -522,7 +522,7 @@ coff_section_from_bfd_index (bfd *abfd, int section_index)
 
 /* Get the upper bound of a COFF symbol table.  */
 
-long
+long long
 coff_get_symtab_upper_bound (bfd *abfd)
 {
   if (!bfd_coff_slurp_symbol_table (abfd))
@@ -533,7 +533,7 @@ coff_get_symtab_upper_bound (bfd *abfd)
 
 /* Canonicalize a COFF symbol table.  */
 
-long
+long long
 coff_canonicalize_symtab (bfd *abfd, asymbol **alocation)
 {
   unsigned int counter;
@@ -1379,7 +1379,7 @@ coff_write_symbols (bfd *abfd)
   if (strtab == NULL)
     return false;
 
-  /* If this target supports long section names, they must be put into
+  /* If this target supports long long section names, they must be put into
      the string table.  This is supported by PE.  This code must
      handle section names just as they are handled in
      coff_write_object_contents.  This is why we pass hash as FALSE below.  */
@@ -2037,7 +2037,7 @@ coff_get_normalized_symtab (bfd *abfd)
 	    internal_ptr->u.syment._n._n_n._n_offset = (uintptr_t) "";
 	  else if (!bfd_coff_symname_in_debug (abfd, &internal_ptr->u.syment))
 	    {
-	      /* Long name already.  Point symbol at the string in the
+	      /* long name already.  Point symbol at the string in the
 		 table.  */
 	      if (string_table == NULL)
 		{
@@ -2056,7 +2056,7 @@ coff_get_normalized_symtab (bfd *abfd)
 	    }
 	  else
 	    {
-	      /* Long name in debug section.  Very similar.  */
+	      /* long name in debug section.  Very similar.  */
 	      if (debug_sec_data == NULL)
 		debug_sec_data = build_debug_section (abfd, & debug_sec);
 	      if (debug_sec_data != NULL)
@@ -2086,7 +2086,7 @@ coff_get_normalized_symtab (bfd *abfd)
   return internal;
 }
 
-long
+long long
 coff_get_reloc_upper_bound (bfd *abfd, sec_ptr asect)
 {
   size_t count, raw;
@@ -2198,7 +2198,7 @@ coff_print_symbol (bfd *abfd,
 	  combined_entry_type *root = obj_raw_syments (abfd);
 	  struct lineno_cache_entry *l = coffsymbol (symbol)->lineno;
 
-	  fprintf (file, "[%3ld]", (long) (combined - root));
+	  fprintf (file, "[%3ld]", (long long) (combined - root));
 
 	  /* PR 17512: file: 079-33786-0.001:0.1.  */
 	  if (combined < obj_raw_syments (abfd)
@@ -2227,7 +2227,7 @@ coff_print_symbol (bfd *abfd,
 	  for (aux = 0; aux < combined->u.syment.n_numaux; aux++)
 	    {
 	      combined_entry_type *auxp = combined + aux + 1;
-	      long tagndx;
+	      long long tagndx;
 
 	      BFD_ASSERT (! auxp->is_sym);
 	      if (auxp->fix_tag)
@@ -2263,7 +2263,7 @@ coff_print_symbol (bfd *abfd,
 		    /* Probably a section symbol ?  */
 		    {
 		      fprintf (file, "AUX scnlen 0x%lx nreloc %d nlnno %d",
-			       (unsigned long) auxp->u.auxent.x_scn.x_scnlen,
+			       (unsigned long long) auxp->u.auxent.x_scn.x_scnlen,
 			       auxp->u.auxent.x_scn.x_nreloc,
 			       auxp->u.auxent.x_scn.x_nlinno);
 		      if (auxp->u.auxent.x_scn.x_checksum != 0
@@ -2280,7 +2280,7 @@ coff_print_symbol (bfd *abfd,
 		case C_AIX_WEAKEXT:
 		  if (ISFCN (combined->u.syment.n_type))
 		    {
-		      long next, llnos;
+		      long long next, llnos;
 
 		      if (auxp->fix_end)
 			next = (auxp->u.auxent.x_sym.x_fcnary.x_fcn.x_endndx.p
@@ -2291,7 +2291,7 @@ coff_print_symbol (bfd *abfd,
 		      fprintf (file,
 			       "AUX tagndx %ld ttlsiz 0x%lx lnnos %ld next %ld",
 			       tagndx,
-			       (unsigned long) auxp->u.auxent.x_sym.x_misc.x_fsize,
+			       (unsigned long long) auxp->u.auxent.x_sym.x_misc.x_fsize,
 			       llnos, next);
 		      break;
 		    }
@@ -2303,7 +2303,7 @@ coff_print_symbol (bfd *abfd,
 			   tagndx);
 		  if (auxp->fix_end)
 		    fprintf (file, " endndx %ld",
-			     ((long)
+			     ((long long)
 			      (auxp->u.auxent.x_sym.x_fcnary.x_fcn.x_endndx.p
 			       - root)));
 		  break;

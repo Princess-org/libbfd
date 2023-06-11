@@ -1,102 +1,328 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
     <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+      <UniqueIdentifier>{0320a850-c524-4211-a927-b308c6881b6c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="bfd.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="bfdlink.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="bfdver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="elf-bfd.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="libbfd.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="libcoff.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="libecoff.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sysdep.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="coff-bfd.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="targmatch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="elfxx-x86.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="elf-linker-x86.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="coffcode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="coffswap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="elf32-target.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="elf64-target.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="genlink.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="elf-linux-core.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="bucomm.h">
+    <ClInclude Include="elf-vxworks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fopen-same.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="write.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="verify.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tc-i386.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="symbols.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="read.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\coff\pe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libcoff.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libpei.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\libiberty.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libbfd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libecoff.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libaout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="idx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="flonum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="elfxx-x86.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="elfcomm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="elfcode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="elf-bfd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dwarf2dbg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="dwarf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="debug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ctf-api.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cp-demangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="elf-vxworks.h">
+    <ClInclude Include="coffcode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="plugin.h">
+    <ClInclude Include="coff-bfd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cdefs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bucomm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bfd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="as.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="asintl.h">
+    <ClInclude Include="aoutx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="aout-target.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\dwarf2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\coff\internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wmemchr-impl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="attribute.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libc-config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sysdep.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\symcat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="elf64-target.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="obj-elf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\coff\x86_64.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hosts\x86-64linux.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="coffswap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="obj-format.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targ-cpu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targ-env.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="binutils\config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targmatch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="elf32-target.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bfdver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="portability.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="defs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="opintl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="disassemble.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="opcodes\i386-opc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sframe-impl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vprintf-support.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="swap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\splay-tree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\plugin-api.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\opcode\riscv-opc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\safe-ctype.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sframe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sframe-api.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\environ.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\filenames.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fnmatch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gdb\gdb-index.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hashtab.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\opcode\i386.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\objalloc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\elf\vxworks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\elf\x86-64.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\elf\bpf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\elf\common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ctf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\demangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\diagnostics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\dis-asm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\elf\dwarf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\coff\ecoff.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\coff\external.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\elf\external.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\coff\i386.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\elf\i386.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\elf\internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\coff\msdos.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\elf\reloc-macros.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\coff\sym.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ansidecl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\aout\aout64.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\aout\ar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bfdlink.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\bfdlink.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\aout\ranlib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\aout\stab_gnu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="flexmember.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="intprops.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="expr.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="flonum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="frags.h">
@@ -111,439 +337,373 @@
     <ClInclude Include="obj.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="read.h">
+    <ClInclude Include="te-linux.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="symbols.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="targ-env.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="write.h">
+    <ClInclude Include="asintl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="bignum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="te-linux.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="obj-format.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="obj-elf.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="targ-cpu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tc-i386.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dwarf2dbg.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sframe-impl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cp-demangle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="elfcode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="elfcore.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="libaout.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="aout-target.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="aoutx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="portability.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="defs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="vprintf-support.h">
+    <ClInclude Include="demanguse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="objdump.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="demanguse.h">
+    <ClInclude Include="budbg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="disassemble.h">
+    <ClInclude Include="peicode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="opintl.h">
+    <ClInclude Include="plugin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="debug.h">
+    <ClInclude Include="genlink.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libc-config.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cdefs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="attribute.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="idx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="flexmember.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="verify.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="wmemchr-impl.h">
+    <ClInclude Include="elfcore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="bfd.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="libbfd.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="archures.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="strcasecmp.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="strncasecmp.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="safe-ctype.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="targets.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="coff-x86_64.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="elf64-x86-64.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="section.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="linker.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="hashtab.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="elf.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="syms.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="coffgen.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dwarf2.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dwarf.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="bucomm.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="elfcomm.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="bfdio.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="opncls.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="elfxx-x86.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="filename_cmp.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="format.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="reloc.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="elflink.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="hash.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="compress.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="elf-strtab.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="wrstabs.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cofflink.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="stabs.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="elf-eh-frame.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="elf-sframe.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="sframe.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dwarf1.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="archive64.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cp-demangle.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="elf64-gen.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="elf32.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="\\wsl.localhost\openSUSE-Leap-15.4\home\vic\binutils-gdb\bfd\elf32.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="host-aout.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="aout-cris.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="aout32.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="aout64.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="gen-aout.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="elf-properties.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cache.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dwarfnames.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="stab-syms.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="simple.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="merge.c">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="corefile.c">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="elf64.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="aout32.c">
+      <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="elf-vxworks.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="aout64.c">
+      <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="\\wsl.localhost\openSUSE-Leap-15.4\home\vic\binutils-gdb\bfd\plugin.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="\\wsl.localhost\openSUSE-Leap-15.4\home\vic\binutils-gdb\bfd\elf-attrs.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lbasename.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lrealpath.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="getpwd.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="portability.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="xstrerror.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cplus-dem.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="asprintf.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vasprintf.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="\\wsl.localhost\openSUSE-Leap-15.4\home\vic\binutils-gdb\libiberty\make-temp-file.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="xexit.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="filemode.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="unlink-if-ordinary.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="getpagesize.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="alloca.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="d-demangle.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="rust-demangle.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="concat.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="xmalloc.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="objdump.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="splay-tree.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="argv.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="version.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="objalloc.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ffs.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="elf-ifunc.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="binary.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="mkstemps.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="demanguse.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="xstrdup.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="sframe-error.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="sframe-dump.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="disassemble.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="rddbg.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dis-init.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dis-buf.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="debug.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="prdbg.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="make-relative-prefix.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="rdcoff.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="archive64.c">
+      <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="coff-bfd.c">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="cp-demint.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="targets.c">
+      <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="srec.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="coffgen.c">
+      <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="verilog.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="bfd.c">
+      <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="ihex.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="wrstabs.c">
+      <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="tekhex.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="hex.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="xmalloc.c">
+      <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="vprintf-support.c">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="fnmatch.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="verilog.c">
+      <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="mempcpy.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="tekhex.c">
+      <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="wmempcpy.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lrealpath.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="syms.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stabs.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="srec.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="splay-tree.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="section.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="reloc.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rddbg.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rdcoff.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="prdbg.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pex64igen.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pei-x86_64.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="objdump.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="objalloc.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mkstemps.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="merge.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="linker.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="getpagesize.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="libbfd.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ihex.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hashtab.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hash.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="format.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="filemode.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ffs.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="elfxx-x86.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="elflink.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="elfcomm.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="elf64-x86-64.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="elf.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="elf-eh-frame.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dwarf.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dwarf2.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dwarf1.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="disassemble.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="d-demangle.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cp-demangle.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="concat.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cofflink.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="coff-x86_64.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bfdio.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bucomm.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="binary.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="archures.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="argv.c">
+      <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="archive.c">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="alloca.c">
+      <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="wmemchr.c">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wmempcpy.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fnmatch.c">
+      <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="mbsinit.c">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cache.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="unlink-if-ordinary.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="opncls.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="version.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="portability.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lbasename.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gen-aout.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="aout-cris.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dis-buf.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dis-init.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sframe.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sframe-dump.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sframe-error.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vasprintf.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="xexit.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="xstrdup.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="xstrerror.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cplus-dem.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dwarfnames.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="filename_cmp.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="getpwd.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hex.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="make-relative-prefix.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="make-temp-file.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mempcpy.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rust-demangle.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="safe-ctype.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="strcasecmp.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="strncasecmp.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="asprintf.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cp-demint.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="demanguse.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="simple.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stab-syms.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pe-x86_64.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="plugin.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="host-aout.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="elf64.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="elf32.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="elf64-gen.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="elf-attrs.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="elf-ifunc.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="elf-properties.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="elf-sframe.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="elf-strtab.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="elf-vxworks.c">
+      <Filter>Resource Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

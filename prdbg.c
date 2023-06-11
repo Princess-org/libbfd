@@ -126,7 +126,7 @@ static bool pr_function_parameter
 static bool pr_start_block (void *, bfd_vma);
 static bool pr_end_block (void *, bfd_vma);
 static bool pr_end_function (void *);
-static bool pr_lineno (void *, const char *, unsigned long, bfd_vma);
+static bool pr_lineno (void *, const char *, unsigned long long, bfd_vma);
 
 static const char *visibility_name (enum debug_visibility);
 
@@ -167,7 +167,7 @@ static bool tg_function_parameter
   (void *, const char *, enum debug_parm_kind, bfd_vma);
 static bool tg_start_block (void *, bfd_vma);
 static bool tg_end_block (void *, bfd_vma);
-static bool tg_lineno (void *, const char *, unsigned long, bfd_vma);
+static bool tg_lineno (void *, const char *, unsigned long long, bfd_vma);
 
 static const struct debug_write_fns pr_fns =
 {
@@ -1835,7 +1835,7 @@ pr_start_block (void *p, bfd_vma addr)
 /* Write out line number information.  */
 
 static bool
-pr_lineno (void *p, const char *filename, unsigned long lineno, bfd_vma addr)
+pr_lineno (void *p, const char *filename, unsigned long long lineno, bfd_vma addr)
 {
   struct pr_handle *info = (struct pr_handle *) p;
   char ab[22];
@@ -2781,7 +2781,7 @@ tg_start_block (void *p, bfd_vma addr)
 
 static bool
 tg_lineno (void *p ATTRIBUTE_UNUSED, const char *fname ATTRIBUTE_UNUSED,
-	   unsigned long lineno ATTRIBUTE_UNUSED,
+	   unsigned long long lineno ATTRIBUTE_UNUSED,
 	   bfd_vma addr ATTRIBUTE_UNUSED)
 {
   return true;

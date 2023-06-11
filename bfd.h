@@ -346,7 +346,7 @@ struct bfd_hash_entry
   const char *string;
   /* Hash code.  This is the full hash code, not the index into the
      table.  */
-  unsigned long hash;
+  unsigned long long hash;
 };
 
 /* A hash table.  */
@@ -398,7 +398,7 @@ struct bfd_hash_entry *bfd_hash_lookup
 struct bfd_hash_entry *bfd_hash_insert
    (struct bfd_hash_table *,
     const char *,
-    unsigned long /*hash*/);
+    unsigned long long /*hash*/);
 
 BFD_API void bfd_hash_rename (struct bfd_hash_table *,
     const char *,
@@ -1319,7 +1319,7 @@ typedef struct carsym
 carsym;
 
 /* A count of carsyms (canonical archive symbols).  */
- typedef unsigned long symindex;
+ typedef unsigned long long symindex;
 #define BFD_NO_MORE_SYMBOLS ((symindex) ~0)
 
 symindex bfd_get_next_mapent
@@ -1837,7 +1837,7 @@ typedef struct bfd_arch_info
   int bits_per_address;
   int bits_per_byte;
   enum bfd_architecture arch;
-  unsigned long mach;
+  unsigned long long mach;
   const char *arch_name;
   const char *printable_name;
   unsigned int section_align_power;
@@ -1881,11 +1881,11 @@ const bfd_arch_info_type *bfd_arch_get_compatible
 BFD_API void bfd_set_arch_info (bfd *abfd, const bfd_arch_info_type *arg);
 
 BFD_API bool bfd_default_set_arch_mach
-   (bfd *abfd, enum bfd_architecture arch, unsigned long mach);
+   (bfd *abfd, enum bfd_architecture arch, unsigned long long mach);
 
 enum bfd_architecture bfd_get_arch (const bfd *abfd);
 
-BFD_API unsigned long bfd_get_mach (const bfd *abfd);
+BFD_API unsigned long long bfd_get_mach (const bfd *abfd);
 
 BFD_API unsigned int bfd_arch_bits_per_byte (const bfd *abfd);
 
@@ -1894,16 +1894,16 @@ BFD_API unsigned int bfd_arch_bits_per_address (const bfd *abfd);
 const bfd_arch_info_type *bfd_get_arch_info (bfd *abfd);
 
 const bfd_arch_info_type *bfd_lookup_arch
-   (enum bfd_architecture arch, unsigned long machine);
+   (enum bfd_architecture arch, unsigned long long machine);
 
 const char *bfd_printable_arch_mach
-   (enum bfd_architecture arch, unsigned long machine);
+   (enum bfd_architecture arch, unsigned long long machine);
 
 BFD_API unsigned int bfd_octets_per_byte (const bfd *abfd,
     const asection *sec);
 
 BFD_API unsigned int bfd_arch_mach_octets_per_byte
-   (enum bfd_architecture arch, unsigned long machine);
+   (enum bfd_architecture arch, unsigned long long machine);
 
 /* Extracted from bfd.c.  */
 typedef enum bfd_format
@@ -1960,7 +1960,7 @@ struct bfd
   ufile_ptr where;
 
   /* File modified time, if mtime_set is TRUE.  */
-  long mtime;
+  long long mtime;
 
   /* A unique identifier of the BFD  */
   unsigned int id;
@@ -2543,9 +2543,9 @@ BFD_API unsigned int bfd_init (void);
 /* Value returned by bfd_init.  */
 #define BFD_INIT_MAGIC (sizeof (struct bfd_section))
 
-BFD_API long bfd_get_reloc_upper_bound (bfd *abfd, asection *sect);
+BFD_API long long bfd_get_reloc_upper_bound (bfd *abfd, asection *sect);
 
-BFD_API long bfd_canonicalize_reloc
+BFD_API long long bfd_canonicalize_reloc
    (bfd *abfd, asection *sec, arelent **loc, asymbol **syms);
 
 BFD_API void bfd_set_reloc
@@ -2687,7 +2687,7 @@ BFD_API bfd_byte *bfd_get_relocated_section_contents
     bool, asymbol **);
 
 BFD_API bool bfd_record_phdr
-   (bfd *, unsigned long, bool, flagword, bool, bfd_vma,
+   (bfd *, unsigned long long, bool, flagword, bool, bfd_vma,
     bool, bool, unsigned int, struct bfd_section **);
 
 BFD_API void bfd_sprintf_vma (bfd *, char *, bfd_vma);
@@ -2716,7 +2716,7 @@ BFD_API int bfd_stat (bfd *, struct stat *);
 
 BFD_API int bfd_seek (bfd *, file_ptr, int);
 
-BFD_API long bfd_get_mtime (bfd *abfd);
+BFD_API long long bfd_get_mtime (bfd *abfd);
 
 BFD_API ufile_ptr bfd_get_size (bfd *abfd);
 
@@ -4446,7 +4446,7 @@ pc-relative or some form of GOT-indirect relocation.  */
 /* ADI Blackfin Call.x not implemented.  */
   BFD_RELOC_BFIN_24_PCREL_CALL_X,
 
-/* ADI Blackfin Long Jump pcrel.  */
+/* ADI Blackfin long long Jump pcrel.  */
   BFD_RELOC_BFIN_24_PCREL_JUMP_L,
 
 /* ADI Blackfin FD-PIC relocations.  */
@@ -5586,7 +5586,7 @@ number for the SBIC, SBIS, SBI and CBI instructions  */
   BFD_RELOC_390_TLS_DTPOFF,
   BFD_RELOC_390_TLS_TPOFF,
 
-/* Long displacement extension.  */
+/* long long displacement extension.  */
   BFD_RELOC_390_20,
   BFD_RELOC_390_GOT20,
   BFD_RELOC_390_GOTPLT20,
@@ -7639,8 +7639,8 @@ typedef struct bfd_target
   NAME##_read_minisymbols, \
   NAME##_minisymbol_to_symbol
 
-  long (*_bfd_get_symtab_upper_bound) (bfd *);
-  long (*_bfd_canonicalize_symtab) (bfd *, struct bfd_symbol **);
+  long long (*_bfd_get_symtab_upper_bound) (bfd *);
+  long long (*_bfd_canonicalize_symtab) (bfd *, struct bfd_symbol **);
   struct bfd_symbol *
        (*_bfd_make_empty_symbol) (bfd *);
   void (*_bfd_print_symbol) (bfd *, void *, struct bfd_symbol *,
@@ -7680,7 +7680,7 @@ typedef struct bfd_target
        (*_bfd_make_debug_symbol) (bfd *);
 #define bfd_read_minisymbols(b, d, m, s) \
        BFD_SEND (b, _read_minisymbols, (b, d, m, s))
-  long (*_read_minisymbols) (bfd *, bool, void **, unsigned int *);
+  long long (*_read_minisymbols) (bfd *, bool, void **, unsigned int *);
 #define bfd_minisymbol_to_symbol(b, d, m, f) \
        BFD_SEND (b, _minisymbol_to_symbol, (b, d, m, f))
   asymbol *
@@ -7694,8 +7694,8 @@ typedef struct bfd_target
   NAME##_bfd_reloc_type_lookup, \
   NAME##_bfd_reloc_name_lookup
 
-  long (*_get_reloc_upper_bound) (bfd *, sec_ptr);
-  long (*_bfd_canonicalize_reloc) (bfd *, sec_ptr, arelent **,
+  long long (*_get_reloc_upper_bound) (bfd *, sec_ptr);
+  long long (*_bfd_canonicalize_reloc) (bfd *, sec_ptr, arelent **,
 				   struct bfd_symbol **);
   void (*_bfd_set_reloc) (bfd *, sec_ptr, arelent **, unsigned int);
   /* See documentation on reloc types.  */
@@ -7710,7 +7710,7 @@ typedef struct bfd_target
   NAME##_set_section_contents
 
   bool (*_bfd_set_arch_mach) (bfd *, enum bfd_architecture,
-				     unsigned long);
+				     unsigned long long);
   bool (*_bfd_set_section_contents) (bfd *, sec_ptr, const void *,
 				     file_ptr, bfd_size_type);
 
@@ -7823,17 +7823,17 @@ typedef struct bfd_target
   NAME##_canonicalize_dynamic_reloc
 
   /* Get the amount of memory required to hold the dynamic symbols.  */
-  long (*_bfd_get_dynamic_symtab_upper_bound) (bfd *);
+  long long (*_bfd_get_dynamic_symtab_upper_bound) (bfd *);
   /* Read in the dynamic symbols.  */
-  long (*_bfd_canonicalize_dynamic_symtab) (bfd *, struct bfd_symbol **);
+  long long (*_bfd_canonicalize_dynamic_symtab) (bfd *, struct bfd_symbol **);
   /* Create synthetized symbols.  */
-  long (*_bfd_get_synthetic_symtab) (bfd *, long, struct bfd_symbol **,
-				     long, struct bfd_symbol **,
+  long long (*_bfd_get_synthetic_symtab) (bfd *, long long, struct bfd_symbol **,
+				     long long, struct bfd_symbol **,
 				     struct bfd_symbol **);
   /* Get the amount of memory required to hold the dynamic relocs.  */
-  long (*_bfd_get_dynamic_reloc_upper_bound) (bfd *);
+  long long (*_bfd_get_dynamic_reloc_upper_bound) (bfd *);
   /* Read in the dynamic relocs.  */
-  long (*_bfd_canonicalize_dynamic_reloc) (bfd *, arelent **,
+  long long (*_bfd_canonicalize_dynamic_reloc) (bfd *, arelent **,
 					   struct bfd_symbol **);
 
   /* Opposite endian version of this target.  */

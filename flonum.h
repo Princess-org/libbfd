@@ -57,7 +57,7 @@ struct FLONUM_STRUCT {
   LITTLENUM_TYPE *high;		/* high order littlenum of a bignum */
   LITTLENUM_TYPE *leader;	/* -> 1st non-zero littlenum */
   /* If flonum is 0.0, leader==low-1 */
-  long exponent;		/* base LITTLENUM_RADIX */
+  long long exponent;		/* base LITTLENUM_RADIX */
   char sign;			/* '+' or '-' */
 };
 

@@ -68,20 +68,20 @@ struct dwarf1_unit
   char *name;
 
   /* The highest and lowest address used in the compilation unit.  */
-  unsigned long low_pc;
-  unsigned long high_pc;
+  unsigned long long low_pc;
+  unsigned long long high_pc;
 
   /* Does this unit have a statement list?  */
   int has_stmt_list;
 
   /* If any, the offset of the line number table in the .line section.  */
-  unsigned long stmt_list_offset;
+  unsigned long long stmt_list_offset;
 
   /* If non-zero, a pointer to the first child of this unit.  */
   bfd_byte *first_child;
 
   /* How many line entries?  */
-  unsigned long line_count;
+  unsigned long long line_count;
 
   /* The decoded line number table (line_count entries).  */
   struct linenumber* linenumber_table;
@@ -101,18 +101,18 @@ struct dwarf1_func
   char* name;
 
   /* The highest and lowest address used in the compilation unit.  */
-  unsigned long low_pc;
-  unsigned long high_pc;
+  unsigned long long low_pc;
+  unsigned long long high_pc;
 };
 
 /* Used to return info about a parsed die.  */
 struct die_info
 {
-  unsigned long length;
-  unsigned long sibling;
-  unsigned long low_pc;
-  unsigned long high_pc;
-  unsigned long stmt_list_offset;
+  unsigned long long length;
+  unsigned long long sibling;
+  unsigned long long low_pc;
+  unsigned long long high_pc;
+  unsigned long long stmt_list_offset;
 
   char* name;
 
@@ -125,10 +125,10 @@ struct die_info
 struct linenumber
 {
   /* First address in the line.  */
-  unsigned long addr;
+  unsigned long long addr;
 
   /* The line number.  */
-  unsigned long linenumber;
+  unsigned long long linenumber;
 };
 
 /* Find the form of an attr, from the attr field.  */
@@ -318,9 +318,9 @@ parse_line_table (struct dwarf1_debug* stash, struct dwarf1_unit* aUnit)
   xptr = stash->line_section + aUnit->stmt_list_offset;
   if (xptr + 8 <= stash->line_section_end)
     {
-      unsigned long eachLine;
+      unsigned long long eachLine;
       bfd_byte *tblend;
-      unsigned long base;
+      unsigned long long base;
       bfd_size_type amt;
 
       /* First comes the length.  */
@@ -418,7 +418,7 @@ parse_functions_in_unit (struct dwarf1_debug* stash, struct dwarf1_unit* aUnit)
 static bool
 dwarf1_unit_find_nearest_line (struct dwarf1_debug* stash,
 			       struct dwarf1_unit* aUnit,
-			       unsigned long addr,
+			       unsigned long long addr,
 			       const char **filename_ptr,
 			       const char **functionname_ptr,
 			       unsigned int *linenumber_ptr)
@@ -430,7 +430,7 @@ dwarf1_unit_find_nearest_line (struct dwarf1_debug* stash,
     {
       if (aUnit->has_stmt_list)
 	{
-	  unsigned long i;
+	  unsigned long long i;
 	  struct dwarf1_func* eachFunc;
 
 	  if (! aUnit->linenumber_table)
@@ -492,7 +492,7 @@ _bfd_dwarf1_find_nearest_line (bfd *abfd,
   struct dwarf1_unit* eachUnit;
 
   /* What address are we looking for? */
-  unsigned long addr = (unsigned long)(offset + section->vma);
+  unsigned long long addr = (unsigned long long)(offset + section->vma);
 
   *filename_ptr = NULL;
   *functionname_ptr = NULL;

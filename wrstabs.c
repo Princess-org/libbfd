@@ -46,7 +46,7 @@ struct string_hash_entry
   /* Next string in this table.  */
   struct string_hash_entry *next;
   /* Index in string table.  */
-  long index;
+  long long index;
   /* Size of type if this is a typedef.  */
   unsigned int size;
 };
@@ -67,7 +67,7 @@ struct stab_type_stack
   /* This element as a string.  */
   char *string;
   /* The type index of this element.  */
-  long index;
+  long long index;
   /* The size of the type.  */
   unsigned int size;
   /* Whether type string defines a new type.  */
@@ -89,7 +89,7 @@ struct stab_type_stack
 struct stab_tag
 {
   /* The type index.  */
-  long index;
+  long long index;
   /* The tag name.  */
   const char *tag;
   /* The kind of type.  This is set to DEBUG_KIND_ILLEGAL when the
@@ -106,21 +106,21 @@ struct stab_tag
 struct stab_type_cache
 {
   /* The void type index.  */
-  long void_type;
+  long long void_type;
   /* Signed integer type indices, indexed by size - 1.  */
-  long signed_integer_types[8];
+  long long signed_integer_types[8];
   /* Unsigned integer type indices, indexed by size - 1.  */
-  long unsigned_integer_types[8];
+  long long unsigned_integer_types[8];
   /* Floating point types, indexed by size - 1.  */
-  long float_types[16];
+  long long float_types[16];
   /* Pointers to types, indexed by the type index.  */
-  long *pointer_types;
+  long long *pointer_types;
   size_t pointer_types_alloc;
   /* Functions returning types, indexed by the type index.  */
-  long *function_types;
+  long long *function_types;
   size_t function_types_alloc;
   /* References to types, indexed by the type index.  */
-  long *reference_types;
+  long long *reference_types;
   size_t reference_types_alloc;
   /* Struct/union/class type indices, indexed by the struct id.  */
   struct stab_tag *struct_types;
@@ -148,17 +148,17 @@ struct stab_write_handle
   /* The type stack.  */
   struct stab_type_stack *type_stack;
   /* The next type index.  */
-  long type_index;
+  long long type_index;
   /* The type cache.  */
   struct stab_type_cache type_cache;
   /* A mapping from typedef names to type indices.  */
   struct string_hash_table typedef_hash;
   /* If this is not -1, it is the offset to the most recent N_SO
      symbol, and the value of that symbol needs to be set.  */
-  long so_offset;
+  long long so_offset;
   /* If this is not -1, it is the offset to the most recent N_FUN
      symbol, and the value of that symbol needs to be set.  */
-  long fun_offset;
+  long long fun_offset;
   /* The last text section address seen.  */
   bfd_vma last_text_address;
   /* The block nesting depth.  */
@@ -228,7 +228,7 @@ static bool stab_function_parameter
 static bool stab_start_block (void *, bfd_vma);
 static bool stab_end_block (void *, bfd_vma);
 static bool stab_end_function (void *);
-static bool stab_lineno (void *, const char *, unsigned long, bfd_vma);
+static bool stab_lineno (void *, const char *, unsigned long long, bfd_vma);
 
 static const struct debug_write_fns stab_fns =
 {
@@ -385,7 +385,7 @@ stab_write_symbol_and_free (struct stab_write_handle *info, int type, int desc,
 
 static bool
 stab_push_string (struct stab_write_handle *info, char *string,
-		  long tindex, bool definition, unsigned int size)
+		  long long tindex, bool definition, unsigned int size)
 {
   struct stab_type_stack *s;
 
@@ -408,7 +408,7 @@ stab_push_string (struct stab_write_handle *info, char *string,
 
 static bool
 stab_push_string_dup (struct stab_write_handle *info, const char *string,
-		      long tindex, bool definition, unsigned int size)
+		      long long tindex, bool definition, unsigned int size)
 {
   return stab_push_string (info, xstrdup (string), tindex, definition, size);
 }
@@ -416,7 +416,7 @@ stab_push_string_dup (struct stab_write_handle *info, const char *string,
 /* Push a type index which has already been defined.  */
 
 static bool
-stab_push_defined_type (struct stab_write_handle *info, long tindex,
+stab_push_defined_type (struct stab_write_handle *info, long long tindex,
 			unsigned int size)
 {
   char buf[20];
@@ -610,7 +610,7 @@ stab_empty_type (void *p)
     return stab_push_defined_type (info, info->type_cache.void_type, 0);
   else
     {
-      long tindex;
+      long long tindex;
       char buf[40];
 
       tindex = info->type_index;
@@ -633,7 +633,7 @@ stab_void_type (void *p)
     return stab_push_defined_type (info, info->type_cache.void_type, 0);
   else
     {
-      long tindex;
+      long long tindex;
       char buf[40];
 
       tindex = info->type_index;
@@ -653,9 +653,9 @@ static bool
 stab_int_type (void *p, unsigned int size, bool unsignedp)
 {
   struct stab_write_handle *info = (struct stab_write_handle *) p;
-  long *cache;
+  long long *cache;
 
-  if (size <= 0 || (size > sizeof (long) && size != 8))
+  if (size <= 0 || (size > sizeof (long long) && size != 8))
     {
       non_fatal (_("stab_int_type: bad size %u"), size);
       return false;
@@ -670,7 +670,7 @@ stab_int_type (void *p, unsigned int size, bool unsignedp)
     return stab_push_defined_type (info, cache[size - 1], size);
   else
     {
-      long tindex;
+      long long tindex;
       char buf[100];
 
       tindex = info->type_index;
@@ -682,9 +682,9 @@ stab_int_type (void *p, unsigned int size, bool unsignedp)
       if (unsignedp)
 	{
 	  strcat (buf, "0;");
-	  if (size < sizeof (long))
-	    sprintf (buf + strlen (buf), "%ld;", ((long) 1 << (size * 8)) - 1);
-	  else if (size == sizeof (long))
+	  if (size < sizeof (long long))
+	    sprintf (buf + strlen (buf), "%ld;", ((long long) 1 << (size * 8)) - 1);
+	  else if (size == sizeof (long long))
 	    strcat (buf, "-1;");
 	  else if (size == 8)
 	    strcat (buf, "01777777777777777777777;");
@@ -693,10 +693,10 @@ stab_int_type (void *p, unsigned int size, bool unsignedp)
 	}
       else
 	{
-	  if (size <= sizeof (long))
+	  if (size <= sizeof (long long))
 	    sprintf (buf + strlen (buf), "%ld;%ld;",
-		     (long) - ((unsigned long) 1 << (size * 8 - 1)),
-		     (long) (((unsigned long) 1 << (size * 8 - 1)) - 1));
+		     (long long) - ((unsigned long long) 1 << (size * 8 - 1)),
+		     (long long) (((unsigned long long) 1 << (size * 8 - 1)) - 1));
 	  else if (size == 8)
 	    strcat (buf, "01000000000000000000000;0777777777777777777777;");
 	  else
@@ -723,7 +723,7 @@ stab_float_type (void *p, unsigned int size)
 				   size);
   else
     {
-      long tindex;
+      long long tindex;
       char *int_type;
       char buf[50];
 
@@ -755,7 +755,7 @@ stab_complex_type (void *p, unsigned int size)
 {
   struct stab_write_handle *info = (struct stab_write_handle *) p;
   char buf[50];
-  long tindex;
+  long long tindex;
 
   tindex = info->type_index;
   ++info->type_index;
@@ -772,7 +772,7 @@ static bool
 stab_bool_type (void *p, unsigned int size)
 {
   struct stab_write_handle *info = (struct stab_write_handle *) p;
-  long tindex;
+  long long tindex;
 
   switch (size)
     {
@@ -807,7 +807,7 @@ stab_enum_type (void *p, const char *tag, const char **names,
   size_t len;
   const char **pn;
   char *buf;
-  long tindex = 0;
+  long long tindex = 0;
   bfd_signed_vma *pv;
 
   if (names == NULL)
@@ -839,7 +839,7 @@ stab_enum_type (void *p, const char *tag, const char **names,
     }
 
   for (pn = names, pv = vals; *pn != NULL; pn++, pv++)
-    sprintf (buf + strlen (buf), "%s:%ld,", *pn, (long) *pv);
+    sprintf (buf + strlen (buf), "%s:%ld,", *pn, (long long) *pv);
   strcat (buf, ";");
 
   if (tag == NULL)
@@ -860,10 +860,10 @@ stab_enum_type (void *p, const char *tag, const char **names,
 
 static bool
 stab_modify_type (struct stab_write_handle *info, int mod,
-		  unsigned int size, long **cache, size_t *cache_alloc)
+		  unsigned int size, long long **cache, size_t *cache_alloc)
 {
-  long targindex;
-  long tindex;
+  long long targindex;
+  long long tindex;
   char *s, *buf;
 
   if (info->type_stack == NULL)
@@ -1004,7 +1004,7 @@ stab_range_type (void *p, bfd_signed_vma low, bfd_signed_vma high)
 
   s = stab_pop_type (info);
   buf = xmalloc (strlen (s) + 45);
-  sprintf (buf, "r%s;%ld;%ld;", s, (long) low, (long) high);
+  sprintf (buf, "r%s;%ld;%ld;", s, (long long) low, (long long) high);
   free (s);
 
   return stab_push_string (info, buf, 0, definition, size);
@@ -1020,7 +1020,7 @@ stab_array_type (void *p, bfd_signed_vma low, bfd_signed_vma high,
   bool definition;
   unsigned int element_size;
   char *range, *element, *buf;
-  long tindex;
+  long long tindex;
   unsigned int size;
 
   definition = info->type_stack->definition;
@@ -1048,7 +1048,7 @@ stab_array_type (void *p, bfd_signed_vma low, bfd_signed_vma high,
     }
 
   sprintf (buf + strlen (buf), "ar%s;%ld;%ld;%s",
-	   range, (long) low, (long) high, element);
+	   range, (long long) low, (long long) high, element);
   free (range);
   free (element);
 
@@ -1067,7 +1067,7 @@ stab_set_type (void *p, bool bitstringp)
   struct stab_write_handle *info = (struct stab_write_handle *) p;
   bool definition;
   char *s, *buf;
-  long tindex;
+  long long tindex;
 
   definition = info->type_stack->definition;
 
@@ -1227,7 +1227,7 @@ stab_const_type (void *p)
   struct stab_write_handle *info = (struct stab_write_handle *) p;
 
   return stab_modify_type (info, 'k', info->type_stack->size,
-			   (long **) NULL, (size_t *) NULL);
+			   (long long **) NULL, (size_t *) NULL);
 }
 
 /* Push a volatile version of a type.  */
@@ -1238,13 +1238,13 @@ stab_volatile_type (void *p)
   struct stab_write_handle *info = (struct stab_write_handle *) p;
 
   return stab_modify_type (info, 'B', info->type_stack->size,
-			   (long **) NULL, (size_t *) NULL);
+			   (long long **) NULL, (size_t *) NULL);
 }
 
 /* Get the type index to use for a struct/union/class ID.  This should
    return -1 if it fails.  */
 
-static long
+static long long
 stab_get_struct_index (struct stab_write_handle *info, const char *tag,
 		       unsigned int id, enum debug_type_kind kind,
 		       unsigned int *psize)
@@ -1297,7 +1297,7 @@ stab_start_struct_type (void *p, const char *tag, unsigned int id,
 			bool structp, unsigned int size)
 {
   struct stab_write_handle *info = (struct stab_write_handle *) p;
-  long tindex;
+  long long tindex;
   bool definition;
   char buf[40];
 
@@ -1384,7 +1384,7 @@ stab_struct_field (void *p, const char *name, bfd_vma bitpos,
     }
 
   sprintf (n, "%s%s:%s%s,%ld,%ld;", info->type_stack->fields, name, vis, s,
-	   (long) bitpos, (long) bitsize);
+	   (long long) bitpos, (long long) bitsize);
 
   free (info->type_stack->fields);
   free (s);
@@ -1403,7 +1403,7 @@ stab_end_struct_type (void *p)
 {
   struct stab_write_handle *info = (struct stab_write_handle *) p;
   bool definition;
-  long tindex;
+  long long tindex;
   unsigned int size;
   char *fields, *first, *buf;
 
@@ -1565,7 +1565,7 @@ stab_class_baseclass (void *p, bfd_vma bitpos, bool is_virtual,
       break;
     }
 
-  sprintf (buf + 2, "%ld,%s;", (long) bitpos, s);
+  sprintf (buf + 2, "%ld,%s;", (long long) bitpos, s);
   free (s);
 
   /* Add the new baseclass to the existing ones.  */
@@ -1707,7 +1707,7 @@ stab_class_method_var (struct stab_write_handle *info, const char *physname,
   if (contextp)
     {
       sprintf (info->type_stack->methods + strlen (info->type_stack->methods),
-	       "%ld;%s;", (long) voffset, context);
+	       "%ld;%s;", (long long) voffset, context);
       free (context);
     }
 
@@ -1860,7 +1860,7 @@ stab_tag_type (void *p, const char *name, unsigned int id,
 	       enum debug_type_kind kind)
 {
   struct stab_write_handle *info = (struct stab_write_handle *) p;
-  long tindex;
+  long long tindex;
   unsigned int size = 0;
 
   tindex = stab_get_struct_index (info, name, id, kind, &size);
@@ -1876,7 +1876,7 @@ static bool
 stab_typdef (void *p, const char *name)
 {
   struct stab_write_handle *info = (struct stab_write_handle *) p;
-  long tindex;
+  long long tindex;
   unsigned int size;
   char *s, *buf;
   struct string_hash_entry *h;
@@ -1944,7 +1944,7 @@ stab_int_constant (void *p, const char *name, bfd_vma val)
   char *buf;
 
   buf = xmalloc (strlen (name) + 20);
-  sprintf (buf, "%s:c=i%ld", name, (long) val);
+  sprintf (buf, "%s:c=i%ld", name, (long long) val);
 
   return stab_write_symbol_and_free (info, N_LSYM, 0, 0, buf);
 }
@@ -1974,7 +1974,7 @@ stab_typed_constant (void *p, const char *name, bfd_vma val)
   s = stab_pop_type (info);
 
   buf = xmalloc (strlen (name) + strlen (s) + 20);
-  sprintf (buf, "%s:c=e%s,%ld", name, s, (long) val);
+  sprintf (buf, "%s:c=e%s,%ld", name, s, (long long) val);
   free (s);
 
   return stab_write_symbol_and_free (info, N_LSYM, 0, 0, buf);
@@ -2021,7 +2021,7 @@ stab_variable (void *p, const char *name, enum debug_var_kind kind,
       if (! ISDIGIT (*s))
 	{
 	  char *n;
-	  long tindex;
+	  long long tindex;
 
 	  tindex = info->type_index;
 	  ++info->type_index;
@@ -2211,7 +2211,7 @@ stab_end_function (void *p ATTRIBUTE_UNUSED)
 /* Output a line number.  */
 
 static bool
-stab_lineno (void *p, const char *file, unsigned long lineno, bfd_vma addr)
+stab_lineno (void *p, const char *file, unsigned long long lineno, bfd_vma addr)
 {
   struct stab_write_handle *info = (struct stab_write_handle *) p;
 

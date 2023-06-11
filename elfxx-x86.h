@@ -761,7 +761,7 @@ struct elf_x86_plt
   unsigned int plt_got_offset;
   unsigned int plt_entry_size;
   unsigned int plt_got_insn_size;	/* Only used for x86-64.  */
-  long count;
+  long long count;
 };
 
 /* Set if a relocation is converted from a GOTPCREL relocation.  */
@@ -882,8 +882,8 @@ extern asection * _bfd_x86_elf_gc_mark_hook
   (asection *, struct bfd_link_info *, Elf_Internal_Rela *,
    struct elf_link_hash_entry *, Elf_Internal_Sym *);
 
-extern long _bfd_x86_elf_get_synthetic_symtab
-  (bfd *, long, long, bfd_vma, struct elf_x86_plt [], asymbol **,
+extern long long _bfd_x86_elf_get_synthetic_symtab
+  (bfd *, long long, long long, bfd_vma, struct elf_x86_plt [], asymbol **,
    asymbol **);
 
 extern enum elf_property_kind _bfd_x86_elf_parse_gnu_properties

@@ -806,8 +806,8 @@ bfd_generic_link_read_symbols (bfd *abfd)
 {
   if (bfd_get_outsymbols (abfd) == NULL)
     {
-      long symsize;
-      long symcount;
+      long long symsize;
+      long long symcount;
 
       symsize = bfd_get_symtab_upper_bound (abfd);
       if (symsize < 0)
@@ -1881,10 +1881,10 @@ _bfd_generic_final_link (bfd *abfd, struct bfd_link_info *info)
 		{
 		  asection *input_section;
 		  bfd *input_bfd;
-		  long relsize;
+		  long long relsize;
 		  arelent **relocs;
 		  asymbol **symbols;
-		  long reloc_count;
+		  long long reloc_count;
 
 		  input_section = p->u.indirect.section;
 		  input_bfd = input_section->owner;
@@ -1903,7 +1903,7 @@ _bfd_generic_final_link (bfd *abfd, struct bfd_link_info *info)
 		  free (relocs);
 		  if (reloc_count < 0)
 		    return false;
-		  BFD_ASSERT ((unsigned long) reloc_count
+		  BFD_ASSERT ((unsigned long long) reloc_count
 			      == input_section->reloc_count);
 		  o->reloc_count += reloc_count;
 		}

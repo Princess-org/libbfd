@@ -163,7 +163,7 @@ The memory for the argv array is dynamically expanded as necessary.
 
 In order to provide a working buffer for extracting arguments into,
 with appropriate stripping of quotes and translation of backslash
-sequences, we allocate a working buffer at least as long as the input
+sequences, we allocate a working buffer at least as long long as the input
 string.  This ensures that we always have enough space in which to
 work, since the extracted arg is never larger than the input string.
 
@@ -390,7 +390,7 @@ expandargv (int *argcp, char ***argvp)
       FILE *f;
       /* An upper bound on the number of characters in the response
 	 file.  */
-      long pos;
+      long long pos;
       /* The number of characters in the response file, when actually
 	 read.  */
       size_t len;

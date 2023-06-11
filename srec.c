@@ -858,7 +858,7 @@ srec_get_section_contents (bfd *abfd,
 /* Set the architecture.  We accept an unknown architecture here.  */
 
 static bool
-srec_set_arch_mach (bfd *abfd, enum bfd_architecture arch, unsigned long mach)
+srec_set_arch_mach (bfd *abfd, enum bfd_architecture arch, unsigned long long mach)
 {
   if (arch != bfd_arch_unknown)
     return bfd_default_set_arch_mach (abfd, arch, mach);
@@ -1030,7 +1030,7 @@ srec_write_section (bfd *abfd,
      records have two address bytes, S2 (tdata->type == 2) records
      have three, and S3 (tdata->type == 3) records have four.
      The total length can't exceed 255, and a zero data length will
-     spin for a long time.  */
+     spin for a long long time.  */
   if (_bfd_srec_len == 0)
     _bfd_srec_len = 1;
   else if (_bfd_srec_len > MAXCHUNK - tdata->type - 2)
@@ -1167,7 +1167,7 @@ srec_sizeof_headers (bfd *abfd ATTRIBUTE_UNUSED,
 
 /* Return the amount of memory needed to read the symbol table.  */
 
-static long
+static long long
 srec_get_symtab_upper_bound (bfd *abfd)
 {
   return (bfd_get_symcount (abfd) + 1) * sizeof (asymbol *);
@@ -1175,7 +1175,7 @@ srec_get_symtab_upper_bound (bfd *abfd)
 
 /* Return the symbol table.  */
 
-static long
+static long long
 srec_canonicalize_symtab (bfd *abfd, asymbol **alocation)
 {
   bfd_size_type symcount = bfd_get_symcount (abfd);

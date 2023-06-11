@@ -128,7 +128,7 @@ enum epbf_isa_attr
 disassembler_ftype
 disassembler (enum bfd_architecture a,
 	      bool big ATTRIBUTE_UNUSED,
-	      unsigned long mach ATTRIBUTE_UNUSED,
+	      unsigned long long mach ATTRIBUTE_UNUSED,
 	      bfd *abfd ATTRIBUTE_UNUSED)
 {
   disassembler_ftype disassemble;

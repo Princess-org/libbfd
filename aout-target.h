@@ -45,7 +45,7 @@ MY (callback) (bfd *abfd)
 {
   struct internal_exec *execp = exec_hdr (abfd);
   unsigned int arch_align_power;
-  unsigned long arch_align;
+  unsigned long long arch_align;
 
   /* Calculate the file positions of the parts of a newly read aout header.  */
   obj_textsec (abfd)->size = N_TXTSIZE (execp);

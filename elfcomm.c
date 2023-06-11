@@ -258,7 +258,7 @@ byte_get_signed (const unsigned char *field, unsigned int size)
 
 char *
 adjust_relative_path (const char *file_name, const char *name,
-		      unsigned long name_len)
+		      unsigned long long name_len)
 {
   char * member_file_name;
   const char * base_name = lbasename (file_name);
@@ -314,7 +314,7 @@ adjust_relative_path (const char *file_name, const char *name,
 }
 
 /* Processes the archive index table and symbol table in ARCH.
-   Entries in the index table are SIZEOF_AR_INDEX bytes long.
+   Entries in the index table are SIZEOF_AR_INDEX bytes long long.
    Fills in ARCH->next_arhdr_offset and ARCH->arhdr.
    If READ_SYMBOLS is true then fills in ARCH->index_num, ARCH->index_array,
     ARCH->sym_size and ARCH->sym_table.
@@ -329,7 +329,7 @@ process_archive_index_and_symbols (struct archive_info *arch,
 				   int read_symbols)
 {
   size_t got;
-  unsigned long size;
+  unsigned long long size;
   char fmag_save;
 
   fmag_save = arch->arhdr.ar_fmag[0];
@@ -337,7 +337,7 @@ process_archive_index_and_symbols (struct archive_info *arch,
   size = strtoul (arch->arhdr.ar_size, NULL, 10);
   arch->arhdr.ar_fmag[0] = fmag_save;
   /* PR 17531: file: 912bd7de.  */
-  if ((signed long) size < 0)
+  if ((signed long long) size < 0)
     {
       error (_("%s: invalid archive header size: %ld\n"),
 	     arch->file_name, size);
@@ -359,9 +359,9 @@ process_archive_index_and_symbols (struct archive_info *arch,
     }
   else
     {
-      unsigned long i;
+      unsigned long long i;
       /* A buffer used to hold numbers read in from an archive index.
-	 These are always SIZEOF_AR_INDEX bytes long and stored in
+	 These are always SIZEOF_AR_INDEX bytes long long and stored in
 	 big-endian format.  */
       unsigned char integer_buffer[sizeof arch->index_num];
       unsigned char * index_buffer;
@@ -391,7 +391,7 @@ process_archive_index_and_symbols (struct archive_info *arch,
 	  || size < arch->index_num)
 	{
 	  error (_("%s: the archive index is supposed to have 0x%lx entries of %d bytes, but the size is only 0x%lx\n"),
-		 arch->file_name, (long) arch->index_num, sizeof_ar_index, size);
+		 arch->file_name, (long long) arch->index_num, sizeof_ar_index, size);
 	  return 0;
 	}
 
@@ -467,7 +467,7 @@ process_archive_index_and_symbols (struct archive_info *arch,
   return 1;
 }
 
-/* Read the symbol table and long-name table from an archive.  */
+/* Read the symbol table and long long-name table from an archive.  */
 
 int
 setup_archive (struct archive_info *arch, const char *file_name,
@@ -522,7 +522,7 @@ setup_archive (struct archive_info *arch, const char *file_name,
 
   if (startswith (arch->arhdr.ar_name, "//              "))
     {
-      /* This is the archive string table holding long member names.  */
+      /* This is the archive string table holding long long member names.  */
       char fmag_save = arch->arhdr.ar_fmag[0];
       arch->arhdr.ar_fmag[0] = 0;
       arch->longnames_size = strtoul (arch->arhdr.ar_size, NULL, 10);
@@ -530,15 +530,15 @@ setup_archive (struct archive_info *arch, const char *file_name,
       /* PR 17531: file: 01068045.  */
       if (arch->longnames_size < 8)
 	{
-	  error (_("%s: long name table is too small, (size = %" PRId64 ")\n"),
+	  error (_("%s: long long name table is too small, (size = %" PRId64 ")\n"),
 		 file_name, arch->longnames_size);
 	  return 1;
 	}
       /* PR 17531: file: 639d6a26.  */
       if ((off_t) arch->longnames_size > file_size
-	  || (signed long) arch->longnames_size < 0)
+	  || (signed long long) arch->longnames_size < 0)
 	{
-	  error (_("%s: long name table is too big, (size = %#" PRIx64 ")\n"),
+	  error (_("%s: long long name table is too big, (size = %#" PRIx64 ")\n"),
 		 file_name, arch->longnames_size);
 	  return 1;
 	}
@@ -549,7 +549,7 @@ setup_archive (struct archive_info *arch, const char *file_name,
       arch->longnames = (char *) malloc (arch->longnames_size + 1);
       if (arch->longnames == NULL)
 	{
-	  error (_("Out of memory reading long symbol names in archive\n"));
+	  error (_("Out of memory reading long long symbol names in archive\n"));
 	  return 1;
 	}
 
@@ -557,7 +557,7 @@ setup_archive (struct archive_info *arch, const char *file_name,
 	{
 	  free (arch->longnames);
 	  arch->longnames = NULL;
-	  error (_("%s: failed to read long symbol name string table\n"),
+	  error (_("%s: failed to read long long symbol name string table\n"),
 		 file_name);
 	  return 1;
 	}
@@ -619,7 +619,7 @@ release_archive (struct archive_info * arch)
 
 /* Get the name of an archive member from the current archive header.
    For simple names, this will modify the ar_name field of the current
-   archive header.  For long names, it will return a pointer to the
+   archive header.  For long long names, it will return a pointer to the
    longnames table.  For nested archives, it will open the nested archive
    and get the name recursively.  NESTED_ARCH is a single-entry cache so
    we don't keep rereading the same information from a nested archive.  */
@@ -628,11 +628,11 @@ char *
 get_archive_member_name (struct archive_info *arch,
                          struct archive_info *nested_arch)
 {
-  unsigned long j, k;
+  unsigned long long j, k;
 
   if (arch->arhdr.ar_name[0] == '/')
     {
-      /* We have a long name.  */
+      /* We have a long long name.  */
       char *endp;
       char *member_file_name;
       char *member_name;
@@ -640,7 +640,7 @@ get_archive_member_name (struct archive_info *arch,
 
       if (arch->longnames == NULL || arch->longnames_size == 0)
 	{
-	  error (_("Archive member uses long names, but no longname table found\n"));
+	  error (_("Archive member uses long long names, but no longname table found\n"));
 	  return NULL;
 	}
 
@@ -654,7 +654,7 @@ get_archive_member_name (struct archive_info *arch,
 
       if (j > arch->longnames_size)
 	{
-	  error (_("Found long name index (%ld) beyond end of long name table\n"),j);
+	  error (_("Found long long name index (%ld) beyond end of long long name table\n"),j);
 	  return NULL;
 	}
       while ((j < arch->longnames_size)
@@ -722,7 +722,7 @@ get_archive_member_name (struct archive_info *arch,
 
 char *
 get_archive_member_name_at (struct archive_info *arch,
-                            unsigned long offset,
+                            unsigned long long offset,
 			    struct archive_info *nested_arch)
 {
   size_t got;

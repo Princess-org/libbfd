@@ -907,7 +907,7 @@ ihex_write_object_contents (bfd *abfd)
 static bool
 ihex_set_arch_mach (bfd *abfd,
 		    enum bfd_architecture arch,
-		    unsigned long mach)
+		    unsigned long long mach)
 {
   if (! bfd_default_set_arch_mach (abfd, arch, mach))
     {

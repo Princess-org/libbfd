@@ -47,7 +47,7 @@ extern "C"
 
 typedef struct ctf_dict ctf_dict_t;
 typedef struct ctf_archive_internal ctf_archive_t;
-typedef unsigned long ctf_id_t;
+typedef unsigned long long ctf_id_t;
 
 /* This opaque definition allows libctf to accept BFD data structures without
    importing all the BFD noise into users' namespaces.  */
@@ -148,7 +148,7 @@ typedef struct ctf_encoding
 typedef struct ctf_membinfo
 {
   ctf_id_t ctm_type;		/* Type of struct or union member.  */
-  unsigned long ctm_offset;	/* Offset of member in bits.  */
+  unsigned long long ctm_offset;	/* Offset of member in bits.  */
 } ctf_membinfo_t;
 
 typedef struct ctf_arinfo
@@ -172,8 +172,8 @@ typedef struct ctf_lblinfo
 
 typedef struct ctf_snapshot_id
 {
-  unsigned long dtd_id;		/* Highest DTD ID at time of snapshot.  */
-  unsigned long snapshot_id;	/* Snapshot id at time of snapshot.  */
+  unsigned long long dtd_id;		/* Highest DTD ID at time of snapshot.  */
+  unsigned long long snapshot_id;	/* Snapshot id at time of snapshot.  */
 } ctf_snapshot_id_t;
 
 #define	CTF_FUNC_VARARG	0x1	/* Function arguments end with varargs.  */
@@ -288,10 +288,10 @@ _CTF_ERRORS
    can be used with the iteration and visit functions below.  There is also a
    family of iteration functions that do not require callbacks.  */
 
-typedef int ctf_visit_f (const char *name, ctf_id_t type, unsigned long offset,
+typedef int ctf_visit_f (const char *name, ctf_id_t type, unsigned long long offset,
 			 int depth, void *arg);
 typedef int ctf_member_f (const char *name, ctf_id_t membtype,
-			  unsigned long offset, void *arg);
+			  unsigned long long offset, void *arg);
 typedef int ctf_enum_f (const char *name, int val, void *arg);
 typedef int ctf_variable_f (const char *name, ctf_id_t type, void *arg);
 typedef int ctf_type_f (ctf_id_t type, void *arg);
@@ -348,7 +348,7 @@ extern ctf_archive_t *ctf_arc_bufopen (const ctf_sect_t *,
 extern void ctf_arc_symsect_endianness (ctf_archive_t *, int little_endian);
 extern void ctf_arc_close (ctf_archive_t *);
 extern ctf_dict_t *ctf_arc_lookup_symbol (ctf_archive_t *,
-					  unsigned long symidx,
+					  unsigned long long symidx,
 					  ctf_id_t *, int *errp);
 extern ctf_dict_t *ctf_arc_lookup_symbol_name (ctf_archive_t *,
 					       const char *name,
@@ -396,13 +396,13 @@ extern int ctf_errno (ctf_dict_t *);
 extern const char *ctf_errmsg (int);
 extern int ctf_version (int);
 
-extern int ctf_func_info (ctf_dict_t *, unsigned long, ctf_funcinfo_t *);
-extern int ctf_func_args (ctf_dict_t *, unsigned long, uint32_t, ctf_id_t *);
+extern int ctf_func_info (ctf_dict_t *, unsigned long long, ctf_funcinfo_t *);
+extern int ctf_func_args (ctf_dict_t *, unsigned long long, uint32_t, ctf_id_t *);
 extern int ctf_func_type_info (ctf_dict_t *, ctf_id_t, ctf_funcinfo_t *);
 extern int ctf_func_type_args (ctf_dict_t *, ctf_id_t, uint32_t, ctf_id_t *);
 
 extern ctf_id_t ctf_lookup_by_name (ctf_dict_t *, const char *);
-extern ctf_id_t ctf_lookup_by_symbol (ctf_dict_t *, unsigned long);
+extern ctf_id_t ctf_lookup_by_symbol (ctf_dict_t *, unsigned long long);
 extern ctf_id_t ctf_lookup_by_symbol_name (ctf_dict_t *, const char *);
 extern ctf_id_t ctf_symbol_next (ctf_dict_t *, ctf_next_t **,
 				 const char **name, int functions);
@@ -508,9 +508,9 @@ extern ctf_id_t ctf_add_volatile (ctf_dict_t *, uint32_t, ctf_id_t);
 extern int ctf_add_enumerator (ctf_dict_t *, ctf_id_t, const char *, int);
 extern int ctf_add_member (ctf_dict_t *, ctf_id_t, const char *, ctf_id_t);
 extern int ctf_add_member_offset (ctf_dict_t *, ctf_id_t, const char *,
-				  ctf_id_t, unsigned long);
+				  ctf_id_t, unsigned long long);
 extern int ctf_add_member_encoded (ctf_dict_t *, ctf_id_t, const char *,
-				   ctf_id_t, unsigned long,
+				   ctf_id_t, unsigned long long,
 				   const ctf_encoding_t);
 
 extern int ctf_add_variable (ctf_dict_t *, const char *, ctf_id_t);

@@ -354,7 +354,7 @@ struct d_print_info
      for printing, or -1 to print the whole pack.  */
   int pack_index;
   /* Number of d_print_flush calls so far.  */
-  unsigned long int flush_count;
+  unsigned long long int flush_count;
   /* Stack of components, innermost first, used to avoid loops.  */
   const struct d_component_stack *component_stack;
   /* Array of saved scopes for evaluating substitutions.  */
@@ -2462,15 +2462,15 @@ cplus_demangle_builtin_types[D_BUILTIN_TYPE_COUNT] =
   /* b */ { NL ("bool"),	NL ("boolean"),		D_PRINT_BOOL },
   /* c */ { NL ("char"),	NL ("byte"),		D_PRINT_DEFAULT },
   /* d */ { NL ("double"),	NL ("double"),		D_PRINT_FLOAT },
-  /* e */ { NL ("long double"),	NL ("long double"),	D_PRINT_FLOAT },
+  /* e */ { NL ("long long double"),	NL ("long long double"),	D_PRINT_FLOAT },
   /* f */ { NL ("float"),	NL ("float"),		D_PRINT_FLOAT },
   /* g */ { NL ("__float128"),	NL ("__float128"),	D_PRINT_FLOAT },
   /* h */ { NL ("unsigned char"), NL ("unsigned char"),	D_PRINT_DEFAULT },
   /* i */ { NL ("int"),		NL ("int"),		D_PRINT_INT },
   /* j */ { NL ("unsigned int"), NL ("unsigned"),	D_PRINT_UNSIGNED },
   /* k */ { NULL, 0,		NULL, 0,		D_PRINT_DEFAULT },
-  /* l */ { NL ("long"),	NL ("long"),		D_PRINT_LONG },
-  /* m */ { NL ("unsigned long"), NL ("unsigned long"),	D_PRINT_UNSIGNED_LONG },
+  /* l */ { NL ("long long"),	NL ("long long"),		D_PRINT_LONG },
+  /* m */ { NL ("unsigned long long"), NL ("unsigned long long"),	D_PRINT_UNSIGNED_LONG },
   /* n */ { NL ("__int128"),	NL ("__int128"),	D_PRINT_DEFAULT },
   /* o */ { NL ("unsigned __int128"), NL ("unsigned __int128"),
 	    D_PRINT_DEFAULT },
@@ -2482,7 +2482,7 @@ cplus_demangle_builtin_types[D_BUILTIN_TYPE_COUNT] =
   /* u */ { NULL, 0,		NULL, 0,		D_PRINT_DEFAULT },
   /* v */ { NL ("void"),	NL ("void"),		D_PRINT_VOID },
   /* w */ { NL ("wchar_t"),	NL ("char"),		D_PRINT_DEFAULT },
-  /* x */ { NL ("long long"),	NL ("long"),		D_PRINT_LONG_LONG },
+  /* x */ { NL ("long long"),	NL ("long long"),		D_PRINT_LONG_LONG },
   /* y */ { NL ("unsigned long long"), NL ("unsigned long long"),
 	    D_PRINT_UNSIGNED_LONG_LONG },
   /* z */ { NL ("..."),		NL ("..."),		D_PRINT_DEFAULT },
@@ -4322,7 +4322,7 @@ d_growable_string_callback_adapter (const char *s, size_t l, void *opaque)
    the number of times a scope might be saved.  These counts will be
    used to allocate data structures for d_print_comp, so the logic
    here must mirror the logic d_print_comp will use.  It is not
-   important that the resulting numbers are exact, so long as they
+   important that the resulting numbers are exact, so long long as they
    are larger than the actual numbers encountered.  */
 
 static void
@@ -5723,7 +5723,7 @@ d_print_comp_inner (struct d_print_info *dpi, int options,
       if (d_right (dc) != NULL)
 	{
 	  size_t len;
-	  unsigned long int flush_count;
+	  unsigned long long int flush_count;
 	  /* Make sure ", " isn't flushed by d_append_string, otherwise
 	     dpi->len -= 2 wouldn't work.  */
 	  if (dpi->len >= sizeof (dpi->buf) - 2)
@@ -6114,7 +6114,7 @@ d_print_comp_inner (struct d_print_info *dpi, int options,
 
     case DEMANGLE_COMPONENT_FUNCTION_PARAM:
       {
-	long num = dc->u.s_number.number;
+	long long num = dc->u.s_number.number;
 	if (num == 0)
 	  d_append_string (dpi, "this");
 	else
@@ -6280,7 +6280,7 @@ d_print_java_identifier (struct d_print_info *dpi, const char *name, int len)
 	  && p[1] == '_'
 	  && p[2] == 'U')
 	{
-	  unsigned long c;
+	  unsigned long long c;
 	  const char *q;
 
 	  c = 0;
@@ -6760,7 +6760,7 @@ d_demangle_callback (const char *mangled, int options,
  again:
   cplus_demangle_init_info (mangled, options, strlen (mangled), &di);
 
-  /* PR 87675 - Check for a mangled string that is so long
+  /* PR 87675 - Check for a mangled string that is so long long
      that we do not have enough stack space to demangle it.  */
   if (((options & DMGL_NO_RECURSE_LIMIT) == 0)
       /* This check is a bit arbitrary, since what we really want to do is to
@@ -6768,7 +6768,7 @@ d_demangle_callback (const char *mangled, int options,
 	 amount of stack space remaining.  But there is no portable way to do
 	 this, so instead we use the recursion limit as a guide to the maximum
 	 size of the arrays.  */
-      && (unsigned long) di.num_comps > DEMANGLE_RECURSION_LIMIT)
+      && (unsigned long long) di.num_comps > DEMANGLE_RECURSION_LIMIT)
     {
       /* FIXME: We need a way to indicate that a stack limit has been reached.  */
       return 0;
@@ -6873,7 +6873,7 @@ extern char *__cxa_demangle (const char *, char *, size_t *, int *);
 
    OUTPUT_BUFFER is a region of memory, allocated with malloc, of
    *LENGTH bytes, into which the demangled name is stored.  If
-   OUTPUT_BUFFER is not long enough, it is expanded using realloc.
+   OUTPUT_BUFFER is not long long enough, it is expanded using realloc.
    OUTPUT_BUFFER may instead be NULL; in that case, the demangled name
    is placed in a region of memory allocated with malloc.
 

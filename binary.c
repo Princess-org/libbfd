@@ -110,7 +110,7 @@ binary_get_section_contents (bfd *abfd,
 
 /* Return the amount of memory needed to read the symbol table.  */
 
-static long
+static long long
 binary_get_symtab_upper_bound (bfd *abfd ATTRIBUTE_UNUSED)
 {
   return (BIN_SYMS + 1) * sizeof (asymbol *);
@@ -145,7 +145,7 @@ mangle_name (bfd *abfd, char *suffix)
 
 /* Return the symbol table.  */
 
-static long
+static long long
 binary_canonicalize_symtab (bfd *abfd, asymbol **alocation)
 {
   asection *sec = (asection *) abfd->tdata.any;

@@ -118,7 +118,7 @@ extern unsigned int get_stab_string_offset
 extern void aout_process_stab (int, const char *, int, int, int);
 extern char *demand_copy_string (int *lenP);
 extern char *demand_copy_C_string (int *len_pointer);
-extern char get_absolute_expression_and_terminator (long *val_pointer);
+extern char get_absolute_expression_and_terminator (long long *val_pointer);
 extern offsetT get_absolute_expression (void);
 extern unsigned int next_char_of_string (void);
 extern void s_mri_sect (char *);

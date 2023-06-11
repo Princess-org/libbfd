@@ -20,8 +20,8 @@
 #include "bfd.h"
 #include "bucomm.h"
 
-static char ftypelet (unsigned long);
-static void setst (unsigned long, char *);
+static char ftypelet (unsigned long long);
+static void setst (unsigned long long, char *);
 
 /* filemodestring - fill in string STR with an ls-style ASCII
    representation of the st_mode field of file stats block STATP.
@@ -104,9 +104,9 @@ static void setst (unsigned long, char *);
    is given as an argument.  */
 
 void
-mode_string (unsigned long mode, char *str)
+mode_string (unsigned long long mode, char *str)
 {
-  str[0] = ftypelet ((unsigned long) mode);
+  str[0] = ftypelet ((unsigned long long) mode);
   str[1] = (mode & S_IRUSR) != 0 ? 'r' : '-';
   str[2] = (mode & S_IWUSR) != 0 ? 'w' : '-';
   str[3] = (mode & S_IXUSR) != 0 ? 'x' : '-';
@@ -116,7 +116,7 @@ mode_string (unsigned long mode, char *str)
   str[7] = (mode & S_IROTH) != 0 ? 'r' : '-';
   str[8] = (mode & S_IWOTH) != 0 ? 'w' : '-';
   str[9] = (mode & S_IXOTH) != 0 ? 'x' : '-';
-  setst ((unsigned long) mode, str);
+  setst ((unsigned long long) mode, str);
 }
 
 /* Return a character indicating the type of file described by
@@ -179,7 +179,7 @@ mode_string (unsigned long mode, char *str)
 #endif /* ! defined (S_ISLNK) */
 
 static char
-ftypelet (unsigned long bits)
+ftypelet (unsigned long long bits)
 {
   if (S_ISDIR (bits))
     return 'd';
@@ -213,7 +213,7 @@ ftypelet (unsigned long bits)
    according to the file mode BITS.  */
 
 static void
-setst (unsigned long bits ATTRIBUTE_UNUSED, char *chars ATTRIBUTE_UNUSED)
+setst (unsigned long long bits ATTRIBUTE_UNUSED, char *chars ATTRIBUTE_UNUSED)
 {
 #ifdef S_ISUID
   if (bits & S_ISUID)

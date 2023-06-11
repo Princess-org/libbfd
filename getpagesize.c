@@ -25,7 +25,7 @@ BUGS
 #include "config.h"
 
 #include <sys/types.h>
-#if 0 /*HAVE_SYS_PARAM_H*/
+#if HAVE_SYS_PARAM_H
 #include <sys/param.h>
 #endif
 
@@ -74,11 +74,11 @@ getpagesize (void)
 #ifndef SYI$_PAGE_SIZE	/* VMS V5.4 and earlier didn't have this yet */
 #define SYI$_PAGE_SIZE 4452
 #endif
-extern unsigned long lib$getsyi(const unsigned short *,...);
+extern unsigned long long lib$getsyi(const unsigned short *,...);
 
 int getpagesize (void)
 {
-  long pagsiz = 0L;
+  long long pagsiz = 0L;
   unsigned short itmcod = SYI$_PAGE_SIZE;
 
   (void) lib$getsyi (&itmcod, (void *) &pagsiz);

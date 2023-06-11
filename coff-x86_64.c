@@ -197,7 +197,7 @@ coff_amd64_reloc (bfd *abfd,
 
 	case 4:
 	  {
-	    long x = bfd_get_32 (abfd, addr);
+	    long long x = bfd_get_32 (abfd, addr);
 	    DOIT (x);
 	    bfd_put_32 (abfd, (bfd_vma) x, addr);
 	  }
@@ -590,7 +590,7 @@ coff_pe_amd64_relocate_section (bfd *output_bfd,
 
   for (; rel < relend; rel++)
     {
-      long symndx;
+      long long symndx;
       struct coff_link_hash_entry *h;
       asection *sec, *s;
       uint16_t idx = 0, i = 1;
@@ -605,7 +605,7 @@ coff_pe_amd64_relocate_section (bfd *output_bfd,
       symndx = rel->r_symndx;
 
       if (symndx < 0
-	  || (unsigned long) symndx >= obj_raw_syment_count (input_bfd))
+	  || (unsigned long long) symndx >= obj_raw_syment_count (input_bfd))
 	continue;
 
       h = obj_coff_sym_hashes (input_bfd)[symndx];

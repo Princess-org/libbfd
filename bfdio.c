@@ -117,7 +117,7 @@ _bfd_real_fopen (const char *filename, const char *modes)
     }
 
 #elif defined (_WIN32)
-  /* PR 25713: Handle extra long path names possibly containing '..' and '.'.  */
+  /* PR 25713: Handle extra long long path names possibly containing '..' and '.'.  */
    wchar_t **     lpFilePart = {NULL};
    const wchar_t  prefix[] = L"\\\\?\\";
    const size_t   partPathLen = strlen (filename) + 1;
@@ -148,7 +148,7 @@ _bfd_real_fopen (const char *filename, const char *modes)
    /* Getting the full path from the provided partial path.
       1) Get the length.
       2) Resolve the path.  */
-   long       fullPathWSize = GetFullPathNameW (partPath, 0, NULL, lpFilePart);
+   long long       fullPathWSize = GetFullPathNameW (partPath, 0, NULL, lpFilePart);
    wchar_t *  fullPath = calloc (fullPathWSize + sizeof(prefix) + 1, sizeof(wchar_t));
 
    wcscpy (fullPath, prefix);
@@ -483,7 +483,7 @@ FUNCTION
 	bfd_get_mtime
 
 SYNOPSIS
-	long bfd_get_mtime (bfd *abfd);
+	long long bfd_get_mtime (bfd *abfd);
 
 DESCRIPTION
 	Return the file modification time (as read from the file system, or
@@ -491,7 +491,7 @@ DESCRIPTION
 
 */
 
-long
+long long
 bfd_get_mtime (bfd *abfd)
 {
   struct stat buf;
@@ -526,7 +526,7 @@ DESCRIPTION
 	Instead, we want to ask questions like "is this NNN byte sized
 	object I'm about to try read from file offset YYY reasonable?"
 	As as example of where we might do this, some object formats
-	use string tables for which the first <<sizeof (long)>> bytes of the
+	use string tables for which the first <<sizeof (long long)>> bytes of the
 	table contain the size of the table itself, including the size bytes.
 	If an application tries to read what it thinks is one of these
 	string tables, without some way to validate the size, and for

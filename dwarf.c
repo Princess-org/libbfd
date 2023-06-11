@@ -115,7 +115,7 @@ int use_debuginfod = 1;
 bool do_checks;
 
 int dwarf_cutoff_level = -1;
-unsigned long dwarf_start_die;
+unsigned long long dwarf_start_die;
 
 int dwarf_check = 0;
 
@@ -445,7 +445,7 @@ process_extended_line_op (unsigned char * data,
       /* PR 17512: file: 002-100480-0.004.  */
       if (len - 1 > 8)
 	{
-	  warn (_("Length (%zu) of DW_LNE_set_address op is too long\n"),
+	  warn (_("Length (%zu) of DW_LNE_set_address op is too long long\n"),
 		len - 1);
 	  adr = 0;
 	}
@@ -778,8 +778,8 @@ fetch_indexed_value (uint64_t idx,
 /* Records a single attribute in an abbrev.  */
 typedef struct abbrev_attr
 {
-  unsigned long attribute;
-  unsigned long form;
+  unsigned long long attribute;
+  unsigned long long form;
   int64_t implicit_const;
   struct abbrev_attr *next;
 }
@@ -788,8 +788,8 @@ abbrev_attr;
 /* Records a single abbrev.  */
 typedef struct abbrev_entry
 {
-  unsigned long          number;
-  unsigned long          tag;
+  unsigned long long          number;
+  unsigned long long          tag;
   int                    children;
   struct abbrev_attr *   first_attr;
   struct abbrev_attr *   last_attr;
@@ -820,8 +820,8 @@ typedef struct abbrev_map
 
 /* Maps between CU offsets and abbrev sets.  */
 static abbrev_map *   cu_abbrev_map = NULL;
-static unsigned long  num_abbrev_map_entries = 0;
-static unsigned long  next_free_abbrev_map_entry = 0;
+static unsigned long long  num_abbrev_map_entries = 0;
+static unsigned long long  next_free_abbrev_map_entry = 0;
 
 #define INITIAL_NUM_ABBREV_MAP_ENTRIES 8
 #define ABBREV_MAP_ENTRIES_INCREMENT   8
@@ -910,7 +910,7 @@ find_abbrev_list_by_raw_abbrev (unsigned char *raw)
 static  abbrev_map *
 find_abbrev_map_by_offset (uint64_t offset)
 {
-  unsigned long i;
+  unsigned long long i;
 
   for (i = 0; i < next_free_abbrev_map_entry; i++)
     if (cu_abbrev_map[i].start <= offset
@@ -921,8 +921,8 @@ find_abbrev_map_by_offset (uint64_t offset)
 }
 
 static void
-add_abbrev (unsigned long  number,
-	    unsigned long  tag,
+add_abbrev (unsigned long long  number,
+	    unsigned long long  tag,
 	    int            children,
 	    abbrev_list *  list)
 {
@@ -948,8 +948,8 @@ add_abbrev (unsigned long  number,
 }
 
 static void
-add_abbrev_attr (unsigned long attribute,
-		 unsigned long form,
+add_abbrev_attr (unsigned long long attribute,
+		 unsigned long long form,
 		 int64_t implicit_const,
 		 abbrev_list *list)
 {
@@ -988,9 +988,9 @@ process_abbrev_set (struct dwarf_section *section,
 
   while (start < end)
     {
-      unsigned long entry;
-      unsigned long tag;
-      unsigned long attribute;
+      unsigned long long entry;
+      unsigned long long tag;
+      unsigned long long attribute;
       int children;
 
       READ_ULEB (entry, start, end);
@@ -1014,7 +1014,7 @@ process_abbrev_set (struct dwarf_section *section,
 
       do
 	{
-	  unsigned long form;
+	  unsigned long long form;
 	  /* Initialize it due to a false compiler warning.  */
 	  int64_t implicit_const = -1;
 
@@ -1117,7 +1117,7 @@ get_TAG_name (uint64_t tag)
 }
 
 static const char *
-get_FORM_name (unsigned long form)
+get_FORM_name (unsigned long long form)
 {
   const char *name = NULL;
 
@@ -1138,7 +1138,7 @@ get_FORM_name (unsigned long form)
 }
 
 static const char *
-get_IDX_name (unsigned long idx)
+get_IDX_name (unsigned long long idx)
 {
   const char *name = NULL;
 
@@ -1812,7 +1812,7 @@ fetch_alt_indirect_string (uint64_t offset)
 }
 
 static const char *
-get_AT_name (unsigned long attribute)
+get_AT_name (unsigned long long attribute)
 {
   const char *name;
 
@@ -1903,7 +1903,7 @@ check_uvalue (const unsigned char *start,
 }
 
 static unsigned char *
-skip_attr_bytes (unsigned long form,
+skip_attr_bytes (unsigned long long form,
 		 unsigned char *data,
 		 unsigned char *end,
 		 uint64_t pointer_size,
@@ -2048,16 +2048,16 @@ skip_attr_bytes (unsigned long form,
    associated with it.  */
 
 static abbrev_entry *
-get_type_abbrev_from_form (unsigned long form,
-			   unsigned long uvalue,
+get_type_abbrev_from_form (unsigned long long form,
+			   unsigned long long uvalue,
 			   uint64_t cu_offset,
 			   unsigned char *cu_end,
 			   const struct dwarf_section *section,
-			   unsigned long *abbrev_num_return,
+			   unsigned long long *abbrev_num_return,
 			   unsigned char **data_return,
 			   abbrev_map **map_return)
 {
-  unsigned long   abbrev_number;
+  unsigned long long   abbrev_number;
   abbrev_map *    map;
   abbrev_entry *  entry;
   unsigned char * data;
@@ -2276,7 +2276,7 @@ read_and_print_leb128 (unsigned char *data,
 }
 
 static void
-display_discr_list (unsigned long form,
+display_discr_list (unsigned long long form,
 		    uint64_t uvalue,
 		    unsigned char *data,
 		    int level)
@@ -2307,7 +2307,7 @@ display_discr_list (unsigned long form,
   if (uvalue < 2)
     {
       printf ("<corrupt>\n");
-      warn (_("corrupt discr_list - block not long enough\n"));
+      warn (_("corrupt discr_list - block not long long enough\n"));
       return;
     }
 
@@ -2358,8 +2358,8 @@ display_discr_list (unsigned long form,
 }
 
 static unsigned char *
-read_and_display_attr_value (unsigned long attribute,
-			     unsigned long form,
+read_and_display_attr_value (unsigned long long attribute,
+			     unsigned long long form,
 			     int64_t implicit_const,
 			     unsigned char *start,
 			     unsigned char *data,
@@ -3422,7 +3422,7 @@ read_and_display_attr_value (unsigned long attribute,
 
     case DW_AT_import:
       {
-	unsigned long abbrev_number;
+	unsigned long long abbrev_number;
 	abbrev_entry *entry;
 
 	entry = get_type_abbrev_from_form (form, uvalue, cu_offset, end,
@@ -3451,8 +3451,8 @@ read_and_display_attr_value (unsigned long attribute,
 }
 
 static unsigned char *
-read_and_display_attr (unsigned long attribute,
-		       unsigned long form,
+read_and_display_attr (unsigned long long attribute,
+		       unsigned long long form,
 		       int64_t implicit_const,
 		       unsigned char *start,
 		       unsigned char *data,
@@ -3943,8 +3943,8 @@ process_debug_info (struct dwarf_section * section,
       saved_level = -1;
       while (tags < start)
 	{
-	  unsigned long abbrev_number;
-	  unsigned long die_offset;
+	  unsigned long long abbrev_number;
+	  unsigned long long die_offset;
 	  abbrev_entry *entry;
 	  abbrev_attr *attr;
 	  int do_printing = 1;
@@ -5298,7 +5298,7 @@ display_debug_lines_decoded (struct dwarf_section *  section,
 	  unsigned char op_code;
 	  int xop;
 	  int adv;
-	  unsigned long int uladv;
+	  unsigned long long int uladv;
 	  int is_special_opcode = 0;
 
 	  op_code = *data++;
@@ -5396,7 +5396,7 @@ display_debug_lines_decoded (struct dwarf_section *  section,
 
 		    default:
 		      printf (_("UNKNOWN (%u): length %ld\n"),
-			      ext_op_code, (long int) (op_code_data - data));
+			      ext_op_code, (long long int) (op_code_data - data));
 		      break;
 		    }
 		  data = op_code_end;
@@ -5782,7 +5782,7 @@ display_debug_pubnames_worker (struct dwarf_section *section,
   while (start < end)
     {
       unsigned char *data;
-      unsigned long sec_off = start - section->start;
+      unsigned long long sec_off = start - section->start;
       unsigned int offset_size;
 
       SAFE_BYTE_GET_AND_INC (names.pn_length, start, 4, end);
@@ -6421,7 +6421,7 @@ display_debug_abbrev (struct dwarf_section *section,
 }
 
 /* Return true when ADDR is the maximum address, when addresses are
-   POINTER_SIZE bytes long.  */
+   POINTER_SIZE bytes long long.  */
 
 static bool
 is_max_address (uint64_t addr, unsigned int pointer_size)
@@ -7489,8 +7489,8 @@ display_debug_loc (struct dwarf_section *section, void *file)
   if (start < section->start + section->size)
     warn (ngettext ("There is %ld unused byte at the end of section %s\n",
 		    "There are %ld unused bytes at the end of section %s\n",
-		    (long) (section->start + section->size - start)),
-	  (long) (section->start + section->size - start), section->name);
+		    (long long) (section->start + section->size - start)),
+	  (long long) (section->start + section->size - start), section->name);
   putchar ('\n');
   free (array);
   return 1;
@@ -7842,7 +7842,7 @@ static int
 display_debug_str_offsets (struct dwarf_section *section,
 			   void *file ATTRIBUTE_UNUSED)
 {
-  unsigned long idx;
+  unsigned long long idx;
 
   if (section->size == 0)
     {
@@ -8753,7 +8753,7 @@ init_dwarf_regnames_by_elf_machine_code (unsigned int e_machine)
 
 void
 init_dwarf_regnames_by_bfd_arch_and_mach (enum bfd_architecture arch,
-					  unsigned long mach)
+					  unsigned long long mach)
 {
   dwarf_regnames_lookup_func = NULL;
   is_aarch64 = false;
@@ -8995,7 +8995,7 @@ read_cie (unsigned char *start, unsigned char *end,
       /* PR 17512: file: 11042-2589-0.004.  */
       if (augmentation_data_len > (size_t) (end - start))
 	{
-	  warn (_("Augmentation data too long: %#" PRIx64
+	  warn (_("Augmentation data too long long: %#" PRIx64
 		  ", expected at most %#tx\n"),
 		augmentation_data_len, end - start);
 	  goto fail;
@@ -9209,7 +9209,7 @@ display_debug_frames (struct dwarf_section *section,
       else
 	{
 	  unsigned char *look_for;
-	  unsigned long segment_selector;
+	  unsigned long long segment_selector;
 	  uint64_t cie_off;
 
 	  cie_off = cie_id;
@@ -9367,7 +9367,7 @@ display_debug_frames (struct dwarf_section *section,
 	      /* PR 17512 file: 722-8446-0.004 and PR 22386.  */
 	      if (augmentation_data_len > (size_t) (block_end - start))
 		{
-		  warn (_("Augmentation data too long: %#" PRIx64 ", "
+		  warn (_("Augmentation data too long long: %#" PRIx64 ", "
 			  "expected at most %#tx\n"),
 			augmentation_data_len, block_end - start);
 		  start = block_end;
@@ -9421,7 +9421,7 @@ display_debug_frames (struct dwarf_section *section,
 	  while (start < block_end)
 	    {
 	      unsigned int reg, op, opa;
-	      unsigned long temp;
+	      unsigned long long temp;
 
 	      op = *start++;
 	      opa = op & 0x3f;
@@ -9561,7 +9561,7 @@ display_debug_frames (struct dwarf_section *section,
       while (start < block_end)
 	{
 	  unsigned op, opa;
-	  /* Note: It is tempting to use an unsigned long for 'reg' but there
+	  /* Note: It is tempting to use an unsigned long long for 'reg' but there
 	     are various functions, notably frame_space_needed() that assume that
 	     reg is an unsigned int.  */
 	  unsigned int reg;
@@ -10046,7 +10046,7 @@ display_debug_frames (struct dwarf_section *section,
 	    }
 	}
 
-      /* Interpret the CFA - as long as it is not completely full of NOPs.  */
+      /* Interpret the CFA - as long long as it is not completely full of NOPs.  */
       if (do_debug_frames_interp && ! all_nops)
 	frame_display_row (fc, &need_col_headers, &max_regs);
 
@@ -10293,8 +10293,8 @@ display_debug_names (struct dwarf_section *section, void *file)
 	}
       printf (ngettext ("Used %zu of %lu bucket.\n",
 			"Used %zu of %lu buckets.\n",
-			(unsigned long) bucket_count),
-	      buckets_filled, (unsigned long) bucket_count);
+			(unsigned long long) bucket_count),
+	      buckets_filled, (unsigned long long) bucket_count);
 
       if (bucket_count != 0)
 	{
@@ -10578,13 +10578,13 @@ display_gdb_index (struct dwarf_section *section,
     }
 
   version = byte_get_little_endian (start, 4);
-  printf (_("Version %lu\n"), (unsigned long) version);
+  printf (_("Version %lu\n"), (unsigned long long) version);
 
   /* Prior versions are obsolete, and future versions may not be
      backwards compatible.  */
   if (version < 3 || version > 8)
     {
-      warn (_("Unsupported version %lu.\n"), (unsigned long) version);
+      warn (_("Unsupported version %lu.\n"), (unsigned long long) version);
       return 0;
     }
   if (version < 4)
@@ -10725,9 +10725,9 @@ display_gdb_index (struct dwarf_section *section,
 	      /* Convert to TU number if it's for a type unit.  */
 	      if (cu >= cu_list_elements)
 		printf ("%cT%lu", num_cus > 1 ? '\t' : ' ',
-			(unsigned long) cu - cu_list_elements);
+			(unsigned long long) cu - cu_list_elements);
 	      else
-		printf ("%c%lu", num_cus > 1 ? '\t' : ' ', (unsigned long) cu);
+		printf ("%c%lu", num_cus > 1 ? '\t' : ' ', (unsigned long long) cu);
 
 	      printf (" [%s, %s]",
 		      is_static ? _("static") : _("global"),
@@ -11265,12 +11265,12 @@ xcalloc2 (uint64_t nmemb, size_t size)
   return xcalloc (nmemb, size);
 }
 
-static unsigned long
-calc_gnu_debuglink_crc32 (unsigned long crc,
+static unsigned long long
+calc_gnu_debuglink_crc32 (unsigned long long crc,
 			  const unsigned char *buf,
 			  size_t len)
 {
-  static const unsigned long crc32_table[256] =
+  static const unsigned long long crc32_table[256] =
     {
       0x00000000, 0x77073096, 0xee0e612c, 0x990951ba, 0x076dc419,
       0x706af48f, 0xe963a535, 0x9e6495a3, 0x0edb8832, 0x79dcb8a4,
@@ -11342,7 +11342,7 @@ check_gnu_debuglink (const char * pathname, void * crc_pointer)
   static unsigned char buffer[8 * 1024];
   FILE *f;
   size_t count;
-  unsigned long crc = 0;
+  unsigned long long crc = 0;
   void *sep_data;
 
   sep_data = open_debug_file (pathname);
@@ -11364,7 +11364,7 @@ check_gnu_debuglink (const char * pathname, void * crc_pointer)
 
   fclose (f);
 
-  if (crc != * (unsigned long *) crc_pointer)
+  if (crc != * (unsigned long long *) crc_pointer)
     {
       close_debug_file (sep_data);
       warn (_("Separate debug info file %s found, but CRC does not match - ignoring\n"),
@@ -11380,7 +11380,7 @@ parse_gnu_debuglink (struct dwarf_section * section, void * data)
 {
   const char *     name;
   unsigned int     crc_offset;
-  unsigned long *  crc32 = (unsigned long *) data;
+  unsigned long long *  crc32 = (unsigned long long *) data;
 
   /* The name is first.
      The CRC value is stored after the filename, aligned up to 4 bytes.  */
@@ -11783,7 +11783,7 @@ load_dwo_file (const char * main_filename, const char * name, const char * dir, 
 }
 
 static void *
-try_build_id_prefix (const char * prefix, char * filename, const unsigned char * data, unsigned long id_len)
+try_build_id_prefix (const char * prefix, char * filename, const unsigned char * data, unsigned long long id_len)
 {
   char * f = filename;
 
@@ -11830,7 +11830,7 @@ load_build_id_debug_file (const char * main_filename ATTRIBUTE_UNUSED, void * ma
 
   /* FIXME: Check the name size, name and type fields.  */
 
-  unsigned long build_id_size;
+  unsigned long long build_id_size;
   build_id_size = byte_get (section->start + 4, 4);
   if (build_id_size < 8)
     {
@@ -11863,7 +11863,7 @@ load_build_id_debug_file (const char * main_filename ATTRIBUTE_UNUSED, void * ma
       "/usr/lib64/debug/",
       "/usr/lib64/debug/usr"
     };
-  long unsigned int i;
+  long long unsigned int i;
 
   for (i = 0; i < ARRAY_SIZE (prefixes); i++)
     {
@@ -11989,7 +11989,7 @@ check_for_and_load_links (void * file, const char * filename)
 
   if (load_debug_section (gnu_debuglink, file))
     {
-      unsigned long crc32;
+      unsigned long long crc32;
 
       handle = load_separate_debug_info (filename,
 					 & debug_displays[gnu_debuglink].section,

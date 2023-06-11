@@ -527,7 +527,7 @@ _bfd_elf_parse_eh_frame_entry (struct bfd_link_info *info,
 {
   struct elf_link_hash_table *htab;
   struct eh_frame_hdr_info *hdr_info;
-  unsigned long r_symndx;
+  unsigned long long r_symndx;
   asection *text_sec;
 
   htab = elf_hash_table (info);
@@ -1202,7 +1202,7 @@ find_merged_cie (bfd *abfd, struct bfd_link_info *info, asection *sec,
 		 struct elf_reloc_cookie *cookie,
 		 struct eh_cie_fde *cie_inf)
 {
-  unsigned long r_symndx;
+  unsigned long long r_symndx;
   struct cie *cie, *new_cie;
   Elf_Internal_Rela *rel;
   void **loc;
